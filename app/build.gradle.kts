@@ -34,7 +34,7 @@ android {
         jvmTarget = "1.8"
     }
 }
-
+val lottieVersion = "3.4.0"
 dependencies {
 
     implementation(libs.androidx.core.ktx)
@@ -45,4 +45,5 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+    implementation("com.airbnb.android:lottie:$lottieVersion")
 }

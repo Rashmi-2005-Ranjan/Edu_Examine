@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">EduExamine</string>
+    <string name="answer_question_paper" />
+    <string name="view_results" />
+    <string name="courses" />
+    <string name="Student_Dashboard">Student Dashboard</string>
+    <string name="welcome_student">Welcome Student!</string>
+    <string name="take_exam">Take Exam</string>
+    <string name="my_courses">My Courses</string>
 </resources>
