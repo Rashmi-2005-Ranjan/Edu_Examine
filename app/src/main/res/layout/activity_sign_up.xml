@@ -52,7 +52,7 @@
         app:layout_constraintEnd_toEndOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edit_FullName"
+            android:id="@+id/editFullName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawableStart="@android:drawable/ic_menu_my_calendar"
@@ -64,9 +64,9 @@
         android:id="@+id/material"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:hint="Mobile Number"
+        android:hint="Email Id"
         app:counterEnabled="true"
-        app:counterMaxLength="13"
+        app:counterMaxLength="30"
         app:endIconMode="clear_text"
         app:helperText="Required *"
         app:helperTextTextColor="#F44336"
@@ -78,11 +78,12 @@
         app:layout_constraintEnd_toEndOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edit_username"
+            android:id="@+id/email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:drawableStart="@android:drawable/ic_menu_call"
-            android:maxLength="13" />
+            android:inputType="textEmailAddress"
+            android:drawableStart="@android:drawable/ic_dialog_email"
+            android:maxLength="30" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <!-- Email Input -->
@@ -90,9 +91,9 @@
         android:id="@+id/materialEmail"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:hint="Email"
+        android:hint="Password"
         app:counterEnabled="true"
-        app:counterMaxLength="50"
+        app:counterMaxLength="25"
         app:endIconMode="clear_text"
         app:helperText="Required *"
         app:helperTextTextColor="#F44336"
@@ -104,12 +105,12 @@
         app:layout_constraintEnd_toEndOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edit_email"
+            android:id="@+id/password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawableStart="@android:drawable/ic_dialog_email"
-            android:inputType="textEmailAddress"
-            android:maxLength="50" />
+            android:inputType="textPassword"
+            android:maxLength="25" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <!-- Password Input -->
@@ -119,7 +120,7 @@
         android:layout_height="wrap_content"
         android:hint="Password"
         app:counterEnabled="true"
-        app:counterMaxLength="20"
+        app:counterMaxLength="25"
         app:endIconMode="password_toggle"
         app:helperText="Required *"
         app:helperTextTextColor="#F44336"
@@ -131,12 +132,12 @@
         app:layout_constraintEnd_toEndOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edit_text_password"
+            android:id="@+id/cnfpassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawableStart="@android:drawable/ic_lock_idle_lock"
             android:inputType="textPassword"
-            android:maxLength="20" />
+            android:maxLength="25" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <!-- Sign-Up Button -->

@@ -2,91 +2,67 @@ package com.example.eduexamine
 
 import android.content.Intent
 import android.os.Bundle
-import android.text.TextUtils
-import android.util.Patterns
-import android.widget.Button
 import android.widget.Toast
+import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.material.textfield.TextInputLayout
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import com.example.eduexamine.databinding.ActivitySignUpBinding
+import com.google.firebase.auth.FirebaseAuth
 
 class SignUpActivity : AppCompatActivity() {
 
-    private lateinit var fullNameInput: TextInputLayout
-    private lateinit var usernameInput: TextInputLayout
-    private lateinit var emailInput: TextInputLayout
-    private lateinit var passwordInput: TextInputLayout
-    private lateinit var signUpButton: Button
+    private val binding: ActivitySignUpBinding by lazy {
+        ActivitySignUpBinding.inflate(layoutInflater)
+    }
 
+    private lateinit var auth: FirebaseAuth
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_sign_up)
+        enableEdgeToEdge()
+        setContentView(binding.root)
+        auth = FirebaseAuth.getInstance()
 
-        // Initialize views
-        fullNameInput = findViewById(R.id.material1)
-        usernameInput = findViewById(R.id.material)
-        emailInput = findViewById(R.id.materialEmail)
-        passwordInput = findViewById(R.id.material21)
-        signUpButton = findViewById(R.id.button3)
+        // Handle Edge-to-Edge insets
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            insets
+        }
 
-        // Set onClickListeners
-        signUpButton.setOnClickListener {
-            if (validateInputs()) {
-                val intent = Intent(this, LoginActivity::class.java)
-                Toast.makeText(this, "Congrats! You signed up successfully!", Toast.LENGTH_SHORT).show()
-                startActivity(intent)
-                finish()
+        binding.button3.setOnClickListener {
+            val FullName = binding.editFullName.text.toString()
+            val email = binding.email.text.toString()
+            val password = binding.password.text.toString()
+            val cnfpassword = binding.cnfpassword.text.toString()
+
+            //Check iF Any Field is Blank
+            if (FullName.isEmpty() || email.isEmpty() || password.isEmpty() || cnfpassword.isEmpty()) {
+                Toast.makeText(this, "Please Fill All The Details", Toast.LENGTH_SHORT).show()
+            } else if (password != cnfpassword) {
+                Toast.makeText(
+                    this,
+                    "Password and Confirm Password Did Not Match",
+                    Toast.LENGTH_SHORT
+                ).show()
+            } else {
+                auth.createUserWithEmailAndPassword(email, password)
+                    .addOnCompleteListener(this) { task ->
+                        if (task.isSuccessful) {
+                            Toast.makeText(this, "Registration Successful", Toast.LENGTH_SHORT)
+                                .show()
+                            startActivity(Intent(this, LoginActivity::class.java))
+                            finish()
+                        } else {
+                            Toast.makeText(
+                                this,
+                                "Registration Failed ${task.exception?.message}",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                    }
             }
         }
     }
-
-    // Override the onBackPressed method to finish the current activity and go back
-    override fun onBackPressed() {
-        super.onBackPressed()
-        finish() // This will close the current activity and navigate back to the previous one.
-    }
-
-    private fun validateInputs(): Boolean {
-        val fullName = fullNameInput.editText?.text.toString().trim()
-        val username = usernameInput.editText?.text.toString().trim()
-        val email = emailInput.editText?.text.toString().trim()
-        val password = passwordInput.editText?.text.toString().trim()
-
-        if (TextUtils.isEmpty(fullName)) {
-            fullNameInput.error = "Full Name is required"
-            showMessage("Please enter your Full Name")
-            return false
-        } else {
-            fullNameInput.error = null
-        }
-
-        if (TextUtils.isEmpty(username)) {
-            usernameInput.error = "Username is required"
-            showMessage("Please enter your Username")
-            return false
-        } else {
-            usernameInput.error = null
-        }
-
-        if (TextUtils.isEmpty(email) || !Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            emailInput.error = "Invalid Email Address"
-            showMessage("Please enter a valid Email Address")
-            return false
-        } else {
-            emailInput.error = null
-        }
-
-        if (TextUtils.isEmpty(password)) {
-            passwordInput.error = "Password is required"
-            showMessage("Please enter your Password")
-            return false
-        } else {
-            passwordInput.error = null
-        }
-
-        return true
-    }
-
-    private fun showMessage(message: String) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
-    }
 }
+
