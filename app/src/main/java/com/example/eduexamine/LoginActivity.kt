@@ -19,6 +19,7 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var loginButton: Button
     private lateinit var signUpTextView: TextView
     private lateinit var sharedPreferences: SharedPreferences
+    private lateinit var forgotPassword: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,6 +30,7 @@ class LoginActivity : AppCompatActivity() {
         rememberMeCheckBox = findViewById(R.id.checkBox)
         loginButton = findViewById(R.id.button)
         signUpTextView = findViewById(R.id.textView6)
+        forgotPassword = findViewById(R.id.textView4)
 
         sharedPreferences = getSharedPreferences("loginPrefs", Context.MODE_PRIVATE)
 
@@ -49,15 +51,24 @@ class LoginActivity : AppCompatActivity() {
         }
 
         signUpTextView.setOnClickListener {
-            goToSignUp()
+            // Navigates to the SignUpActivity
+            val intent = Intent(this, SignUpActivity::class.java)
+            startActivity(intent)
+            // Do not call finish() here, so that this activity remains in the back stack
+        }
+
+        forgotPassword.setOnClickListener {
+            val intent = Intent(this, WelcomeScreen::class.java)
+            startActivity(intent)
+            Toast.makeText(this, "Navigate You For Resetting Your Password", Toast.LENGTH_SHORT).show()
+            finish()
         }
     }
 
     private fun authenticateUser(email: String, password: String) {
-        // TODO: Add authentication logic here
-
+        // TODO: Add actual authentication logic here
         // For now, assuming authentication is successful
-        val isAuthenticated = true // Replace with actual authentication result
+        val isAuthenticated = true // Replace this with your actual authentication logic
 
         if (isAuthenticated) {
             if (rememberMeCheckBox.isChecked) {
@@ -68,6 +79,7 @@ class LoginActivity : AppCompatActivity() {
 
             showMessage("Login Successful")
             startActivity(Intent(this, MainActivity::class.java))
+            finish() // Close LoginActivity after successful login
         } else {
             showMessage("Login Failed. Please check your credentials.")
         }
@@ -96,16 +108,10 @@ class LoginActivity : AppCompatActivity() {
 
     private fun clearUserCredentials() {
         with(sharedPreferences.edit()) {
-            clear()
+            clear() // Clear all saved data
             apply()
         }
         showMessage("Credentials cleared")
-    }
-
-    private fun goToSignUp() {
-        val intent = Intent(this, SignUpActivity::class.java)
-        startActivity(intent)
-        showMessage("Navigating to Sign Up")
     }
 
     private fun showMessage(message: String) {
