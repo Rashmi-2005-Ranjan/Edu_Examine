@@ -1,120 +1,107 @@
 package com.example.eduexamine
 
-import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.widget.Button
-import android.widget.CheckBox
-import android.widget.EditText
-import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import com.example.eduexamine.databinding.ActivityLoginBinding
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 
 class LoginActivity : AppCompatActivity() {
 
-    private lateinit var emailEditText: EditText
-    private lateinit var passwordEditText: EditText
-    private lateinit var rememberMeCheckBox: CheckBox
-    private lateinit var loginButton: Button
-    private lateinit var signUpTextView: TextView
+    private val binding: ActivityLoginBinding by lazy {
+        ActivityLoginBinding.inflate(layoutInflater)
+    }
+
+    private lateinit var auth: FirebaseAuth
     private lateinit var sharedPreferences: SharedPreferences
-    private lateinit var forgotPassword: TextView
+    private val SESSION_TIMEOUT = 5 * 60 * 1000L // 5 minutes in milliseconds
+
+    override fun onStart() {
+        super.onStart()
+        // Initialize SharedPreferences
+        sharedPreferences = getSharedPreferences("SessionPrefs", MODE_PRIVATE)
+
+        // Check if user is already logged in and if session is valid
+        val curUser: FirebaseUser? = auth.currentUser
+        val loginTime = sharedPreferences.getLong("LOGIN_TIME", 0)
+        val currentTime = System.currentTimeMillis()
+
+        if (curUser != null && (currentTime - loginTime) < SESSION_TIMEOUT) {
+            // If session is still valid, redirect to main activity
+            startActivity(Intent(this, MainActivity::class.java))
+            finish()
+        } else if (curUser != null) {
+            // If session has expired, log out user and clear session data
+            auth.signOut()
+            sharedPreferences.edit().clear().apply()
+            Toast.makeText(this, "Session expired. Please log in again.", Toast.LENGTH_SHORT).show()
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.login_main)
+        enableEdgeToEdge()
+        setContentView(binding.root)
 
-        emailEditText = findViewById(R.id.editTextTextEmailAddress2)
-        passwordEditText = findViewById(R.id.editTextTextPassword2)
-        rememberMeCheckBox = findViewById(R.id.checkBox)
-        loginButton = findViewById(R.id.button)
-        signUpTextView = findViewById(R.id.textView6)
-        forgotPassword = findViewById(R.id.textView4)
+        // Initialization Of Firebase Auth
+        auth = FirebaseAuth.getInstance()
 
-        sharedPreferences = getSharedPreferences("loginPrefs", Context.MODE_PRIVATE)
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            insets
+        }
 
-        // Load saved email and password if "Remember me" was checked
-        loadUserCredentials()
+        binding.button.setOnClickListener {
+            val email = binding.editTextTextEmailAddress2.text.toString().trim()
+            val password = binding.editTextTextPassword2.text.toString().trim()
 
-        loginButton.setOnClickListener {
-            val email = emailEditText.text.toString()
-            val password = passwordEditText.text.toString()
-
-            if (email.isBlank() || password.isBlank()) {
-                showMessage("Email and Password cannot be empty")
-                return@setOnClickListener
+            if (email.isEmpty() || password.isEmpty()) {
+                Toast.makeText(this, "Please Fill All The Details", Toast.LENGTH_SHORT).show()
+            } else {
+                auth.signInWithEmailAndPassword(email, password)
+                    .addOnCompleteListener { task ->
+                        if (task.isSuccessful) {
+                            // Check if the email belongs to an admin or student
+                            if (isAdminEmail(email)) {
+                                startActivity(Intent(this, adminHome::class.java))
+                                Toast.makeText(this, "Sign In Successful - Admin", Toast.LENGTH_SHORT).show()
+                            } else {
+                                startActivity(Intent(this, StudentHome::class.java))
+                                Toast.makeText(this, "Sign In Successful - Student", Toast.LENGTH_SHORT).show()
+                            }
+                            finish()
+                        } else {
+                            Toast.makeText(
+                                this,
+                                "Sign In Failed: ${task.exception?.message}",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                    }
             }
-
-            // Perform login action here (e.g., authenticate user with backend)
-            authenticateUser(email, password)
         }
 
-        signUpTextView.setOnClickListener {
-            // Navigates to the SignUpActivity
-            val intent = Intent(this, SignUpActivity::class.java)
-            startActivity(intent)
-            // Do not call finish() here, so that this activity remains in the back stack
-        }
-
-        forgotPassword.setOnClickListener {
+        binding.textView4.setOnClickListener {
             val intent = Intent(this, WelcomeScreen::class.java)
             startActivity(intent)
-            Toast.makeText(this, "Navigate You For Resetting Your Password", Toast.LENGTH_SHORT).show()
-            finish()
+            Toast.makeText(this, "Navigating You For Update Your Profile Again", Toast.LENGTH_SHORT).show()
+        }
+        binding.textView6.setOnClickListener {
+            val intent = Intent(this, WelcomeScreen::class.java)
+            startActivity(intent)
+            Toast.makeText(this, "Navigating You For Sign Up", Toast.LENGTH_SHORT).show()
         }
     }
 
-    private fun authenticateUser(email: String, password: String) {
-        // TODO: Add actual authentication logic here
-        // For now, assuming authentication is successful
-        val isAuthenticated = true // Replace this with your actual authentication logic
-
-        if (isAuthenticated) {
-            if (rememberMeCheckBox.isChecked) {
-                saveUserCredentials(email, password)
-            } else {
-                clearUserCredentials()
-            }
-
-            showMessage("Login Successful")
-            startActivity(Intent(this, MainActivity::class.java))
-            finish() // Close LoginActivity after successful login
-        } else {
-            showMessage("Login Failed. Please check your credentials.")
-        }
-    }
-
-    private fun saveUserCredentials(email: String, password: String) {
-        with(sharedPreferences.edit()) {
-            putString("email", email)
-            putString("password", password)
-            putBoolean("rememberMe", true)
-            apply()
-        }
-        showMessage("Credentials saved")
-    }
-
-    private fun loadUserCredentials() {
-        val rememberMe = sharedPreferences.getBoolean("rememberMe", false)
-        if (rememberMe) {
-            val savedEmail = sharedPreferences.getString("email", "")
-            val savedPassword = sharedPreferences.getString("password", "")
-            emailEditText.setText(savedEmail)
-            passwordEditText.setText(savedPassword)
-            rememberMeCheckBox.isChecked = true
-        }
-    }
-
-    private fun clearUserCredentials() {
-        with(sharedPreferences.edit()) {
-            clear() // Clear all saved data
-            apply()
-        }
-        showMessage("Credentials cleared")
-    }
-
-    private fun showMessage(message: String) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    private fun isAdminEmail(email: String): Boolean {
+        // Define admin email criteria (you can change this as needed)
+        return email.endsWith("@admin.edu") // Example: admin email ends with '@admin.edu'
     }
 }
