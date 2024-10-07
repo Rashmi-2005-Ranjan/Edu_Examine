@@ -71,7 +71,7 @@
         android:id="@+id/material"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:hint="Employee_Id"
+        android:hint="Email"
         app:counterEnabled="true"
         app:counterMaxLength="20"
         app:endIconMode="clear_text"
@@ -85,7 +85,8 @@
         app:layout_constraintEnd_toEndOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edit_username"
+            android:id="@+id/email"
+            android:inputType="textEmailAddress"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:maxLength="20" />
@@ -96,9 +97,9 @@
         android:id="@+id/materialEmail"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:hint="Email"
+        android:hint="Password"
         app:counterEnabled="true"
-        app:counterMaxLength="50"
+        app:counterMaxLength="20"
         app:endIconMode="clear_text"
         app:helperText="Required *"
         app:helperTextTextColor="#F44336"
@@ -110,11 +111,11 @@
         app:layout_constraintEnd_toEndOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edit_email"
+            android:id="@+id/password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textEmailAddress"
-            android:maxLength="50" />
+            android:inputType="textPassword"
+            android:maxLength="20" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <!-- Password Input -->
@@ -122,7 +123,7 @@
         android:id="@+id/material21"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:hint="Password"
+        android:hint="Confirm Password"
         app:counterEnabled="true"
         app:counterMaxLength="20"
         app:endIconMode="password_toggle"
@@ -136,7 +137,7 @@
         app:layout_constraintEnd_toEndOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edit_text_password"
+            android:id="@+id/cnfpassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPassword"

@@ -2,10 +2,6 @@ package com.example.onlineexaminationapp
 
 import android.content.Intent
 import android.os.Bundle
-import android.text.TextUtils
-import android.util.Patterns
-import android.widget.Button
-import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -13,83 +9,65 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.eduexamine.LoginActivity
 import com.example.eduexamine.R
-import com.google.android.material.textfield.TextInputLayout
+import com.example.eduexamine.databinding.ActivityFacultySignUpBinding
+import com.google.firebase.auth.FirebaseAuth
 
 class FacultySignUp : AppCompatActivity() {
 
-    private lateinit var fullNameInput: TextInputLayout
-    private lateinit var employeeIdInput: TextInputLayout
-    private lateinit var emailInput: TextInputLayout
-    private lateinit var passwordInput: TextInputLayout
-    private lateinit var signUpButton: Button
+    private val binding: ActivityFacultySignUpBinding by lazy {
+        ActivityFacultySignUpBinding.inflate(layoutInflater)
+    }
 
+    private lateinit var auth: FirebaseAuth
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_faculty_sign_up)
+        setContentView(binding.root)
 
-        // Initialize views
-        fullNameInput = findViewById(R.id.material1)
-        employeeIdInput = findViewById(R.id.material)
-        emailInput = findViewById(R.id.materialEmail)
-        passwordInput = findViewById(R.id.material21)
-        signUpButton = findViewById(R.id.button3)
+        //Initialize The Fire Base Variable
+        auth = FirebaseAuth.getInstance()
 
-        // Set onClickListener for sign-up button
-        signUpButton.setOnClickListener {
-            if (validateInputs()) {
-                Toast.makeText(this, "Congrats! You signed up successfully!", Toast.LENGTH_LONG).show()
-                val intent = Intent(this, LoginActivity::class.java)
-                startActivity(intent)
-                finish()
+        binding.button3.setOnClickListener {
+            //Get Text From Edit Text Field
+            val FullName = binding.editFullName.text.toString()
+            val email = binding.email.text.toString()
+            val password = binding.password.text.toString()
+            val cnfpassword = binding.cnfpassword.text.toString()
+
+            //Check iF Any Field is Blank
+            if (FullName.isEmpty() || email.isEmpty() || password.isEmpty() || cnfpassword.isEmpty()) {
+                Toast.makeText(this, "Please Fill All The Details", Toast.LENGTH_SHORT).show()
+            } else if (password != cnfpassword) {
+                Toast.makeText(
+                    this,
+                    "Password and Confirm Password Did Not Match",
+                    Toast.LENGTH_SHORT
+                ).show()
+            } else {
+                auth.createUserWithEmailAndPassword(email, password)
+                    .addOnCompleteListener(this) { task ->
+                        if (task.isSuccessful) {
+                            Toast.makeText(this, "Registration Successful", Toast.LENGTH_SHORT)
+                                .show()
+                            startActivity(Intent(this, LoginActivity::class.java))
+                            finish()
+                        } else {
+                            Toast.makeText(
+                                this,
+                                "Registration Failed ${task.exception?.message}",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                    }
             }
         }
-        // Handle Edge-to-Edge insets
+
+// Handle Edge-to-Edge insets
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
     }
-
-    private fun validateInputs(): Boolean {
-        val fullName = fullNameInput.editText?.text.toString().trim()
-        val employeeId = employeeIdInput.editText?.text.toString().trim()
-        val email = emailInput.editText?.text.toString().trim()
-        val password = passwordInput.editText?.text.toString().trim()
-
-        if (TextUtils.isEmpty(fullName)) {
-            fullNameInput.error = "Full Name is required"
-            return false
-        } else {
-            fullNameInput.error = null
-        }
-
-        if (TextUtils.isEmpty(employeeId)) {
-            employeeIdInput.error = "Employee ID is required"
-            return false
-        } else {
-            employeeIdInput.error = null
-        }
-
-        if (TextUtils.isEmpty(email) || !Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            emailInput.error = "Invalid Email Address"
-            return false
-        } else {
-            emailInput.error = null
-        }
-
-        if (TextUtils.isEmpty(password)) {
-            passwordInput.error = "Password is required"
-            return false
-        } else {
-            passwordInput.error = null
-        }
-
-        return true
-    }
-
-
 }
-
-

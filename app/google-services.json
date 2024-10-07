@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "421759353753",
+    "project_id": "eduexamine-3eb98",
+    "storage_bucket": "eduexamine-3eb98.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:421759353753:android:f82cd022ccf67641838908",
+        "android_client_info": {
+          "package_name": "com.example.eduexamine"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBEal1l_k1Xfcbcdgjj5xh9OSoW9UUfkig"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
