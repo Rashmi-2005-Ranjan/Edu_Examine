@@ -14,6 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="150dp"
         android:fontFamily="@font/aldrich"
+        android:textColor="@color/black"
         android:text="Getting Started"
         android:textSize="34sp"
         android:textStyle="bold"
@@ -27,6 +28,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="140dp"
         android:fontFamily="@font/aldrich"
+        android:backgroundTint="#E91E63"
         android:text="Sign Up As Student"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -35,6 +37,7 @@
 
     <Button
         android:id="@+id/btn2"
+        android:backgroundTint="#E91E63"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="230dp"
@@ -52,6 +55,7 @@
         android:layout_marginStart="1dp"
         android:layout_marginTop="60dp"
         android:layout_marginEnd="16dp"
+        android:textColor="@color/black"
         android:text="Already Signed Up ? "
         android:textSize="16sp"
         app:layout_constraintEnd_toStartOf="@+id/txt4"
