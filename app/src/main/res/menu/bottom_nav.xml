@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/homeb"
+        android:title="Home"
+        android:icon="@drawable/home"
+        />
+    <item
+        android:id="@+id/Acheivement"
+        android:title="Acheivement"
+        android:icon="@drawable/acheivement"
+        />
+
+    <item
+        android:id="@+id/getsheet"
+        android:title="Marksheet"
+        android:icon="@drawable/gradesheet"
+        />
+    <item
+        android:id="@+id/Extra"
+        android:title="Apply"
+        android:icon="@drawable/recover"
+        />
+
+</menu>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view"
+    >
+
+    <group
+        android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/nav_track"
+            android:icon="@android:drawable/ic_dialog_map"
+            android:title="Your Track"
+            />
+        <item
+            android:id="@+id/nav_cours"
+            android:icon="@drawable/course"
+            android:title="Course"
+            />
+        <item
+            android:id="@+id/nav_examp"
+            android:icon="@drawable/showexam"
+            android:title="Show Exam"
+            />
+        <item
+            android:id="@+id/nav_gexamp"
+            android:icon="@drawable/exam"
+            android:title="Give Exam"
+            />
+        <item
+            android:id="@+id/nav_result"
+            android:icon="@drawable/result"
+            android:title="Show Result"
+            />
+        <item
+            android:id="@+id/nav_profile"
+            android:icon="@drawable/profile"
+            android:title="My Profile"
+            />
+    </group>
+
+</menu>
