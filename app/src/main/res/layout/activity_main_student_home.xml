@@ -98,9 +98,10 @@
         android:layout_width="128dp"
         android:layout_height="188dp"
         android:layout_marginStart="208dp"
-        android:layout_marginTop="176dp"
+        android:layout_marginTop="208dp"
         android:layout_marginEnd="35dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/results" />

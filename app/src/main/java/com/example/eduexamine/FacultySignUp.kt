@@ -19,30 +19,33 @@ class FacultySignUp : AppCompatActivity() {
     }
 
     private lateinit var auth: FirebaseAuth
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(binding.root)
 
-        //Initialize The Fire Base Variable
+        // Initialize The Fire Base Variable
         auth = FirebaseAuth.getInstance()
 
         binding.button3.setOnClickListener {
-            //Get Text From Edit Text Field
-            val FullName = binding.editFullName.text.toString()
+            // Get Text From Edit Text Field
+            val fullName = binding.editFullName.text.toString()
             val email = binding.email.text.toString()
             val password = binding.password.text.toString()
-            val cnfpassword = binding.cnfpassword.text.toString()
+            val cnfPassword = binding.cnfpassword.text.toString()
 
-            //Check iF Any Field is Blank
-            if (FullName.isEmpty() || email.isEmpty() || password.isEmpty() || cnfpassword.isEmpty()) {
+            // Check if any field is blank
+            if (fullName.isEmpty() || email.isEmpty() || password.isEmpty() || cnfPassword.isEmpty()) {
                 Toast.makeText(this, "Please Fill All The Details", Toast.LENGTH_SHORT).show()
-            } else if (password != cnfpassword) {
+            } else if (password != cnfPassword) {
                 Toast.makeText(
                     this,
                     "Password and Confirm Password Did Not Match",
                     Toast.LENGTH_SHORT
                 ).show()
+            } else if (!email.startsWith("EMP@EDU")) {
+                Toast.makeText(this, "Enter Your Service Email", Toast.LENGTH_SHORT).show()
             } else {
                 auth.createUserWithEmailAndPassword(email, password)
                     .addOnCompleteListener(this) { task ->
@@ -62,12 +65,11 @@ class FacultySignUp : AppCompatActivity() {
             }
         }
 
-// Handle Edge-to-Edge insets
+        // Handle Edge-to-Edge insets
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-
     }
 }

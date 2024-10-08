@@ -57,7 +57,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawableStart="@android:drawable/ic_menu_my_calendar"
-            android:maxLength="20"
+            android:maxLength="200"
             android:textColor="@color/black" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -71,7 +71,7 @@
         android:layout_marginEnd="16dp"
         android:hint="Email Id"
         app:counterEnabled="true"
-        app:counterMaxLength="30"
+        app:counterMaxLength="50"
         app:endIconMode="clear_text"
         app:helperText="Required *"
         app:helperTextTextColor="#F44336"
@@ -87,7 +87,7 @@
             android:drawableStart="@android:drawable/ic_dialog_email"
             android:inputType="textEmailAddress"
             android:textColor="@color/black"
-            android:maxLength="30" />
+            android:maxLength="200" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <!-- Email Input -->
