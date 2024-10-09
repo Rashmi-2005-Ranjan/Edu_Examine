@@ -1,7 +1,10 @@
 package com.example.eduexamine
 
+import android.content.Intent
+import android.media.RouteListingPreference.Item
 import android.os.Bundle
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
@@ -21,8 +24,10 @@ import com.example.eduexamine.StudentActivityFragments.ShowExamFragment
 import com.example.eduexamine.StudentActivityFragments.TrackingFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
+import com.google.firebase.auth.FirebaseAuth
 
-class StudentHome : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, BottomNavigationView.OnNavigationItemSelectedListener {
+class StudentHome : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener,
+    BottomNavigationView.OnNavigationItemSelectedListener {
 
     private lateinit var drawerLayout: DrawerLayout
 
@@ -55,7 +60,8 @@ class StudentHome : AppCompatActivity(), NavigationView.OnNavigationItemSelected
         if (savedInstanceState == null) {
             replaceFragment(HomeFragment()) // Replace with your initial fragment
             navigationView.setCheckedItem(R.id.homeb) // Ensure this matches the menu ID
-            bottomNavigationView.menu.findItem(R.id.homeb).isChecked = true // Set bottom navigation initial selection
+            bottomNavigationView.menu.findItem(R.id.homeb).isChecked =
+                true // Set bottom navigation initial selection
         }
 
         // Apply window insets for immersive mode
@@ -84,12 +90,23 @@ class StudentHome : AppCompatActivity(), NavigationView.OnNavigationItemSelected
             R.id.nav_examp -> replaceFragment(ShowExamFragment())
             R.id.nav_gexamp -> replaceFragment(ExamFragment())
             R.id.nav_result -> replaceFragment(ResultFragment())
+            R.id.nav_logout -> {
+                // Perform sign out
+                FirebaseAuth.getInstance().signOut()
+                Toast.makeText(this, "Signing You Out", Toast.LENGTH_SHORT).show()
+                // Redirect to login activity or main page
+                val intent = Intent(this, WelcomeScreen::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
+                startActivity(intent)
+                finish() // Finish current activity
+            }
+
 
             // Handle bottom navigation view item clicks
             R.id.homeb -> replaceFragment(HomeFragment()) // Example item ID
             R.id.Acheivement -> replaceFragment(AcheivementFragment()) // Example item ID
             R.id.getsheet -> replaceFragment(MarksheetFragment()) // Example item ID
-            R.id.Extra ->replaceFragment(NewApplyFragment())
+            R.id.Extra -> replaceFragment(NewApplyFragment())
         }
         // Close drawer if navigation drawer item selected
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
@@ -101,7 +118,10 @@ class StudentHome : AppCompatActivity(), NavigationView.OnNavigationItemSelected
     // Function to replace fragments in the frame layout
     private fun replaceFragment(fragment: androidx.fragment.app.Fragment) {
         val transaction = supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.fragment_container, fragment) // Ensure fragment container ID matches the XML
+        transaction.replace(
+            R.id.fragment_container,
+            fragment
+        ) // Ensure fragment container ID matches the XML
         transaction.commit()
     }
 }

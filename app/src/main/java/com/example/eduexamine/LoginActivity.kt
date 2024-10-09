@@ -1,7 +1,6 @@
 package com.example.eduexamine
 
 import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -19,52 +18,57 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private lateinit var auth: FirebaseAuth
-    private lateinit var sharedPreferences: SharedPreferences
-    private val SESSION_TIMEOUT = 5 * 60 * 1000L // 5 minutes in milliseconds
 
     override fun onStart() {
         super.onStart()
-        // Initialize SharedPreferences
-        sharedPreferences = getSharedPreferences("SessionPrefs", MODE_PRIVATE)
 
-        // Check if user is already logged in and if session is valid
+        // Check if user is already logged in
         val curUser: FirebaseUser? = auth.currentUser
-        val loginTime = sharedPreferences.getLong("LOGIN_TIME", 0)
-        val currentTime = System.currentTimeMillis()
 
-        if (curUser != null && (currentTime - loginTime) < SESSION_TIMEOUT) {
-            // If session is still valid, redirect to main activity
-            startActivity(Intent(this, MainActivity::class.java))
-            finish()
-        } else if (curUser != null) {
-            // If session has expired, log out user and clear session data
-            auth.signOut()
-            sharedPreferences.edit().clear().apply()
-            Toast.makeText(this, "Session expired. Please log in again.", Toast.LENGTH_SHORT).show()
+        if (curUser != null) {
+            // Check if the current user's email is that of an admin or a student
+            val email = curUser.email
+            if (email != null) {
+                // Redirect to admin or student home based on email criteria
+                if (isAdminEmail(email)) {
+                    Toast.makeText(this,"Redirecting You To Dashboard",Toast.LENGTH_SHORT).show()
+                    startActivity(Intent(this, adminHome::class.java))
+                    finish()
+                } else {
+                    Toast.makeText(this,"Redirecting You To Dashboard",Toast.LENGTH_SHORT).show()
+                    startActivity(Intent(this, StudentHome::class.java))
+                    finish()
+                }
+                finish()
+            }
         }
     }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(binding.root)
 
-        // Initialization Of Firebase Auth
+        // Initialization of Firebase Auth
         auth = FirebaseAuth.getInstance()
 
+        // Apply window insets for immersive mode
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
 
+        // Set click listener for the login button
         binding.button.setOnClickListener {
             val email = binding.editTextTextEmailAddress2.text.toString().trim()
             val password = binding.editTextTextPassword2.text.toString().trim()
 
             if (email.isEmpty() || password.isEmpty()) {
-                Toast.makeText(this, "Please Fill All The Details", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Please fill all the details", Toast.LENGTH_SHORT).show()
             } else {
+                // Sign in with email and password
                 auth.signInWithEmailAndPassword(email, password)
                     .addOnCompleteListener { task ->
                         if (task.isSuccessful) {
@@ -88,18 +92,22 @@ class LoginActivity : AppCompatActivity() {
             }
         }
 
+        // Set click listener for the 'Forgot Password' or 'Update Profile' TextView
         binding.textView4.setOnClickListener {
             val intent = Intent(this, WelcomeScreen::class.java)
             startActivity(intent)
-            Toast.makeText(this, "Navigating You For Update Your Profile Again", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Navigating you to update your profile", Toast.LENGTH_SHORT).show()
         }
+
+        // Set click listener for the 'Sign Up' TextView
         binding.textView6.setOnClickListener {
             val intent = Intent(this, WelcomeScreen::class.java)
             startActivity(intent)
-            Toast.makeText(this, "Navigating You For Sign Up", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Navigating you to sign up", Toast.LENGTH_SHORT).show()
         }
     }
 
+    // Check if the email belongs to an admin
     private fun isAdminEmail(email: String): Boolean {
         // Define admin email criteria (you can change this as needed)
         return email.endsWith("@admin.edu") // Example: admin email ends with '@admin.edu'
