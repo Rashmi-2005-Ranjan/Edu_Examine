@@ -110,6 +110,6 @@ class LoginActivity : AppCompatActivity() {
     // Check if the email belongs to an admin
     private fun isAdminEmail(email: String): Boolean {
         // Define admin email criteria (you can change this as needed)
-        return email.endsWith("@admin.edu") // Example: admin email ends with '@admin.edu'
+        return email.endsWith("@admin.edu.in") // Example: admin email ends with '@admin.edu'
     }
 }

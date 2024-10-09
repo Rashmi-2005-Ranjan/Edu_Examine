@@ -44,7 +44,7 @@ class FacultySignUp : AppCompatActivity() {
                     "Password and Confirm Password Did Not Match",
                     Toast.LENGTH_SHORT
                 ).show()
-            } else if (!email.startsWith("EMP@EDU")) {
+            } else if (!email.startsWith("EMPEDU")) {
                 Toast.makeText(this, "Enter Your Service Email", Toast.LENGTH_SHORT).show()
             } else {
                 auth.createUserWithEmailAndPassword(email, password)
