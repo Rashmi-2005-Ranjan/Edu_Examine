@@ -8,20 +8,10 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
-import com.example.eduexamine.AdminActivityFragments.AcceptApplicationFragment
-import com.example.eduexamine.AdminActivityFragments.AddCourseFragment
+import com.example.eduexamine.AdminActivityFragments.*
 import com.example.eduexamine.AdminActivityFragments.HomeFragment
-import com.example.eduexamine.AdminActivityFragments.ManageStudentFragment
 import com.example.eduexamine.AdminActivityFragments.ProfileFragment
-import com.example.eduexamine.AdminActivityFragments.PublishResultFragment
-import com.example.eduexamine.AdminActivityFragments.ScheduleExamFragment
-import com.example.eduexamine.AdminActivityFragments.SetAnswerFragment
-import com.example.eduexamine.AdminActivityFragments.SetPracticeQuestionFragment
-import com.example.eduexamine.AdminActivityFragments.StudentDetailsFragment
-import com.example.eduexamine.StudentActivityFragments.AcheivementFragment
-import com.example.eduexamine.StudentActivityFragments.MarksheetFragment
-import com.example.eduexamine.StudentActivityFragments.NewApplyFragment
-
+import com.example.eduexamine.StudentActivityFragments.*
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
@@ -29,12 +19,14 @@ import com.google.firebase.auth.FirebaseAuth
 class adminHome : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, BottomNavigationView.OnNavigationItemSelectedListener {
 
     private lateinit var drawerLayout: DrawerLayout
+    private lateinit var navigationView: NavigationView
+    private lateinit var bottomNavigationView: BottomNavigationView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_admin_home) // Use the admin_home XML layout file
 
-        // Set up the Drawer Layout and Toolbar
+        // Initialize the Drawer Layout and Toolbar
         drawerLayout = findViewById(R.id.main)
         val toolbar: androidx.appcompat.widget.Toolbar = findViewById(R.id.toolbars)
         setSupportActionBar(toolbar)
@@ -47,19 +39,21 @@ class adminHome : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLi
         drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
 
-        // Set up the Navigation View and handle item clicks
-        val navigationView: NavigationView = findViewById(R.id.nav_drawera)
-        navigationView.setNavigationItemSelectedListener(this)
+        // Initialize Navigation View and Bottom Navigation View
+        navigationView = findViewById(R.id.nav_drawera)
+        bottomNavigationView = findViewById(R.id.bottom_navigationa)
 
-        // Set up the Bottom Navigation View and handle item clicks
-        val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottom_navigationa)
+        // Set up listeners for Navigation Drawer and Bottom Navigation View
+        navigationView.setNavigationItemSelectedListener(this)
         bottomNavigationView.setOnNavigationItemSelectedListener(this)
 
-        // Set initial fragment when the activity starts
+        // Set the initial fragment when the activity starts
         if (savedInstanceState == null) {
             replaceFragment(HomeFragment()) // Replace with your initial fragment
-            navigationView.setCheckedItem(R.id.nav_drawera) // Ensure this matches the menu ID
-            bottomNavigationView.menu.findItem(R.id.bottom_navigationa).isChecked = true // Set bottom navigation initial selection
+
+            // Set initial selected item for Navigation Drawer and Bottom Navigation View
+            navigationView.menu.findItem(R.id.nav_profile)?.isChecked = true
+            bottomNavigationView.menu.findItem(R.id.homeb)?.isChecked = true
         }
     }
 
@@ -75,12 +69,13 @@ class adminHome : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLi
     // Handle navigation drawer item clicks and replace fragments accordingly
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
+            // Navigation Drawer item clicks
             R.id.nav_profile -> replaceFragment(ProfileFragment())
             R.id.nav_manage -> replaceFragment(ManageStudentFragment())
             R.id.nav_ac -> replaceFragment(AddCourseFragment())
             R.id.nav_sexamp -> replaceFragment(ScheduleExamFragment())
             R.id.nav_seta -> replaceFragment(SetAnswerFragment())
-            R.id.nav_sp ->replaceFragment(SetPracticeQuestionFragment())
+            R.id.nav_sp -> replaceFragment(SetPracticeQuestionFragment())
             R.id.nav_logout -> {
                 FirebaseAuth.getInstance().signOut()
                 Toast.makeText(this, "Signing You Out", Toast.LENGTH_SHORT).show()
@@ -90,7 +85,8 @@ class adminHome : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLi
                 startActivity(intent)
                 finish() // Finish current activity
             }
-            // Handle bottom navigation view item clicks
+
+            // Bottom Navigation View item clicks
             R.id.homeb -> replaceFragment(HomeFragment()) // Example item ID
             R.id.acpt -> replaceFragment(AcceptApplicationFragment()) // Example item ID
             R.id.publish -> replaceFragment(PublishResultFragment()) // Example item ID

@@ -11,6 +11,7 @@
         android:layout_height="match_parent"
         android:text="Get Your Marksheet"
         android:gravity="center"
+        android:textColor="@color/black"
         android:textSize="35sp"
         android:textStyle="bold"
         />

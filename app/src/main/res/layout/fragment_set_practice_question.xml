@@ -5,10 +5,14 @@
     android:layout_height="match_parent"
     tools:context=".AdminActivityFragments.SetPracticeQuestionFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:text="Set Question For Practice"
+        android:textColor="@color/black"
+        android:gravity="center"
+        android:textSize="35sp"
+        android:textStyle="bold"
+        />
 
 </FrameLayout>
