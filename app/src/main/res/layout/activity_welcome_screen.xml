@@ -35,18 +35,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txt2" />
 
-    <Button
-        android:id="@+id/btn2"
-        android:backgroundTint="#E91E63"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="230dp"
-        android:fontFamily="@font/aldrich"
-        android:text="Sign Up As Faculty"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt2" />
+<!--    <Button-->
+<!--        android:id="@+id/btn2"-->
+<!--        android:backgroundTint="#E91E63"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="230dp"-->
+<!--        android:fontFamily="@font/aldrich"-->
+<!--        android:text="Sign Up As Faculty"-->
+<!--        android:textSize="24sp"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/txt2" />-->
 
     <TextView
         android:id="@+id/txt3"
@@ -61,7 +61,7 @@
         app:layout_constraintEnd_toStartOf="@+id/txt4"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn2" />
+        app:layout_constraintTop_toBottomOf="@+id/button" />
 
     <TextView
         android:id="@+id/txt4"

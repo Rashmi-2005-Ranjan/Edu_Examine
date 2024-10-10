@@ -34,11 +34,11 @@ class WelcomeScreen : AppCompatActivity() {
         }
 
         // Button click listener for navigating to the Faculty Sign-Up Activity
-        binding.btn2.setOnClickListener {
-            val intent = Intent(this, FacultySignUp::class.java)
-            startActivity(intent)
-//            finish() // Close the WelcomeScreen activity
-        }
+//        binding.btn2.setOnClickListener {
+//            val intent = Intent(this, FacultySignUp::class.java)
+//            startActivity(intent)
+////            finish() // Close the WelcomeScreen activity
+//        }
 
         // TextView click listener for navigating to the Login Activity
         binding.txt4.setOnClickListener {
