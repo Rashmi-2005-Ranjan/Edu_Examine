@@ -12,9 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.EduExamine"
         tools:targetApi="31">
-        <activity
-            android:name=".nav_header"
-            android:exported="false" />
+
         <activity
             android:name="com.example.onlineexaminationapp.FacultySignUp"
             android:exported="false" />
