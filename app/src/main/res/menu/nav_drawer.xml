@@ -11,12 +11,12 @@
         <item
             android:id="@+id/nav_track"
             android:icon="@android:drawable/ic_dialog_map"
-            android:title="Your Track"
+            android:title="Exam History"
             />
         <item
             android:id="@+id/nav_cours"
             android:icon="@drawable/course"
-            android:title="Course"
+            android:title="Learning Resources"
             />
     </group>
     <group
@@ -25,12 +25,12 @@
         <item
             android:id="@+id/nav_examp"
             android:icon="@drawable/showexam"
-            android:title="Show Exam"
+            android:title="Available Exams"
             />
         <item
             android:id="@+id/nav_gexamp"
             android:icon="@drawable/exam"
-            android:title="Give Exam"
+            android:title="Attempt Exam"
             />
     </group>
     <group
@@ -39,7 +39,7 @@
         <item
             android:id="@+id/nav_result"
             android:icon="@drawable/result"
-            android:title="Show Result"
+            android:title="View Result"
             />
         <item
             android:id="@+id/nav_profile"

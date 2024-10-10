@@ -14,7 +14,7 @@
 
     <item
         android:id="@+id/publish"
-        android:title="Publish Result"
+        android:title="Result Management"
         android:icon="@drawable/publish"
         />
     <item

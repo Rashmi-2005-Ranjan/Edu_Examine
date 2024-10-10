@@ -30,7 +30,7 @@
         <item
             android:id="@+id/nav_sexamp"
             android:icon="@drawable/exam"
-            android:title="Schedule Exam"
+            android:title="Manage Exams"
             />
     </group>
     <group
@@ -44,7 +44,7 @@
         <item
             android:id="@+id/nav_sp"
             android:icon="@drawable/setpr"
-            android:title="Set Practice Questions"
+            android:title="Question Bank Management"
             />
 
     </group>
