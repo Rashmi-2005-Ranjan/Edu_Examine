@@ -1,19 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".StudentActivityFragments.AcheivementFragment">
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="#F8F8FF">
 
-    <!-- TODO: Update blank fragment layout -->
+    <!-- Best Performance Section -->
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Your Acheivement"
-        android:textColor="@color/black"
-        android:gravity="center"
-        android:textSize="35sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Best Performance"
+        android:textSize="22sp"
         android:textStyle="bold"
-        />
+        android:textColor="#000000"
+        android:paddingBottom="8dp" />
 
-</FrameLayout>
+    <!-- Best Exam Name -->
+    <TextView
+        android:id="@+id/best"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Best Exam: [Exam Name]"
+        android:textSize="18sp"
+        android:textColor="#333333"
+        android:paddingBottom="4dp" />
+
+    <!-- Best Score -->
+    <TextView
+        android:id="@+id/best_exam_score"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Score: 95/100"
+        android:textSize="18sp"
+        android:textColor="#333333"
+        android:paddingBottom="16dp" />
+
+    <!-- Divider Line -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#CCCCCC"
+        android:paddingBottom="16dp" />
+
+    <!-- Achievements Section Header -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Your Achievements"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:textColor="#000000"
+        android:paddingBottom="8dp" />
+
+    <!-- RecyclerView for displaying achievements -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:scrollbars="vertical" />
+</LinearLayout>
