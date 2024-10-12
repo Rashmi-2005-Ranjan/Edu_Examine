@@ -35,10 +35,12 @@
             android:exported="false" />
         <activity
             android:name=".AcademicInfoStudent"
-            android:exported="false" />
-        <activity
-            android:name=".PersonalInfoStudent"
-            android:exported="false" />
+            android:exported="true" >
+<!--        <intent-filter>-->
+<!--            <action android:name="android.intent.action.MAIN" />-->
+<!--            <category android:name="android.intent.category.LAUNCHER" />-->
+<!--        </intent-filter>-->
+        </activity>
         <activity
             android:name=".BasicInfoStudent"
             android:exported="false" />
@@ -47,7 +49,8 @@
             android:exported="false" />
         <activity
             android:name="com.example.onlineexaminationapp.FacultySignUp"
-            android:exported="false" />
+            android:exported="false"
+            tools:ignore="Instantiatable" />
         <activity
             android:name=".LoginActivity"
             android:exported="false" />
