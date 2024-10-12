@@ -7,7 +7,7 @@ Edu Examine is an online examination application designed to facilitate the exam
 - **User Authentication**: Secure sign-up and login processes for both students and faculty using Firebase Authentication.
 - **Examination Management**: Create, manage, and schedule examinations easily.
 - **Dashboard**: Separate dashboards for students and faculty/admins to track progress and manage examinations effectively.
-- **Resume Builder**: Allows students to create and download their resumes in PDF format.
+- **Marksheet Builder**: Allows students to download their Marksheet in PDF format.
 - **E-Learning Section**: Access to tutorial videos on various subjects like aptitude reasoning and coding.
 
 ## Technologies Used
