@@ -20,6 +20,7 @@ import com.example.eduexamine.BasicInfoStudent
 import com.example.eduexamine.EducationalDetails
 import com.example.eduexamine.R
 import com.example.eduexamine.SocialStudents
+import com.example.eduexamine.StudentHome
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
@@ -78,7 +79,7 @@ class ProfileFragment : Fragment() {
             startActivity(intent)
         }
         backToMainButton.setOnClickListener{
-            val intent=Intent(requireContext(),HomeFragment::class.java)
+            val intent=Intent(requireContext(),StudentHome::class.java)
             startActivity(intent)
         }
         profileImageView = view.findViewById(R.id.imageView2)

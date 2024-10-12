@@ -20,6 +20,7 @@ import com.example.eduexamine.PersonalInfosAdmin
 import com.example.eduexamine.ProfessionalInfoAdmin
 import com.example.eduexamine.R
 import com.example.eduexamine.SocialAdmin
+import com.example.eduexamine.adminHome
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
@@ -76,7 +77,7 @@ class ProfileFragment : Fragment() {
             startActivity(intent)
         }
         backToMainButton.setOnClickListener{
-            val intent=Intent(requireContext(),HomeFragment::class.java)
+            val intent=Intent(requireContext(),adminHome::class.java)
             startActivity(intent)
         }
 
