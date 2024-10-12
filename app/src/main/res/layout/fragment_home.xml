@@ -3,17 +3,146 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#AED6F6"
+    android:padding="16dp"
     tools:context=".StudentActivityFragments.HomeFragment">
 
-    <TextView
+    <!-- ScrollView for content scrolling -->
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Welcome to Home"
-        android:textColor="@color/black"
-        android:gravity="center"
-        android:textSize="35sp"
-        android:textStyle="bold"
-        />
+        android:fillViewport="true">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="vertical">
 
+            <!-- Welcome Text -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="8dp"
+                android:layout_gravity="center"
+                android:text="Welcome Student"
+                android:fontFamily="@font/aldrich"
+                android:textColor="@color/black"
+                android:textSize="28sp"
+                android:textStyle="bold" />
+
+            <!-- Profile Image -->
+            <ImageView
+                android:id="@+id/student_profile_image"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/circle_bg"
+                android:scaleType="centerCrop"
+                android:src="@drawable/profile" />
+
+            <!-- Notifications Section -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:paddingBottom="8dp"
+                android:text="Notifications"
+                android:fontFamily="@font/aldrich"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="italic" />
+
+            <!-- Notification Example -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#00BCD4"
+                android:orientation="vertical"
+                android:padding="8dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="New Exam Available: Mathematics"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Date: 10th October"
+                    android:textColor="@color/gray"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
+            <!-- Quick Links Section -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="50dp"
+                android:paddingBottom="8dp"
+                android:text="Quick Links"
+                android:fontFamily="@font/aldrich"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <!-- Upcoming Exams Button -->
+            <Button
+                android:id="@+id/btn_upcoming_exams"
+                android:layout_width="match_parent"
+                android:layout_gravity="center"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:backgroundTint="#001DD8"
+                android:drawableLeft="@drawable/upcoming"
+                android:padding="12dp"
+                android:text="Upcoming Exams"
+                android:textColor="@color/white" />
+
+            <!-- Results Button -->
+            <Button
+                android:id="@+id/btn_results"
+                android:layout_width="match_parent"
+                android:layout_gravity="center"
+                android:layout_marginTop="15dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:backgroundTint="#001DD8"
+                android:drawableLeft="@drawable/viewresult"
+                android:padding="12dp"
+                android:text="View Results"
+                android:textColor="@color/white" />
+
+            <Button
+                android:id="@+id/btn_marksheet"
+                android:layout_width="match_parent"
+                android:layout_gravity="center"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="15dp"
+                android:backgroundTint="#001DD8"
+                android:drawableLeft="@drawable/download"
+                android:padding="12dp"
+                android:text="Download Marksheet"
+                android:textColor="@color/white" />
+
+            <Button
+                android:id="@+id/btn_learning"
+                android:layout_width="match_parent"
+                android:layout_gravity="center"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="8dp"
+                android:backgroundTint="#001DD8"
+                android:drawableLeft="@drawable/learning"
+                android:padding="12dp"
+                android:text="Go For Learning"
+                android:textColor="@color/white" />
+
+        </LinearLayout>
+    </ScrollView>
 </FrameLayout>
