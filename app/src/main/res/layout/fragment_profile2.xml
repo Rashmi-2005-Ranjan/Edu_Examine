@@ -34,16 +34,18 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:srcCompat="@drawable/top_background" />
 
-                <ImageView
+                <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/imageView2"
-                    android:layout_width="wrap_content"
+                    android:layout_width="100dp"
                     android:layout_height="100dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/imageView"
+                    android:layout_marginTop="16dp"
+                    app:civ_border_width="2dp"
+                    app:civ_border_color="@android:color/black"
+                    android:src="@drawable/ic_3"
+                    app:layout_constraintBottom_toBottomOf="@id/imageView"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="@+id/imageView"
-                    app:layout_constraintTop_toBottomOf="@+id/imageView"
-                    app:srcCompat="@drawable/profile3" />
-
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/imageView" />
                 <TextView
                     android:id="@+id/textView"
                     android:layout_width="wrap_content"
@@ -97,7 +99,7 @@
                 android:layout_marginEnd="32dp"
                 android:layout_marginBottom="10dp"
                 android:background="@drawable/btn_background_1"
-                android:drawableStart="@drawable/profinfof"
+                android:drawableStart="@drawable/educations"
                 android:drawablePadding="20dp"
                 android:paddingStart="20dp"
                 android:text="Professional Information"
