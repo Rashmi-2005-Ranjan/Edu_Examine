@@ -286,8 +286,8 @@
 
     <Button
         android:id="@+id/save_button"
-        android:layout_width="332dp"
-        android:layout_height="54dp"
+        android:layout_width="340dp"
+        android:layout_height="52dp"
         android:text="SAVE INFO"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
