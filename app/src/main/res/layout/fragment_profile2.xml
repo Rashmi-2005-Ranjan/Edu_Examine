@@ -136,7 +136,7 @@
                 android:drawableStart="@drawable/adminstrative"
                 android:drawablePadding="20dp"
                 android:paddingStart="20dp"
-                android:text="Administrative Permissions and Roles"
+                android:text="Account Setting"
                 android:textAlignment="viewStart"
                 android:textSize="18sp"
                 android:textStyle="bold" />

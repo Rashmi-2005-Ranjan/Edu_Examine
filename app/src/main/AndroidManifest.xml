@@ -12,7 +12,39 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.EduExamine"
         tools:targetApi="31">
-
+        <activity
+            android:name=".AccountSettingStudent"
+            android:exported="false" />
+        <activity
+            android:name=".SocialAdmin"
+            android:exported="false" />
+        <activity
+            android:name=".AccountSettingAdmin"
+            android:exported="false" />
+        <activity
+            android:name=".PersonalInfosAdmin"
+            android:exported="false" />
+        <activity
+            android:name=".ProfessionalInfoAdmin"
+            android:exported="false" />
+        <activity
+            android:name=".BasicInfosAdmin"
+            android:exported="false" />
+        <activity
+            android:name=".SocialStudents"
+            android:exported="false" />
+        <activity
+            android:name=".AcademicInfoStudent"
+            android:exported="false" />
+        <activity
+            android:name=".PersonalInfoStudent"
+            android:exported="false" />
+        <activity
+            android:name=".BasicInfoStudent"
+            android:exported="false" />
+        <activity
+            android:name=".EducationalDetails"
+            android:exported="false" />
         <activity
             android:name="com.example.onlineexaminationapp.FacultySignUp"
             android:exported="false" />

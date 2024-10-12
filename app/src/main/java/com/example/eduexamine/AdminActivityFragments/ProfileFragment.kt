@@ -9,11 +9,17 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
+import com.example.eduexamine.AccountSettingAdmin
+import com.example.eduexamine.BasicInfosAdmin
+import com.example.eduexamine.PersonalInfosAdmin
+import com.example.eduexamine.ProfessionalInfoAdmin
 import com.example.eduexamine.R
+import com.example.eduexamine.SocialAdmin
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
@@ -42,6 +48,39 @@ class ProfileFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_profile2, container, false)
+        val buttonBasicInformation: Button = view.findViewById(R.id.button)
+        val buttonProfessionalInformation: Button = view.findViewById(R.id.button2)
+        val buttonPersonalInformation: Button = view.findViewById(R.id.button3)
+        val buttonAccountSetting: Button = view.findViewById(R.id.button4)
+        val buttonSocialContactLinks: Button = view.findViewById(R.id.button5)
+        val backToMainButton: Button = view.findViewById(R.id.backToMainButton)
+
+        buttonBasicInformation.setOnClickListener{
+            val intent=Intent(requireContext(),BasicInfosAdmin::class.java)
+            startActivity(intent)
+        }
+        buttonProfessionalInformation.setOnClickListener{
+            val intent=Intent(requireContext(),ProfessionalInfoAdmin::class.java)
+            startActivity(intent)
+        }
+        buttonPersonalInformation.setOnClickListener{
+            val intent=Intent(requireContext(),PersonalInfosAdmin::class.java)
+            startActivity(intent)
+        }
+        buttonAccountSetting.setOnClickListener{
+            val intent=Intent(requireContext(),AccountSettingAdmin::class.java)
+            startActivity(intent)
+        }
+        buttonSocialContactLinks.setOnClickListener{
+            val intent=Intent(requireContext(),SocialAdmin::class.java)
+            startActivity(intent)
+        }
+        backToMainButton.setOnClickListener{
+            val intent=Intent(requireContext(),HomeFragment::class.java)
+            startActivity(intent)
+        }
+
+
 
         profileImageView = view.findViewById(R.id.imageView2)
         backgroundImageView = view.findViewById(R.id.imageView)
