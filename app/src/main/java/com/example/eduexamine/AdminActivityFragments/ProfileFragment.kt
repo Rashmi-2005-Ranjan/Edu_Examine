@@ -205,7 +205,7 @@ class ProfileFragment : Fragment() {
                     backgroundImageUrl?.let { url ->
                         Glide.with(this)
                             .load(url)
-                            .placeholder(R.drawable.top_background) // Default image
+                            .placeholder(R.drawable.backp) // Default image
                             .into(backgroundImageView)
                     }
                 }

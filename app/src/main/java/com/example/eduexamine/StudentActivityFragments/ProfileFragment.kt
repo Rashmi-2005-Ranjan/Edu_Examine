@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.example.eduexamine.AcademicInfoStudent
@@ -50,7 +51,7 @@ class ProfileFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_profile2, container, false)
+        val view = inflater.inflate(R.layout.fragment_profile, container, false)
         val buttonEducationalDetails: Button = view.findViewById(R.id.button)
         val buttonBasicInformation: Button = view.findViewById(R.id.button2)
         val buttonAccountSetting: Button = view.findViewById(R.id.button3)
@@ -196,7 +197,7 @@ class ProfileFragment : Fragment() {
                     profileImageUrl?.let { url ->
                         Glide.with(this)
                             .load(url)
-                            .placeholder(R.drawable.profile3) // Default image
+                            .placeholder(R.drawable.backp) // Default image
                             .into(profileImageView)
                     }
 
@@ -204,7 +205,7 @@ class ProfileFragment : Fragment() {
                     backgroundImageUrl?.let { url ->
                         Glide.with(this)
                             .load(url)
-                            .placeholder(R.drawable.top_background) // Default image
+                            .placeholder(R.drawable.backp) // Default image
                             .into(backgroundImageView)
                     }
                 }

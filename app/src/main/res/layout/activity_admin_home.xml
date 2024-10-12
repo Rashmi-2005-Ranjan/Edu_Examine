@@ -18,9 +18,9 @@
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbars"
             android:layout_width="match_parent"
-            android:layout_height="80dp"
+            android:layout_height="55dp"
             android:background="#2196F3"
-            android:padding="10dp"
+            android:padding="2dp"
             android:elevation="4dp"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             app:navigationIcon="@drawable/ic_menu"
