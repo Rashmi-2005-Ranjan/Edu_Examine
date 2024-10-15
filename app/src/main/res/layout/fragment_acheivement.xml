@@ -28,7 +28,7 @@
 
     <!-- Best Score -->
     <TextView
-        android:id="@+id/best_exam_score"
+        android:id="@+id/bscor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Score: 95/100"
