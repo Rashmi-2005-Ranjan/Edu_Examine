@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
+    android:background="@color/white"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".DeleteAccountStudent">
@@ -45,6 +46,7 @@
             android:id="@+id/passwordupdatestudent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColorLink="@color/black"
             android:inputType="textEmailAddress"
             android:maxLength="200"
             android:textColor="@color/black" />
