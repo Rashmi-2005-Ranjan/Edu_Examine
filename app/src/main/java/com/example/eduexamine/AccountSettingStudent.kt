@@ -28,5 +28,11 @@ class AccountSettingStudent : AppCompatActivity() {
             finish()
             Toast.makeText(this,"Update Your Password",Toast.LENGTH_SHORT).show()
         }
+        binding.button9.setOnClickListener{
+            val intent=Intent(this,DeleteAccountStudent::class.java)
+            startActivity(intent)
+            finish()
+            Toast.makeText(this,"Delete Your Account",Toast.LENGTH_SHORT).show()
+        }
     }
 }
