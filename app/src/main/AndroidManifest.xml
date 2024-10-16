@@ -13,6 +13,12 @@
         android:theme="@style/Theme.EduExamine"
         tools:targetApi="31">
         <activity
+            android:name=".DeleteAccountStudent"
+            android:exported="false" />
+        <activity
+            android:name=".UpdatePassStudent"
+            android:exported="false" />
+        <activity
             android:name=".AccountSettingStudent"
             android:exported="false" />
         <activity
@@ -35,11 +41,12 @@
             android:exported="false" />
         <activity
             android:name=".AcademicInfoStudent"
-            android:exported="true" >
-<!--        <intent-filter>-->
-<!--            <action android:name="android.intent.action.MAIN" />-->
-<!--            <category android:name="android.intent.category.LAUNCHER" />-->
-<!--        </intent-filter>-->
+            android:exported="true">
+
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
         </activity>
         <activity
             android:name=".BasicInfoStudent"
