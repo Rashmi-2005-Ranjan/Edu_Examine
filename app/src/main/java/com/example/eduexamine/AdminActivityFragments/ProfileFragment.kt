@@ -39,7 +39,7 @@ class ProfileFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        // Initialize Firestore and Storage
+        // Initialize Firestore and Firebase Storage
         firestore = FirebaseFirestore.getInstance()
         storage = FirebaseStorage.getInstance()
     }
@@ -49,6 +49,8 @@ class ProfileFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_profile2, container, false)
+
+        // Initialize buttons for navigating to different admin activities
         val buttonBasicInformation: Button = view.findViewById(R.id.button)
         val buttonProfessionalInformation: Button = view.findViewById(R.id.button2)
         val buttonPersonalInformation: Button = view.findViewById(R.id.button3)
@@ -56,47 +58,50 @@ class ProfileFragment : Fragment() {
         val buttonSocialContactLinks: Button = view.findViewById(R.id.button5)
         val backToMainButton: Button = view.findViewById(R.id.backToMainButton)
 
-        buttonBasicInformation.setOnClickListener{
-            val intent=Intent(requireContext(),BasicInfosAdmin::class.java)
+        // Set button click listeners to navigate to various information screens
+        buttonBasicInformation.setOnClickListener {
+            val intent = Intent(requireContext(), BasicInfosAdmin::class.java)
             startActivity(intent)
         }
-        buttonProfessionalInformation.setOnClickListener{
-            val intent=Intent(requireContext(),ProfessionalInfoAdmin::class.java)
+        buttonProfessionalInformation.setOnClickListener {
+            val intent = Intent(requireContext(), ProfessionalInfoAdmin::class.java)
             startActivity(intent)
         }
-        buttonPersonalInformation.setOnClickListener{
-            val intent=Intent(requireContext(),PersonalInfosAdmin::class.java)
+        buttonPersonalInformation.setOnClickListener {
+            val intent = Intent(requireContext(), PersonalInfosAdmin::class.java)
             startActivity(intent)
         }
-        buttonAccountSetting.setOnClickListener{
-            val intent=Intent(requireContext(),AccountSettingAdmin::class.java)
+        buttonAccountSetting.setOnClickListener {
+            val intent = Intent(requireContext(), AccountSettingAdmin::class.java)
             startActivity(intent)
         }
-        buttonSocialContactLinks.setOnClickListener{
-            val intent=Intent(requireContext(),SocialAdmin::class.java)
+        buttonSocialContactLinks.setOnClickListener {
+            val intent = Intent(requireContext(), SocialAdmin::class.java)
             startActivity(intent)
         }
-        backToMainButton.setOnClickListener{
-            val intent=Intent(requireContext(),adminHome::class.java)
+        backToMainButton.setOnClickListener {
+            val intent = Intent(requireContext(), adminHome::class.java)
             startActivity(intent)
         }
 
-
-
+        // Initialize profile and background image views
         profileImageView = view.findViewById(R.id.imageView2)
         backgroundImageView = view.findViewById(R.id.imageView)
 
-        // Set click listeners for changing profile and background images
+        // Set click listeners to open image picker for profile and background images
+        /*
         profileImageView.setOnClickListener { showImagePickerDialog(PROFILE_IMAGE_REQUEST_CODE) }
         backgroundImageView.setOnClickListener { showImagePickerDialog(BACKGROUND_IMAGE_REQUEST_CODE) }
 
-        // Load previously saved images for the current user
+        // Load previously saved images for the current admin user
         loadUserImages()
+         */
 
         return view
     }
 
-    // Display options for choosing an image from the gallery
+    // Show a dialog with options to pick an image from the gallery
+    /*
     private fun showImagePickerDialog(requestCode: Int) {
         currentRequestCode = requestCode
         val options = arrayOf("Choose from Gallery", "Cancel")
@@ -105,6 +110,7 @@ class ProfileFragment : Fragment() {
         builder.setItems(options) { dialog, which ->
             when (options[which]) {
                 "Choose from Gallery" -> {
+                    // Open the gallery to select an image
                     val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
                     startActivityForResult(intent, requestCode)
                 }
@@ -113,28 +119,30 @@ class ProfileFragment : Fragment() {
         }
         builder.show()
     }
+     */
 
-    // Handle result after selecting an image from the gallery
+    // Handle the result after an image is selected from the gallery
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
         if (resultCode == android.app.Activity.RESULT_OK && data != null) {
             selectedImageUri = data.data
             selectedImageUri?.let { uri ->
-                // Display selected image in the ImageView
+                // Display the selected image in the respective ImageView
                 if (requestCode == PROFILE_IMAGE_REQUEST_CODE) {
                     profileImageView.setImageURI(uri)
                 } else if (requestCode == BACKGROUND_IMAGE_REQUEST_CODE) {
                     backgroundImageView.setImageURI(uri)
                 }
 
-                // Upload the image to Firebase
-                uploadImageToFirebase(uri)
+                // Upload the image to Firebase Storage
+//                uploadImageToFirebase(uri)
             }
         }
     }
 
     // Upload the selected image to Firebase Storage
+    /*
     private fun uploadImageToFirebase(fileUri: Uri) {
         val storageRef = storage.reference
         val fileName = UUID.randomUUID().toString() // Generate a unique file name
@@ -144,11 +152,12 @@ class ProfileFragment : Fragment() {
             storageRef.child("background_images/$fileName")
         }
 
+        // Upload the image file to Firebase
         imageRef.putFile(fileUri)
             .addOnSuccessListener {
-                // Get the download URL and save it to Firestore
+                // Once uploaded, get the image's download URL and save it to Firestore
                 imageRef.downloadUrl.addOnSuccessListener { uri ->
-                    saveImageUriToFirestore(uri.toString())
+                    saveImageUriToFirestore(uri.toString()) // Save the URL in Firestore
                 }
             }
             .addOnFailureListener { exception ->
@@ -156,18 +165,22 @@ class ProfileFragment : Fragment() {
                 Toast.makeText(requireContext(), "Image upload failed", Toast.LENGTH_SHORT).show()
             }
     }
+     */
 
-    // Save the image download URL to Firestore
+    // Save the image's download URL to Firestore database
+    /*
     private fun saveImageUriToFirestore(downloadUrl: String) {
         val userId = FirebaseAuth.getInstance().currentUser?.uid
 
         if (userId != null) {
+            // Update the Firestore document with the appropriate image URL (profile or background)
             val updateData = if (currentRequestCode == PROFILE_IMAGE_REQUEST_CODE) {
-                mapOf("profileImageUrl" to downloadUrl)
+                mapOf("profileImageUrl" to downloadUrl) // Profile image URL
             } else {
-                mapOf("backgroundImageUrl" to downloadUrl)
+                mapOf("backgroundImageUrl" to downloadUrl) // Background image URL
             }
 
+            // Save the image URL in the "users" collection for the current user
             firestore.collection("users")
                 .document(userId)
                 .update(updateData)
@@ -182,8 +195,10 @@ class ProfileFragment : Fragment() {
             Toast.makeText(requireContext(), "User not authenticated", Toast.LENGTH_SHORT).show()
         }
     }
+     */
 
-    // Load profile and background images for the current user from Firestore
+    // Load the profile and background images for the current admin user from Firestore
+    /*
     private fun loadUserImages() {
         val userId = FirebaseAuth.getInstance().currentUser?.uid
         userId?.let {
@@ -197,7 +212,7 @@ class ProfileFragment : Fragment() {
                     profileImageUrl?.let { url ->
                         Glide.with(this)
                             .load(url)
-                            .placeholder(R.drawable.profile3) // Default image
+                            .placeholder(R.drawable.profile3) // Default profile image placeholder
                             .into(profileImageView)
                     }
 
@@ -205,7 +220,7 @@ class ProfileFragment : Fragment() {
                     backgroundImageUrl?.let { url ->
                         Glide.with(this)
                             .load(url)
-                            .placeholder(R.drawable.backp) // Default image
+                            .placeholder(R.drawable.backp) // Default background image placeholder
                             .into(backgroundImageView)
                     }
                 }
@@ -217,9 +232,10 @@ class ProfileFragment : Fragment() {
             Toast.makeText(requireContext(), "User not authenticated", Toast.LENGTH_SHORT).show()
         }
     }
+         */
 
     companion object {
-        private const val PROFILE_IMAGE_REQUEST_CODE = 1
-        private const val BACKGROUND_IMAGE_REQUEST_CODE = 2
+        private const val PROFILE_IMAGE_REQUEST_CODE = 1 // Request code for profile image selection
+        private const val BACKGROUND_IMAGE_REQUEST_CODE = 2 // Request code for background image selection
     }
 }
