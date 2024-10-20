@@ -11,13 +11,16 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fillViewport="true">
+        android:fillViewport="true"
+        android:layout_marginBottom="50dp"
+        >
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingTop="65dp">
 
             <!-- Welcome Text -->
             <TextView
@@ -29,7 +32,8 @@
                 android:fontFamily="@font/aldrich"
                 android:textColor="@color/black"
                 android:textSize="28sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                />
 
             <!-- Profile Image -->
             <ImageView
