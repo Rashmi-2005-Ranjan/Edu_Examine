@@ -178,18 +178,30 @@ class AddCourseFragment : Fragment() {
     }
 
     // Create a view for displaying course details
-    @SuppressLint("MissingInflatedId")
+    @SuppressLint("MissingInflatedId", "InflateParams")
     private fun createCourseDetailView(course: Course): View {
         val courseView = LayoutInflater.from(context).inflate(R.layout.course_item_layout, null)
 
         val courseNameText = courseView.findViewById<TextView>(R.id.courseNameTextView)
+        val courseCodeText = courseView.findViewById<TextView>(R.id.courseCodeTextView)
+        val courseDescriptionText = courseView.findViewById<TextView>(R.id.courseDescriptionTextView)
+        val courseDurationText = courseView.findViewById<TextView>(R.id.courseDurationTextView)
+        val courseInstructorText = courseView.findViewById<TextView>(R.id.courseTeacherTextView)
+        val courseStartDateText = courseView.findViewById<TextView>(R.id.StartDateTextView)
+        val courseEndDateText = courseView.findViewById<TextView>(R.id.EndDateTextView)
 
         courseNameText.text = course.name
+        courseCodeText.text = course.code
+        courseDescriptionText.text = course.description
+        courseDurationText.text = course.duration
+        courseInstructorText.text = course.instructor
+        courseStartDateText.text = course.startDate
+        courseEndDateText.text = course.endDate
 
 
         // Style the container (border-radius, etc.)
         val containerLayout = courseView.findViewById<LinearLayout>(R.id.courseContainer)
-        containerLayout.setBackgroundResource(R.drawable.course_container_background)
+        containerLayout.setBackgroundResource(R.drawable.course_item_background)
 
         return courseView
     }
