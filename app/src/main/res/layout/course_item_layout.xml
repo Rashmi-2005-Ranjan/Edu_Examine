@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="8dp"
+    android:background="@drawable/course_item_background"
+    android:layout_marginBottom="8dp">
+
+    <!-- Course Name -->
+    <TextView
+        android:id="@+id/courseNameTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Course Name"
+        android:textColor="@android:color/black"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:layout_marginBottom="4dp" />
+
+    <!-- Course Code -->
+    <TextView
+        android:id="@+id/courseCodeTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Course Code"
+        android:textColor="@android:color/black"
+        android:textSize="16sp"
+        android:layout_marginBottom="4dp" />
+
+    <!-- Course Description -->
+    <TextView
+        android:id="@+id/courseDescriptionTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Course Description"
+        android:textColor="@android:color/black"
+        android:textSize="14sp"
+        android:layout_marginBottom="4dp" />
+
+    <!-- Course Duration -->
+    <TextView
+        android:id="@+id/courseDurationTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Course Duration"
+        android:textColor="@android:color/black"
+        android:textSize="14sp"
+        android:layout_marginBottom="4dp" />
+
+    <!-- Course Teacher -->
+    <TextView
+        android:id="@+id/courseTeacherTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Course Teacher"
+        android:textColor="@android:color/black"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/StartDateTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Start Date"
+        android:textColor="@android:color/black"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/EndDateTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="End Date"
+        android:textColor="@android:color/black"
+        android:textSize="14sp" />
+</LinearLayout>
