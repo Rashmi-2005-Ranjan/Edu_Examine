@@ -105,9 +105,9 @@ class LoginActivity : AppCompatActivity() {
 
         // Set click listener for the 'Forgot Password' or 'Update Profile' TextView
         binding.textView4.setOnClickListener {
-            val intent = Intent(this, WelcomeScreen::class.java)
+            val intent = Intent(this, ForgotPasswordActivity::class.java)
             startActivity(intent)
-            Toast.makeText(this, "Navigating you to update your profile", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Navigating You For Resetting Your Password", Toast.LENGTH_SHORT).show()
         }
 
         // Set click listener for the 'Sign Up' TextView
