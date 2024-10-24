@@ -1,5 +1,6 @@
 package com.example.eduexamine.StudentActivityFragments
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
@@ -20,6 +21,7 @@ class MarksheetFragment : Fragment(R.layout.fragment_marksheet) {
     private lateinit var searchView: SearchView
     private lateinit var searList: ArrayList<marksheetDataClass> // Initialize this list properly
 
+    @SuppressLint("RestrictedApi")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -78,6 +80,12 @@ class MarksheetFragment : Fragment(R.layout.fragment_marksheet) {
 
         // Populate the data
         getData()
+        val searchEditText = searchView.findViewById<androidx.appcompat.widget.SearchView.SearchAutoComplete>(
+            androidx.appcompat.R.id.search_src_text
+        )
+        searchEditText.setTextColor(resources.getColor(R.color.black)) // Set the text color to dark
+        searchEditText.setHintTextColor(resources.getColor(R.color.cyan)) // Optionally set the hint color to dark as well
+
 
         // Set up the search functionality
         searchView.clearFocus()
