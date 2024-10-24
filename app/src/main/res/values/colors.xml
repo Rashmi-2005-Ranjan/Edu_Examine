@@ -3,4 +3,131 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="gray">#808080</color>
+
+    <!-- Red Shades -->
+    <color name="light_red">#FFCDD2</color>
+    <color name="red">#F44336</color>
+    <color name="dark_red">#B71C1C</color>
+
+    <!-- Pink Shades -->
+    <color name="light_pink">#F8BBD0</color>
+    <color name="pink">#E91E63</color>
+    <color name="dark_pink">#880E4F</color>
+
+    <!-- Purple Shades -->
+    <color name="light_purple">#E1BEE7</color>
+    <color name="purple">#9C27B0</color>
+    <color name="dark_purple">#4A148C</color>
+
+    <!-- Deep Purple Shades -->
+    <color name="light_deep_purple">#D1C4E9</color>
+    <color name="deep_purple">#673AB7</color>
+    <color name="dark_deep_purple">#311B92</color>
+
+    <!-- Indigo Shades -->
+    <color name="light_indigo">#C5CAE9</color>
+    <color name="indigo">#3F51B5</color>
+    <color name="dark_indigo">#1A237E</color>
+
+    <!-- Blue Shades -->
+    <color name="light_blue">#BBDEFB</color>
+    <color name="blue">#2196F3</color>
+    <color name="dark_blue">#0D47A1</color>
+
+    <!-- Light Blue Shades -->
+    <color name="light_sky_blue">#B3E5FC</color>
+    <color name="sky_blue">#03A9F4</color>
+    <color name="dark_sky_blue">#01579B</color>
+
+    <!-- Cyan Shades -->
+    <color name="light_cyan">#B2EBF2</color>
+    <color name="cyan">#00BCD4</color>
+    <color name="dark_cyan">#006064</color>
+
+    <!-- Teal Shades -->
+    <color name="light_teal">#B2DFDB</color>
+    <color name="teal">#009688</color>
+    <color name="dark_teal">#004D40</color>
+
+    <!-- Green Shades -->
+    <color name="light_green">#C8E6C9</color>
+    <color name="green">#4CAF50</color>
+    <color name="dark_green">#1B5E20</color>
+
+    <!-- Light Green Shades -->
+    <color name="light_light_green">#DCEDC8</color>
+    <color name="light_green_main">#8BC34A</color>
+    <color name="dark_light_green">#33691E</color>
+
+    <!-- Lime Shades -->
+    <color name="light_lime">#F0F4C3</color>
+    <color name="lime">#CDDC39</color>
+    <color name="dark_lime">#827717</color>
+
+    <!-- Yellow Shades -->
+    <color name="light_yellow">#FFF9C4</color>
+    <color name="yellow">#FFEB3B</color>
+    <color name="dark_yellow">#F57F17</color>
+
+    <!-- Amber Shades -->
+    <color name="light_amber">#FFECB3</color>
+    <color name="amber">#FFC107</color>
+    <color name="dark_amber">#FF6F00</color>
+
+    <!-- Orange Shades -->
+    <color name="light_orange">#FFE0B2</color>
+    <color name="orange">#FF9800</color>
+    <color name="dark_orange">#E65100</color>
+
+    <!-- Deep Orange Shades -->
+    <color name="light_deep_orange">#FFCCBC</color>
+    <color name="deep_orange">#FF5722</color>
+    <color name="dark_deep_orange">#BF360C</color>
+
+    <!-- Brown Shades -->
+    <color name="light_brown">#D7CCC8</color>
+    <color name="brown">#795548</color>
+    <color name="dark_brown">#3E2723</color>
+
+    <!-- Blue Gray Shades -->
+    <color name="light_blue_gray">#CFD8DC</color>
+    <color name="blue_gray">#607D8B</color>
+    <color name="dark_blue_gray">#263238</color>
+
+    <!-- Gray Shades -->
+    <color name="light_gray">#F5F5F5</color>
+    <color name="medium_gray">#9E9E9E</color>
+    <color name="dark_gray">#616161</color>
+
+    <!-- Accent Colors -->
+    <color name="accent_light_red">#FF5252</color>
+    <color name="accent_pink">#FF4081</color>
+    <color name="accent_purple">#E040FB</color>
+    <color name="accent_deep_purple">#7C4DFF</color>
+    <color name="accent_indigo">#536DFE</color>
+    <color name="accent_blue">#448AFF</color>
+    <color name="accent_cyan">#18FFFF</color>
+    <color name="accent_teal">#64FFDA</color>
+    <color name="accent_green">#69F0AE</color>
+    <color name="accent_light_green">#B2FF59</color>
+    <color name="accent_lime">#EEFF41</color>
+    <color name="accent_yellow">#FFFF00</color>
+    <color name="accent_amber">#FFD740</color>
+    <color name="accent_orange">#FFAB40</color>
+    <color name="accent_deep_orange">#FF6E40</color>
+    <color name="accent_brown">#8D6E63</color>
+    <color name="accent_gray">#BDBDBD</color>
+
+    <!-- Custom Colors -->
+    <color name="custom_coral">#FF7F50</color>
+    <color name="custom_salmon">#FA8072</color>
+    <color name="custom_gold">#FFD700</color>
+    <color name="custom_aquamarine">#7FFFD4</color>
+    <color name="custom_violet">#EE82EE</color>
+    <color name="custom_turquoise">#40E0D0</color>
+    <color name="custom_fuchsia">#FF00FF</color>
+    <color name="custom_chocolate">#D2691E</color>
+    <color name="custom_olive">#808000</color>
+    <color name="custom_periwinkle">#CCCCFF</color>
+
 </resources>
