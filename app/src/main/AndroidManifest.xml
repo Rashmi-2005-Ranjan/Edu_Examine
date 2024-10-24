@@ -13,6 +13,9 @@
         android:theme="@style/Theme.EduExamine"
         tools:targetApi="31">
         <activity
+            android:name=".ForgotPasswordActivity"
+            android:exported="false" />
+        <activity
             android:name=".DeleteAccountAdmin"
             android:exported="false" />
         <activity
