@@ -5,9 +5,11 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.appcompat.widget.SearchView
 import com.example.eduexamine.R
 import com.example.eduexamine.markAdapter
 import com.example.eduexamine.marksheetDataClass
+import java.util.Locale
 
 class MarksheetFragment : Fragment(R.layout.fragment_marksheet) {
 
@@ -15,11 +17,14 @@ class MarksheetFragment : Fragment(R.layout.fragment_marksheet) {
     private lateinit var daList: ArrayList<marksheetDataClass>
     private lateinit var imageList: Array<Int>
     private lateinit var titleList: Array<String>
+    private lateinit var searchView: SearchView
+    private lateinit var searList: ArrayList<marksheetDataClass> // Initialize this list properly
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         recyclerView = view.findViewById(R.id.rectangles_recycler_view)
+        searchView = view.findViewById(R.id.search)
         recyclerView.layoutManager = LinearLayoutManager(context)
 
         // Initialize the lists
@@ -68,8 +73,40 @@ class MarksheetFragment : Fragment(R.layout.fragment_marksheet) {
             "32nd Internal",
         ) // Add your titles here
 
+        // Initialize the searchable list
+        searList = ArrayList()
+
         // Populate the data
         getData()
+
+        // Set up the search functionality
+        searchView.clearFocus()
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                searchView.clearFocus()
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                searList.clear()
+                val searchText = newText!!.toLowerCase(Locale.getDefault())
+                if (searchText.isNotEmpty()) {
+                    daList.forEach {
+                        if (it.title.toLowerCase(Locale.getDefault()).contains(searchText)) {
+                            searList.add(it)
+                        }
+                    }
+                    recyclerView.adapter = markAdapter(searList) // Update adapter with filtered list
+                    recyclerView.adapter!!.notifyDataSetChanged()
+                } else {
+                    searList.clear()
+                    searList.addAll(daList) // Restore the full list if no search text
+                    recyclerView.adapter = markAdapter(searList)
+                    recyclerView.adapter!!.notifyDataSetChanged()
+                }
+                return true
+            }
+        })
     }
 
     private fun getData() {
@@ -77,6 +114,8 @@ class MarksheetFragment : Fragment(R.layout.fragment_marksheet) {
             val data = marksheetDataClass(imageList[i % imageList.size], titleList[i])
             daList.add(data)
         }
-        recyclerView.adapter = markAdapter(daList)
+        // Initially set the full list to the adapter
+        searList.addAll(daList) // Populate search list with all items
+        recyclerView.adapter = markAdapter(searList)
     }
 }
