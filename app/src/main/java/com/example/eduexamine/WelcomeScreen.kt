@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.eduexamine.databinding.ActivityWelcomeScreenBinding
-import com.example.onlineexaminationapp.FacultySignUp
+import com.example.eduexamine.FacultySignUp
 
 class WelcomeScreen : AppCompatActivity() {
     private val binding: ActivityWelcomeScreenBinding by lazy {
