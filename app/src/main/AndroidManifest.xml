@@ -64,7 +64,7 @@
             android:name=".EducationalDetails"
             android:exported="false" />
         <activity
-            android:name="com.example.onlineexaminationapp.FacultySignUp"
+            android:name=".FacultySignUp"
             android:exported="false"
             tools:ignore="Instantiatable" />
         <activity
