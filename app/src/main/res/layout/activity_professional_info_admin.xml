@@ -124,9 +124,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:clickable="true"
-            android:cursorVisible="false"
-            android:focusable="false"
-            android:inputType="none"
+            android:cursorVisible="true"
+            android:focusable="true"
+            android:inputType="text"
             android:maxLength="20"
             android:textColor="@color/black" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -153,7 +153,7 @@
             android:id="@+id/gender"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="number"
+            android:inputType="text"
             android:maxLength="30"
             android:textColor="@color/black" />
     </com.google.android.material.textfield.TextInputLayout>
