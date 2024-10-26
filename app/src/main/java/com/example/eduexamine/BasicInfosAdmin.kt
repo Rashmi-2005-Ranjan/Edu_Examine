@@ -133,7 +133,7 @@ class BasicInfosAdmin : AppCompatActivity() {
             .addOnSuccessListener {
                 Toast.makeText(this, "Information saved successfully!", Toast.LENGTH_SHORT).show()
                 // Optionally clear the fields after saving
-                clearFields()
+//                clearFields()
             }
             .addOnFailureListener { e ->
                 Toast.makeText(this, "Error saving information: ${e.message}", Toast.LENGTH_SHORT).show()
