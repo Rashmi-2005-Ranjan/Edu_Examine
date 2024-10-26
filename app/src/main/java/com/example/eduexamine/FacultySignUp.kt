@@ -1,4 +1,4 @@
-package com.example.onlineexaminationapp
+package com.example.eduexamine
 
 import android.content.Intent
 import android.os.Bundle
