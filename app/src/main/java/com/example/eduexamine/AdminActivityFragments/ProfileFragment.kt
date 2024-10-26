@@ -80,48 +80,16 @@ class ProfileFragment : Fragment() {
             startActivity(intent)
         }
         backToMainButton.setOnClickListener {
-            val intent = Intent(requireContext(), adminHome::class.java)
-            startActivity(intent)
+
         }
 
         // Initialize profile and background image views
         profileImageView = view.findViewById(R.id.imageView2)
         backgroundImageView = view.findViewById(R.id.imageView)
 
-        // Set click listeners to open image picker for profile and background images
-        /*
-        profileImageView.setOnClickListener { showImagePickerDialog(PROFILE_IMAGE_REQUEST_CODE) }
-        backgroundImageView.setOnClickListener { showImagePickerDialog(BACKGROUND_IMAGE_REQUEST_CODE) }
-
-        // Load previously saved images for the current admin user
-        loadUserImages()
-         */
-
         return view
     }
 
-    // Show a dialog with options to pick an image from the gallery
-    /*
-    private fun showImagePickerDialog(requestCode: Int) {
-        currentRequestCode = requestCode
-        val options = arrayOf("Choose from Gallery", "Cancel")
-        val builder = AlertDialog.Builder(requireContext())
-        builder.setTitle("Upload or Change Photo")
-        builder.setItems(options) { dialog, which ->
-            when (options[which]) {
-                "Choose from Gallery" -> {
-                    // Open the gallery to select an image
-                    val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-                    startActivityForResult(intent, requestCode)
-                }
-                "Cancel" -> dialog.dismiss()
-            }
-        }
-        builder.show()
-    }
-     */
-
-    // Handle the result after an image is selected from the gallery
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
@@ -140,100 +108,6 @@ class ProfileFragment : Fragment() {
             }
         }
     }
-
-    // Upload the selected image to Firebase Storage
-    /*
-    private fun uploadImageToFirebase(fileUri: Uri) {
-        val storageRef = storage.reference
-        val fileName = UUID.randomUUID().toString() // Generate a unique file name
-        val imageRef = if (currentRequestCode == PROFILE_IMAGE_REQUEST_CODE) {
-            storageRef.child("profile_images/$fileName")
-        } else {
-            storageRef.child("background_images/$fileName")
-        }
-
-        // Upload the image file to Firebase
-        imageRef.putFile(fileUri)
-            .addOnSuccessListener {
-                // Once uploaded, get the image's download URL and save it to Firestore
-                imageRef.downloadUrl.addOnSuccessListener { uri ->
-                    saveImageUriToFirestore(uri.toString()) // Save the URL in Firestore
-                }
-            }
-            .addOnFailureListener { exception ->
-                Log.e("Firebase", "Failed to upload image", exception)
-                Toast.makeText(requireContext(), "Image upload failed", Toast.LENGTH_SHORT).show()
-            }
-    }
-     */
-
-    // Save the image's download URL to Firestore database
-    /*
-    private fun saveImageUriToFirestore(downloadUrl: String) {
-        val userId = FirebaseAuth.getInstance().currentUser?.uid
-
-        if (userId != null) {
-            // Update the Firestore document with the appropriate image URL (profile or background)
-            val updateData = if (currentRequestCode == PROFILE_IMAGE_REQUEST_CODE) {
-                mapOf("profileImageUrl" to downloadUrl) // Profile image URL
-            } else {
-                mapOf("backgroundImageUrl" to downloadUrl) // Background image URL
-            }
-
-            // Save the image URL in the "users" collection for the current user
-            firestore.collection("users")
-                .document(userId)
-                .update(updateData)
-                .addOnSuccessListener {
-                    Toast.makeText(requireContext(), "Image URL saved in database", Toast.LENGTH_SHORT).show()
-                }
-                .addOnFailureListener { e ->
-                    Log.e("Firestore", "Error saving image URL", e)
-                    Toast.makeText(requireContext(), "Failed to save image URL", Toast.LENGTH_SHORT).show()
-                }
-        } else {
-            Toast.makeText(requireContext(), "User not authenticated", Toast.LENGTH_SHORT).show()
-        }
-    }
-     */
-
-    // Load the profile and background images for the current admin user from Firestore
-    /*
-    private fun loadUserImages() {
-        val userId = FirebaseAuth.getInstance().currentUser?.uid
-        userId?.let {
-            firestore.collection("users").document(it)
-                .get()
-                .addOnSuccessListener { document ->
-                    val profileImageUrl = document.getString("profileImageUrl")
-                    val backgroundImageUrl = document.getString("backgroundImageUrl")
-
-                    // Load the profile image using Glide
-                    profileImageUrl?.let { url ->
-                        Glide.with(this)
-                            .load(url)
-                            .placeholder(R.drawable.profile3) // Default profile image placeholder
-                            .into(profileImageView)
-                    }
-
-                    // Load the background image using Glide
-                    backgroundImageUrl?.let { url ->
-                        Glide.with(this)
-                            .load(url)
-                            .placeholder(R.drawable.backp) // Default background image placeholder
-                            .into(backgroundImageView)
-                    }
-                }
-                .addOnFailureListener { e ->
-                    Log.e("Firestore", "Error loading images", e)
-                    Toast.makeText(requireContext(), "Error loading images", Toast.LENGTH_SHORT).show()
-                }
-        } ?: run {
-            Toast.makeText(requireContext(), "User not authenticated", Toast.LENGTH_SHORT).show()
-        }
-    }
-         */
-
     companion object {
         private const val PROFILE_IMAGE_REQUEST_CODE = 1 // Request code for profile image selection
         private const val BACKGROUND_IMAGE_REQUEST_CODE = 2 // Request code for background image selection
