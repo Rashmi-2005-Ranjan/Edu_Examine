@@ -29,7 +29,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="150dp"
+        android:layout_marginTop="80dp"
         android:layout_marginEnd="16dp"
         android:hint="Enter Your Email"
         app:counterEnabled="true"
@@ -46,18 +46,45 @@
             android:id="@+id/passwordupdatestudent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColorLink="@color/black"
             android:inputType="textEmailAddress"
             android:maxLength="200"
-            android:textColor="@color/black" />
+            android:textColor="@color/black"
+            android:textColorLink="@color/black" />
     </com.google.android.material.textfield.TextInputLayout>
 
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/material2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginEnd="16dp"
+        android:hint="Enter Your Password"
+        app:counterEnabled="true"
+        app:counterMaxLength="30"
+        app:endIconMode="clear_text"
+        app:helperText="Required *"
+        app:helperTextTextColor="#F44336"
+        app:hintTextColor="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/material1">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/dpassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:maxLength="200"
+            android:textColor="@color/black"
+            android:textColorLink="@color/black" />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <Button
         android:id="@+id/button10"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="50dp"
         android:layout_marginBottom="196dp"
         android:backgroundTint="#E00707"
         android:fontFamily="@font/aldrich"
@@ -66,7 +93,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/material1" />
+        app:layout_constraintTop_toBottomOf="@+id/material2" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
