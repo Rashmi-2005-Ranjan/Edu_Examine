@@ -25,280 +25,154 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
-
-    <TextView
-        android:id="@+id/textView7"
-        android:layout_width="wrap_content"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/material1"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:text="Major/Minor Specialization"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="45dp"
+        android:layout_marginEnd="16dp"
+        android:hint="Specialization"
+        app:counterEnabled="true"
+        app:counterMaxLength="30"
+        app:endIconMode="clear_text"
+        app:helperText="Required *"
+        app:helperTextTextColor="#F44336"
+        app:hintTextColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.097"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.118"
-        tools:ignore="MissingConstraints" />
+        app:layout_constraintTop_toBottomOf="@+id/textView3">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/specialization"
+            android:layout_width="match_parent"
+            android:inputType="text"
+            android:layout_height="wrap_content"
+            android:maxLength="200"
+            android:textColor="@color/black" />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/material"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="98dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="552dp"
-        android:hint="specialization"
+        android:hint="Certifications"
         app:counterEnabled="true"
-        app:counterMaxLength="50"
+        app:counterMaxLength="10"
         app:endIconMode="clear_text"
         app:helperText="Required *"
         app:helperTextTextColor="#F44336"
         app:hintTextColor="@color/black"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="UnknownIdInLayout">
+        app:layout_constraintTop_toBottomOf="@+id/material1">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/specialization"
+            android:id="@+id/branch"
+            android:inputType="text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="text"
             android:maxLength="200"
-            android:textColor="@color/black"
-            tools:ignore="MissingClass,MissingConstraints,SpeakableTextPresentCheck" />
+            android:textColor="@color/black" />
     </com.google.android.material.textfield.TextInputLayout>
 
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="8dp"
-        android:text="Certifications"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.052"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.24"
-        tools:ignore="MissingConstraints" />
-
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/material1"
+        android:id="@+id/material2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="194dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="456dp"
-        android:hint="Certifications"
+        android:hint="Major Project/Minor Project"
         app:counterEnabled="true"
         app:counterMaxLength="50"
         app:endIconMode="clear_text"
         app:helperText="Required *"
         app:helperTextTextColor="#F44336"
         app:hintTextColor="@color/black"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="NotSibling,UnknownIdInLayout">
+        app:layout_constraintTop_toBottomOf="@+id/material">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/Certifications"
+            android:id="@+id/id"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="text"
             android:maxLength="200"
-            android:textColor="@color/black"
-            tools:ignore="MissingClass,MissingConstraints,SpeakableTextPresentCheck" />
+            android:textColor="@color/black" />
     </com.google.android.material.textfield.TextInputLayout>
-
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="8dp"
-        android:text="Projects"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.061"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.38"
-        tools:ignore="MissingConstraints" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/material3"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="293dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="356dp"
-        android:hint="Project title"
+        android:hint="Github Account"
         app:counterEnabled="true"
-        app:counterMaxLength="50"
+        app:counterMaxLength="10"
         app:endIconMode="clear_text"
         app:helperText="Required *"
         app:helperTextTextColor="#F44336"
         app:hintTextColor="@color/black"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="NotSibling,UnknownIdInLayout">
-
+        app:layout_constraintTop_toBottomOf="@+id/material2">
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/project_title"
+            android:id="@+id/cgpa"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="text"
-            android:maxLength="200"
-            android:textColor="@color/black"
-            tools:ignore="MissingClass,MissingConstraints,SpeakableTextPresentCheck" />
+            android:maxLength="10"
+            android:textColor="@color/black" />
     </com.google.android.material.textfield.TextInputLayout>
+
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/material4"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="386dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="264dp"
-        android:hint="Github repository link"
+        android:hint="Internships and Company Name"
         app:counterEnabled="true"
-        app:counterMaxLength="50"
+        app:counterMaxLength="6"
         app:endIconMode="clear_text"
         app:helperText="Required *"
         app:helperTextTextColor="#F44336"
         app:hintTextColor="@color/black"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="NotSibling,UnknownIdInLayout">
-
+        app:layout_constraintTop_toBottomOf="@+id/material3">
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/project_link"
+            android:id="@+id/gender"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="text"
-            android:maxLength="200"
-            android:textColor="@color/black"
-            tools:ignore="MissingClass,MissingConstraints,SpeakableTextPresentCheck" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="8dp"
-        android:text="Internships"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.049"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.799"
-        tools:ignore="MissingConstraints" />
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/material6"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="477dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="172dp"
-        android:hint="company name"
-        app:counterEnabled="true"
-        app:counterMaxLength="50"
-        app:endIconMode="clear_text"
-        app:helperText="Required *"
-        app:helperTextTextColor="#F44336"
-        app:hintTextColor="@color/black"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="NotSibling,UnknownIdInLayout">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/Company_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="text"
-            android:maxLength="200"
-            android:textColor="@color/black"
-            tools:ignore="MissingClass,MissingConstraints,SpeakableTextPresentCheck" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/material65"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="586dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="64dp"
-        android:hint="Duration"
-        app:counterEnabled="true"
-        app:counterMaxLength="50"
-        app:endIconMode="clear_text"
-        app:helperText="Required *"
-        app:helperTextTextColor="#F44336"
-        app:hintTextColor="@color/black"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="NotSibling,UnknownIdInLayout">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/Duration"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="text"
-            android:maxLength="200"
-            android:textColor="@color/black"
-            tools:ignore="MissingClass,MissingConstraints,SpeakableTextPresentCheck" />
+            android:maxLength="6"
+            android:textColor="@color/black" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
-        android:id="@+id/save_button"
-        android:layout_width="340dp"
-        android:layout_height="52dp"
+        android:id="@+id/submit"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="40dp"
+        android:fontFamily="@font/aldrich"
         android:text="SAVE INFO"
-        android:textSize="18sp"
+        android:textStyle="bold"
+        android:backgroundTint="@color/custom_turquoise"
+        android:layout_marginTop="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.976"
-        tools:ignore="MissingConstraints" />
-
-    <!--                android:backgroundTint="@color/green"-->
-    android:textColor="@android:color/white" />
-
+        app:layout_constraintTop_toBottomOf="@+id/material4"
+        tools:ignore="HardcodedText" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
