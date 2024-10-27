@@ -1,5 +1,6 @@
 package com.example.eduexamine
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
@@ -42,6 +43,8 @@ class DeleteAccountAdmin : AppCompatActivity() {
             val password = passwordEditText.text.toString().trim()
             if (email.isNotEmpty() && password.isNotEmpty()) {
                 deleteAccount(email, password)
+                val intent = Intent(this, WelcomeScreen::class.java)
+                startActivity(intent)
             } else {
                 Toast.makeText(this, "Please enter your email and password", Toast.LENGTH_SHORT).show()
             }
