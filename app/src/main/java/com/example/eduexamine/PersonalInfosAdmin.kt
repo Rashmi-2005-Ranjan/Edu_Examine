@@ -1,4 +1,5 @@
 package com.example.eduexamine
+
 import android.os.Bundle
 import android.widget.Button
 import android.widget.Toast
@@ -28,8 +29,10 @@ class PersonalInfosAdmin : AppCompatActivity() {
         dobEditText = findViewById(R.id.dobEditText)
         genderField = findViewById(R.id.gender)
 
+        // Load data when the activity is created
         loadUserData()
 
+        // Save data on button click
         findViewById<Button>(R.id.button6).setOnClickListener {
             saveUserData()
         }
@@ -37,19 +40,25 @@ class PersonalInfosAdmin : AppCompatActivity() {
 
     private fun loadUserData() {
         currentUserEmail?.let { email ->
-            db.collection("adminpersonalInfo").document(email).get()
+            db.collection("adminPersonalInfo") // Ensure consistent collection name
+                .document(email).get()
                 .addOnSuccessListener { document ->
                     if (document.exists()) {
-                        editFullName.setText(document.getString("EmergencyContact"))
-                        emailField.setText(document.getString("Address"))
-                        phnoField.setText(document.getString("Hobbies"))
-                        dobEditText.setText(document.getString("PreferredContact"))
-                        genderField.setText(document.getString("MotherTongue"))
+                        // Retrieve fields and set them to UI components
+                        editFullName.setText(document.getString("EmergencyContact") ?: "")
+                        emailField.setText(document.getString("Address") ?: "")
+                        phnoField.setText(document.getString("Hobbies") ?: "")
+                        dobEditText.setText(document.getString("PreferredContact") ?: "")
+                        genderField.setText(document.getString("MotherTongue") ?: "")
+                    } else {
+                        Toast.makeText(this, "No data found for this user", Toast.LENGTH_SHORT).show()
                     }
                 }
                 .addOnFailureListener {
                     Toast.makeText(this, "Failed to load data", Toast.LENGTH_SHORT).show()
                 }
+        } ?: run {
+            Toast.makeText(this, "User not authenticated", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -70,6 +79,8 @@ class PersonalInfosAdmin : AppCompatActivity() {
                 .addOnFailureListener {
                     Toast.makeText(this, "Failed to save data", Toast.LENGTH_SHORT).show()
                 }
+        } ?: run {
+            Toast.makeText(this, "User not authenticated", Toast.LENGTH_SHORT).show()
         }
     }
 }

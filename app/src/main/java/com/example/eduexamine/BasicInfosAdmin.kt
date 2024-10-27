@@ -2,15 +2,13 @@ package com.example.eduexamine
 
 import android.app.DatePickerDialog
 import android.os.Bundle
-import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Calendar
 
 class BasicInfosAdmin : AppCompatActivity() {
 
@@ -79,8 +77,8 @@ class BasicInfosAdmin : AppCompatActivity() {
         // Get the logged-in user's email
         val email = auth.currentUser?.email ?: return
 
-        // Replace '.' in email to create document ID
-        val documentId = email.replace(".", "_")
+        // Use the email directly as the document ID (Firestore doesn't allow '.' in document IDs, so replace it)
+        val documentId = email.replace("-", ".")
 
         // Retrieve user data from Firestore
         firestore.collection("adminBasicInfo").document(documentId)
@@ -92,7 +90,6 @@ class BasicInfosAdmin : AppCompatActivity() {
                     phoneEditText.setText(document.getString("phone"))
                     dobEditText.setText(document.getString("dob"))
                     genderEditText.setText(document.getString("gender"))
-                    // Optionally, set email to emailEditText if you want to display it
                     emailEditText.setText(email)
                 } else {
                     Toast.makeText(this, "No data found for this user", Toast.LENGTH_SHORT).show()
@@ -126,8 +123,8 @@ class BasicInfosAdmin : AppCompatActivity() {
             "gender" to gender
         )
 
-        // Save to Firestore with a unique document ID for each user (using email as an example)
-        val documentId = email.replace(".", "_") // Firestore doesn't allow '.' in document IDs
+        // Use the email directly as the document ID
+        val documentId = email.replace("_", ".") // Firestore doesn't allow '.' in document IDs
         firestore.collection("adminBasicInfo").document(documentId)
             .set(basicInfo)
             .addOnSuccessListener {
