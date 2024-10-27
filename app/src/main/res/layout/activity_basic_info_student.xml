@@ -43,6 +43,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edit_FullName"
             android:layout_width="match_parent"
+            android:inputType="text"
             android:layout_height="wrap_content"
             android:maxLength="200"
             android:textColor="@color/black" />
@@ -126,7 +127,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:clickable="true"
-            android:cursorVisible="false"
+            android:cursorVisible="true"
             android:drawableEnd="@drawable/ic_calender"
             android:focusable="false"
             android:inputType="none"
@@ -156,7 +157,7 @@
             android:id="@+id/gender"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="number"
+            android:inputType="text"
             android:maxLength="6"
             android:textColor="@color/black" />
     </com.google.android.material.textfield.TextInputLayout>
