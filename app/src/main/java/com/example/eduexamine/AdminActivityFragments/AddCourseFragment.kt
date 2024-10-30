@@ -17,6 +17,9 @@ import com.google.android.material.button.MaterialButton
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.switchmaterial.SwitchMaterial
 import com.google.android.material.textfield.TextInputEditText
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.firestore.FirebaseFirestore
 import java.util.*
 
 class AddCourseFragment : Fragment() {
@@ -38,6 +41,7 @@ class AddCourseFragment : Fragment() {
     private lateinit var uploadCourseMaterialButton: MaterialButton
 
     private var courseMaterialUri: Uri? = null
+    private lateinit var firestore: FirebaseFirestore
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -63,6 +67,10 @@ class AddCourseFragment : Fragment() {
         courseEndDate = view.findViewById(R.id.courseEndDate)
         courseActiveSwitch = view.findViewById(R.id.courseActiveSwitch)
         uploadCourseMaterialButton = view.findViewById(R.id.uploadCourseMaterialButton)
+
+
+
+        firestore = FirebaseFirestore.getInstance()
 
         // Setup logic for FAB button to show/hide the form
         setupFabButton()
@@ -105,9 +113,10 @@ class AddCourseFragment : Fragment() {
             val course = collectCourseData()
             if (course != null) {
                 // Show course details and hide form
-
+                saveCourseToFirestore(course)
                 val courseDetailView = createCourseDetailView(course)
                 courseDetailContainer.addView(courseDetailView)
+
 //                courseDetailText.text = formatCourseDetails(course)
 
 
@@ -164,6 +173,23 @@ class AddCourseFragment : Fragment() {
 
         return Course(name, code, description, duration, instructor, startDate, endDate, isActive, courseMaterialUri)
     }
+
+
+    private fun saveCourseToFirestore(course: Course) {
+        val courseId = firestore.collection("courses").document().id
+        firestore.collection("courses").document(courseId).set(course)
+            .addOnSuccessListener {
+                val courseDetailView = createCourseDetailView(course)
+                courseDetailContainer.addView(courseDetailView)
+                courseDetailContainer.visibility = View.VISIBLE
+                courseFormLayout.visibility = View.GONE
+                fab.show()
+            }
+            .addOnFailureListener {
+                Toast.makeText(context, "Failed to save course", Toast.LENGTH_SHORT).show()
+            }
+    }
+
 
     // Format course details for display
     private fun formatCourseDetails(course: Course): String {
