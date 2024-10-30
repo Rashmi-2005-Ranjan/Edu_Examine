@@ -10,6 +10,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:padding="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -18,7 +19,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingBottom="16dp">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -26,7 +28,7 @@
 
                 <ImageView
                     android:id="@+id/imageView"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="100dp"
                     android:scaleType="fitXY"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -46,11 +48,12 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
                 <TextView
                     android:id="@+id/textView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="8dp"
                     android:text="Account Holder Name"
                     android:textColor="@color/black"
                     android:textSize="25sp"
@@ -63,10 +66,10 @@
                     android:id="@+id/textView2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
                     android:text="accountholder@gmail.com"
                     android:textColor="@color/black"
-                    android:textSize="10sp"
-                    android:textStyle="normal"
+                    android:textSize="15sp"
                     app:layout_constraintEnd_toEndOf="@+id/textView"
                     app:layout_constraintStart_toStartOf="@+id/textView"
                     app:layout_constraintTop_toBottomOf="@+id/textView" />
@@ -77,12 +80,9 @@
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/button"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_marginStart="32dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="32dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
                 android:textColor="@color/black"
-                android:layout_marginBottom="10dp"
                 android:background="@drawable/btn_background_1"
                 android:drawableStart="@drawable/basicinfos"
                 android:drawablePadding="20dp"
@@ -95,12 +95,9 @@
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/button2"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="wrap_content"
                 android:textColor="@color/black"
-                android:layout_marginStart="32dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="32dp"
-                android:layout_marginBottom="10dp"
+                android:layout_margin="8dp"
                 android:background="@drawable/btn_background_1"
                 android:drawableStart="@drawable/educations"
                 android:drawablePadding="20dp"
@@ -113,12 +110,9 @@
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/button3"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="wrap_content"
                 android:textColor="@color/black"
-                android:layout_marginStart="32dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="32dp"
-                android:layout_marginBottom="10dp"
+                android:layout_margin="8dp"
                 android:background="@drawable/btn_background_1"
                 android:drawableStart="@drawable/personalinfos"
                 android:drawablePadding="20dp"
@@ -131,12 +125,8 @@
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/button4"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_marginStart="32dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="32dp"
-                android:textColor="@color/black"
-                android:layout_marginBottom="10dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
                 android:background="@drawable/btn_background_1"
                 android:drawableStart="@drawable/adminstrative"
                 android:drawablePadding="20dp"
@@ -144,42 +134,34 @@
                 android:text="Account Setting"
                 android:textAlignment="viewStart"
                 android:textSize="18sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:textColor="@color/black" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/button5"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_marginStart="32dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="32dp"
-                android:layout_marginBottom="10dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
                 android:background="@drawable/btn_background_1"
                 android:drawableStart="@drawable/socials"
                 android:drawablePadding="20dp"
-                android:textColor="@color/black"
                 android:paddingStart="20dp"
                 android:text="Social and Contact Links"
                 android:textAlignment="viewStart"
                 android:textSize="18sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:textColor="@color/black" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/backToMainButton"
                 android:layout_width="match_parent"
-                android:fontFamily="@font/aldrich"
                 android:layout_height="wrap_content"
-                android:layout_gravity="bottom|center_horizontal"
-                android:layout_marginStart="32dp"
-                android:layout_marginTop="30dp"
-                android:layout_marginEnd="32dp"
-                android:layout_marginBottom="10dp"
+                android:layout_margin="16dp"
                 android:background="@drawable/btn_background_2"
                 android:text="SAVE DETAILS"
                 android:textColor="#ffffff"
                 android:textSize="18sp"
                 android:textStyle="bold" />
-
 
         </LinearLayout>
     </ScrollView>
