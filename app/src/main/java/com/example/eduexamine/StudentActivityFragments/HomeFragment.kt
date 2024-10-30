@@ -39,10 +39,14 @@ class HomeFragment : Fragment() {
         welcomeTextView = view.findViewById(R.id.welcome_text)
         profileImageView = view.findViewById(R.id.student_profile_image) // ImageView for profile image
 
+        return view
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
         // Load user basic information
         loadUserInfo()
-
-        return view
     }
 
     private fun loadUserInfo() {
@@ -71,7 +75,11 @@ class HomeFragment : Fragment() {
 
         val profileRef = storageRef.reference.child("images/$documentId/profile.jpg")
         profileRef.downloadUrl.addOnSuccessListener { uri ->
-            Glide.with(this).load(uri).into(profileImageView) // Load image using Glide
+            if (isAdded) { // Ensure fragment is attached before loading image
+                Glide.with(this) // Use viewLifecycleOwner instead of `this`
+                    .load(uri)
+                    .into(profileImageView)
+            }
         }.addOnFailureListener {
             Toast.makeText(requireContext(), "Profile image not found.", Toast.LENGTH_SHORT).show()
         }
