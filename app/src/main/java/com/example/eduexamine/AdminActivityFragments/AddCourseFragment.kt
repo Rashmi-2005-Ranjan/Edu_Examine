@@ -8,7 +8,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
@@ -17,8 +16,6 @@ import com.google.android.material.button.MaterialButton
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.switchmaterial.SwitchMaterial
 import com.google.android.material.textfield.TextInputEditText
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.FirebaseFirestore
 import java.util.*
 
@@ -68,8 +65,6 @@ class AddCourseFragment : Fragment() {
         courseActiveSwitch = view.findViewById(R.id.courseActiveSwitch)
         uploadCourseMaterialButton = view.findViewById(R.id.uploadCourseMaterialButton)
 
-
-
         firestore = FirebaseFirestore.getInstance()
 
         // Setup logic for FAB button to show/hide the form
@@ -117,7 +112,6 @@ class AddCourseFragment : Fragment() {
                 val courseDetailView = createCourseDetailView(course)
                 courseDetailContainer.addView(courseDetailView)
 
-//                courseDetailText.text = formatCourseDetails(course)
 
 
                 courseDetailContainer.visibility = View.VISIBLE
@@ -190,18 +184,6 @@ class AddCourseFragment : Fragment() {
             }
     }
 
-
-    // Format course details for display
-    private fun formatCourseDetails(course: Course): String {
-        return "Course Name: ${course.name}\n" +
-                "Course Code: ${course.code}\n" +
-                "Instructor: ${course.instructor}\n" +
-                "Duration: ${course.duration} weeks\n" +
-                "Start Date: ${course.startDate}\n" +
-                "End Date: ${course.endDate}\n" +
-                "Active: ${course.isActive}\n" +
-                "Course Material: ${course.materialUri?.lastPathSegment ?: "Not Uploaded"}"
-    }
 
     // Create a view for displaying course details
     @SuppressLint("MissingInflatedId", "InflateParams")
