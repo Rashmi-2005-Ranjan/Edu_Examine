@@ -1,5 +1,6 @@
 package com.example.eduexamine.StudentActivityFragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.ArrayAdapter
 import android.widget.ListView
@@ -7,30 +8,28 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.eduexamine.R
 
-class Available_exam : AppCompatActivity() {
+class AvailableExam : AppCompatActivity() {
+
+    private lateinit var recyclerViewExams: RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_available_exam)
 
-        val examListView = findViewById<ListView>(R.id.examListView)
+        recyclerViewExams = findViewById(R.id.recyclerViewExams)
 
-        val exams = listOf(
-            "Mathematics Exam",
-            "Physics Exam",
-            "Chemistry Exam",
-            "Biology Exam",
-            "History Exam"
-        )
+        val examList = listOf("Math Exam", "Science Exam", "History Exam")
 
-        val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, exams)
-        examListView.adapter = adapter
-
-        examListView.setOnItemClickListener { _, _, position, _ ->
-            val selectedExam = exams[position]
-
+        recyclerViewExams.adapter = ExamAdapter(examList) { exam ->
+            val intent = Intent(this, AttemptExam::class.java)
+            intent.putExtra("EXAM_NAME", exam)
+            startActivity(intent)
         }
+
+        recyclerViewExams.layoutManager = LinearLayoutManager(this)
     }
 }

@@ -5,36 +5,37 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".StudentActivityFragments.Available_exam">
+    tools:context=".StudentActivityFragments.AvailableExam">
 
 
-<LinearLayout
-xmlns:android="http://schemas.android.com/apk/res/android"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-android:orientation="vertical"
-android:padding="16dp">
-
-<TextView
-    android:id="@+id/tvTitle"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="Available Exams"
-    android:textSize="24sp"
-    android:layout_gravity="center"
-    android:paddingBottom="16dp" />
-
-<ListView
-    android:id="@+id/examListView"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:divider="@android:color/darker_gray"
-    android:dividerHeight="1dp" />
-
-</LinearLayout>
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewExams"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:paddingBottom="16dp"
+            android:text="Available Exams"
+            android:textSize="24sp" />
+
+        <ListView
+            android:id="@+id/examListView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:divider="@android:color/darker_gray"
+            android:dividerHeight="1dp">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewExams"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </ListView>
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
