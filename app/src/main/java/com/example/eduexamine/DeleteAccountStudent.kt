@@ -6,6 +6,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -39,13 +40,28 @@ class DeleteAccountStudent : AppCompatActivity() {
         db = FirebaseFirestore.getInstance()
 
         deleteButton.setOnClickListener {
-            val email = emailEditText.text.toString().trim()
-            val password = passwordEditText.text.toString().trim()
-            if (email.isNotEmpty() && password.isNotEmpty()) {
-                deleteAccount(email, password)
-            } else {
-                Toast.makeText(this, "Please enter your email and password", Toast.LENGTH_SHORT).show()
+            val dialog = AlertDialog.Builder(this)
+            dialog.setTitle("Delete Your Account")
+            dialog.setMessage("Are You Sure You Want To Delete Your Account?")
+            dialog.setIcon(R.drawable.delete)
+            dialog.setPositiveButton("YES") { dialog, which ->
+                val email = emailEditText.text.toString().trim()
+                val password = passwordEditText.text.toString().trim()
+                if (email.isNotEmpty() && password.isNotEmpty()) {
+                    deleteAccount(email, password)
+                } else {
+                    Toast.makeText(this, "Please enter your email and password", Toast.LENGTH_SHORT).show()
+                }
             }
+            dialog.setNegativeButton("NO") { dialog, which ->
+                Toast.makeText(this, "You Clicked No", Toast.LENGTH_SHORT).show()
+            }
+            dialog.setNeutralButton("CANCEL") { dialog, which ->
+                Toast.makeText(this, "You Clicked Cancel", Toast.LENGTH_SHORT).show()
+            }
+            val alertDialog=dialog.create()
+            alertDialog.setCancelable(false)
+            alertDialog.show()
         }
     }
 

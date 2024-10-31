@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -33,14 +34,28 @@ class UpdatePassAdmin : AppCompatActivity() {
         val updateButton = findViewById<Button>(R.id.button10)
 
         updateButton.setOnClickListener {
-            val oldPassword = oldPasswordInput.text.toString()
-            val newPassword = newPasswordInput.text.toString()
+            val dialog = AlertDialog.Builder(this)
+            dialog.setTitle("Update Password")
+            dialog.setMessage("Are You Sure You Want To Update Your Password?")
+            dialog.setPositiveButton("YES") { text, listener ->
+                val oldPassword = oldPasswordInput.text.toString()
+                val newPassword = newPasswordInput.text.toString()
 
-            if (oldPassword.isNotEmpty() && newPassword.isNotEmpty()) {
-                reauthenticateAndChangePassword(oldPassword, newPassword)
-            } else {
-                Toast.makeText(this, "Please fill in both fields", Toast.LENGTH_SHORT).show()
+                if (oldPassword.isNotEmpty() && newPassword.isNotEmpty()) {
+                    reauthenticateAndChangePassword(oldPassword, newPassword)
+                } else {
+                    Toast.makeText(this, "Please fill in both fields", Toast.LENGTH_SHORT).show()
+                }
             }
+            dialog.setNegativeButton("NO") { text, listener ->
+                Toast.makeText(this, "No", Toast.LENGTH_SHORT).show()
+            }
+            dialog.setNeutralButton("CANCEL") { dialog, which ->
+                Toast.makeText(this, "You Clicked Cancel", Toast.LENGTH_SHORT).show()
+            }
+            val alertDialog = dialog.create()
+            alertDialog.setCancelable(false)
+            alertDialog.show()
         }
     }
 
@@ -57,14 +72,26 @@ class UpdatePassAdmin : AppCompatActivity() {
                         user.updatePassword(newPassword)
                             .addOnCompleteListener { updateTask ->
                                 if (updateTask.isSuccessful) {
-                                    Toast.makeText(this, "Password updated successfully", Toast.LENGTH_SHORT).show()
+                                    Toast.makeText(
+                                        this,
+                                        "Password updated successfully",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
                                     finish()
                                 } else {
-                                    Toast.makeText(this, "Failed to update password", Toast.LENGTH_SHORT).show()
+                                    Toast.makeText(
+                                        this,
+                                        "Failed to update password",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
                                 }
                             }
                     } else {
-                        Toast.makeText(this, "Re-authentication failed. Check your old password", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                            this,
+                            "Re-authentication failed. Check your old password",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
                 }
         } else {

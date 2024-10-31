@@ -6,6 +6,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -39,15 +40,30 @@ class DeleteAccountAdmin : AppCompatActivity() {
         db = FirebaseFirestore.getInstance()
 
         deleteButton.setOnClickListener {
-            val email = emailEditText.text.toString().trim()
-            val password = passwordEditText.text.toString().trim()
-            if (email.isNotEmpty() && password.isNotEmpty()) {
-                deleteAccount(email, password)
-                val intent = Intent(this, WelcomeScreen::class.java)
-                startActivity(intent)
-            } else {
-                Toast.makeText(this, "Please enter your email and password", Toast.LENGTH_SHORT).show()
+            val dialog = AlertDialog.Builder(this)
+            dialog.setTitle("Delete Account")
+            dialog.setMessage("Are You Sure You Want To Delete Your Account?")
+            dialog.setPositiveButton("YES") { text, listener ->
+                val email = emailEditText.text.toString().trim()
+                val password = passwordEditText.text.toString().trim()
+                if (email.isNotEmpty() && password.isNotEmpty()) {
+                    deleteAccount(email, password)
+                    val intent = Intent(this, WelcomeScreen::class.java)
+                    startActivity(intent)
+                } else {
+                    Toast.makeText(this, "Please enter your email and password", Toast.LENGTH_SHORT)
+                        .show()
+                }
             }
+            dialog.setNegativeButton("NO") { text, listener ->
+                Toast.makeText(this, "No", Toast.LENGTH_SHORT).show()
+            }
+            dialog.setNeutralButton("CANCEL") { dialog, which ->
+                Toast.makeText(this, "You Clicked Cancel", Toast.LENGTH_SHORT).show()
+            }
+            val alertdialog=dialog.create()
+            alertdialog.setCancelable(false)
+            alertdialog.show()
         }
     }
 
@@ -66,11 +82,19 @@ class DeleteAccountAdmin : AppCompatActivity() {
                             // Now delete data from Firestore for the specific email
                             deleteUserCollections(user.email ?: "")
                         } else {
-                            Toast.makeText(this, "Error deleting account: ${task.exception?.message}", Toast.LENGTH_LONG).show()
+                            Toast.makeText(
+                                this,
+                                "Error deleting account: ${task.exception?.message}",
+                                Toast.LENGTH_LONG
+                            ).show()
                         }
                     }
                 } else {
-                    Toast.makeText(this, "Re-authentication failed: ${reAuthTask.exception?.message}", Toast.LENGTH_LONG).show()
+                    Toast.makeText(
+                        this,
+                        "Re-authentication failed: ${reAuthTask.exception?.message}",
+                        Toast.LENGTH_LONG
+                    ).show()
                 }
             }
         } ?: run {
@@ -80,7 +104,12 @@ class DeleteAccountAdmin : AppCompatActivity() {
 
     private fun deleteUserCollections(email: String) {
         // Specify the collection names to delete documents associated with the email
-        val collections = listOf("adminBasicInfo", "adminPersonalInfo", "adminProfessionalInfo", "adminSocialMedia")
+        val collections = listOf(
+            "adminBasicInfo",
+            "adminPersonalInfo",
+            "adminProfessionalInfo",
+            "adminSocialMedia"
+        )
 
         // Use a batch operation to ensure atomicity (all or nothing)
         val batch = db.batch()
@@ -94,9 +123,17 @@ class DeleteAccountAdmin : AppCompatActivity() {
         // Commit the batch
         batch.commit().addOnCompleteListener { batchTask ->
             if (batchTask.isSuccessful) {
-                Toast.makeText(this, "Account and associated data deleted successfully", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    this,
+                    "Account and associated data deleted successfully",
+                    Toast.LENGTH_SHORT
+                ).show()
             } else {
-                Toast.makeText(this, "Error deleting user data: ${batchTask.exception?.message}", Toast.LENGTH_LONG).show()
+                Toast.makeText(
+                    this,
+                    "Error deleting user data: ${batchTask.exception?.message}",
+                    Toast.LENGTH_LONG
+                ).show()
             }
         }
     }

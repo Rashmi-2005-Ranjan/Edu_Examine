@@ -1,17 +1,16 @@
 package com.example.eduexamine
 
 import android.content.Intent
-import android.media.RouteListingPreference.Item
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.drawerlayout.widget.DrawerLayout
-import com.example.eduexamine.R
 import com.example.eduexamine.StudentActivityFragments.AcheivementFragment
 import com.example.eduexamine.StudentActivityFragments.CourseFragment
 import com.example.eduexamine.StudentActivityFragments.ExamFragment
@@ -91,16 +90,30 @@ class StudentHome : AppCompatActivity(), NavigationView.OnNavigationItemSelected
             R.id.nav_gexamp -> replaceFragment(ExamFragment())
             R.id.nav_result -> replaceFragment(ResultFragment())
             R.id.nav_logout -> {
-                // Perform sign out
-                FirebaseAuth.getInstance().signOut()
-                Toast.makeText(this, "Signing You Out", Toast.LENGTH_SHORT).show()
-                // Redirect to login activity or main page
-                val intent = Intent(this, WelcomeScreen::class.java)
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
-                startActivity(intent)
-                finish() // Finish current activity
+                val dialog=AlertDialog.Builder(this)
+                dialog.setTitle("Logout")
+                dialog.setMessage("Are You Sure You Want To Logout?")
+                dialog.setIcon(R.drawable.logoutn)
+                dialog.setPositiveButton("YES") { dialog, which ->
+                    // Perform sign out
+                    FirebaseAuth.getInstance().signOut()
+                    Toast.makeText(this, "Signing You Out", Toast.LENGTH_SHORT).show()
+                    // Redirect to login activity or main page
+                    val intent = Intent(this, WelcomeScreen::class.java)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
+                    startActivity(intent)
+                    finish() // Finish current activity
+                }
+                dialog.setNegativeButton("NO") { dialog, which ->
+                    Toast.makeText(this, "You Clicked No", Toast.LENGTH_SHORT).show()
+                }
+                dialog.setNeutralButton("CANCEL") { dialog, which ->
+                    Toast.makeText(this, "You Clicked Cancel", Toast.LENGTH_SHORT).show()
+                }
+                val alertDialog=dialog.create()
+                alertDialog.setCancelable(false)
+                alertDialog.show()
             }
-
 
             // Handle bottom navigation view item clicks
             R.id.homeb -> replaceFragment(HomeFragment()) // Example item ID

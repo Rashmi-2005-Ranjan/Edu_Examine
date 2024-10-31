@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -33,14 +34,29 @@ class UpdatePassStudent : AppCompatActivity() {
         val updateButton = findViewById<Button>(R.id.button10) // Update ID
 
         updateButton.setOnClickListener {
-            val oldPassword = oldPasswordInput.text.toString()
-            val newPassword = newPasswordInput.text.toString()
+            val dialog=AlertDialog.Builder(this)
+            dialog.setTitle("Update Password")
+            dialog.setMessage("Are You sure To Update Your Password?")
+            dialog.setIcon(R.drawable.update)
+            dialog.setPositiveButton("YES") { dialog, which ->
+                val oldPassword = oldPasswordInput.text.toString()
+                val newPassword = newPasswordInput.text.toString()
 
-            if (oldPassword.isNotEmpty() && newPassword.isNotEmpty()) {
-                reauthenticateAndChangePassword(oldPassword, newPassword)
-            } else {
-                Toast.makeText(this, "Please fill in both fields", Toast.LENGTH_SHORT).show()
+                if (oldPassword.isNotEmpty() && newPassword.isNotEmpty()) {
+                    reauthenticateAndChangePassword(oldPassword, newPassword)
+                } else {
+                    Toast.makeText(this, "Please fill out all fields", Toast.LENGTH_SHORT).show()
+                }
             }
+            dialog.setNegativeButton("NO") { dialog, which ->
+                Toast.makeText(this, "You Clicked No", Toast.LENGTH_SHORT).show()
+            }
+            dialog.setNeutralButton("CANCEL") { dialog, which ->
+                Toast.makeText(this, "You Clicked Cancel", Toast.LENGTH_SHORT).show()
+            }
+            val alertDialog = dialog.create()
+            alertDialog.setCancelable(false)
+            alertDialog.show()
         }
     }
 

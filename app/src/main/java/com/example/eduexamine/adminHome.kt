@@ -5,13 +5,20 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
-import com.example.eduexamine.AdminActivityFragments.*
+import com.example.eduexamine.AdminActivityFragments.AcceptApplicationFragment
+import com.example.eduexamine.AdminActivityFragments.AddCourseFragment
 import com.example.eduexamine.AdminActivityFragments.HomeFragment
+import com.example.eduexamine.AdminActivityFragments.ManageStudentFragment
 import com.example.eduexamine.AdminActivityFragments.ProfileFragment
-import com.example.eduexamine.StudentActivityFragments.*
+import com.example.eduexamine.AdminActivityFragments.PublishResultFragment
+import com.example.eduexamine.AdminActivityFragments.ScheduleExamFragment
+import com.example.eduexamine.AdminActivityFragments.SetAnswerFragment
+import com.example.eduexamine.AdminActivityFragments.SetPracticeQuestionFragment
+import com.example.eduexamine.AdminActivityFragments.StudentDetailsFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
@@ -77,13 +84,28 @@ class adminHome : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLi
             R.id.nav_seta -> replaceFragment(SetAnswerFragment())
             R.id.nav_sp -> replaceFragment(SetPracticeQuestionFragment())
             R.id.nav_logout -> {
-                FirebaseAuth.getInstance().signOut()
-                Toast.makeText(this, "Signing You Out", Toast.LENGTH_SHORT).show()
-                // Redirect to login activity or main page
-                val intent = Intent(this, WelcomeScreen::class.java)
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
-                startActivity(intent)
-                finish() // Finish current activity
+                val dialog=AlertDialog.Builder(this)
+                dialog.setTitle("Logout")
+                dialog.setMessage("Are You sure To Logout?")
+                dialog.setIcon(R.drawable.logoutn)
+                dialog.setPositiveButton("YES") { dialog, which ->
+                    FirebaseAuth.getInstance().signOut()
+                    Toast.makeText(this, "Signing You Out", Toast.LENGTH_SHORT).show()
+                    // Redirect to login activity or main page
+                    val intent = Intent(this, WelcomeScreen::class.java)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
+                    startActivity(intent)
+                    finish() // Finish current activity
+                }
+                dialog.setNegativeButton("NO") { dialog, which ->
+                    Toast.makeText(this, "You Clicked No", Toast.LENGTH_SHORT).show()
+                }
+                dialog.setNeutralButton("CANCEL") { dialog, which ->
+                    Toast.makeText(this, "You Clicked Cancel", Toast.LENGTH_SHORT).show()
+                }
+                val alertDialog=dialog.create()
+                alertDialog.setCancelable(false)
+                alertDialog.show()
             }
 
             // Bottom Navigation View item clicks
