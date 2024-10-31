@@ -32,4 +32,9 @@ android:padding="16dp">
     android:dividerHeight="1dp" />
 
 </LinearLayout>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewExams"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
