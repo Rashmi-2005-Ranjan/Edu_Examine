@@ -15,14 +15,24 @@
         android:theme="@style/Theme.EduExamine"
         tools:targetApi="31">
         <activity
+            android:name=".NAT"
+            android:exported="false" />
+        <activity
+            android:name=".MSQ"
+            android:exported="false" />
+        <activity
+            android:name=".MCQ"
+            android:exported="false" />
+        <activity
             android:name=".StudentActivityFragments.ShowExamFragment"
-            android:exported="true">
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
+            android:exported="false"/>
 
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
-        </activity>
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
         <activity
             android:name=".ForgotPasswordActivity"
             android:exported="false" />
@@ -61,13 +71,13 @@
             android:exported="false" />
         <activity
             android:name=".AcademicInfoStudent"
-            android:exported="true">
+            android:exported="false"/>
 
             <!-- <intent-filter> -->
             <!-- <action android:name="android.intent.action.MAIN" /> -->
             <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
             <!-- </intent-filter> -->
-        </activity>
+
         <activity
             android:name=".BasicInfoStudent"
             android:exported="false" />

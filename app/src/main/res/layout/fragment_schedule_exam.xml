@@ -1,19 +1,181 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".AdminActivityFragments.ScheduleExamFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:id="@+id/scheduleExamTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:text="Schedule Exam Here"
+        android:fontFamily="@font/aldrich"
+        android:textSize="25sp"
         android:textColor="@color/black"
-        android:gravity="center"
-        android:textSize="35sp"
         android:textStyle="bold"
-        />
+        android:gravity="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-</FrameLayout>
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/scheduleExamTextView"
+        android:padding="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/material1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Exam Title"
+                app:counterEnabled="true"
+                app:counterMaxLength="200"
+                app:endIconMode="clear_text"
+                app:helperText="Required *"
+                app:helperTextTextColor="#F44336"
+                app:hintTextColor="@color/black">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/examtitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:maxLength="200"
+                    android:textColor="@color/black" />
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/material2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Exam Code"
+                app:counterEnabled="true"
+                app:counterMaxLength="200"
+                app:endIconMode="clear_text"
+                app:helperText="Required *"
+                app:helperTextTextColor="#F44336"
+                app:hintTextColor="@color/black">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/examcode"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:maxLength="200"
+                    android:textColor="@color/black" />
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/material3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Eligibility"
+                app:counterEnabled="true"
+                app:counterMaxLength="200"
+                app:endIconMode="clear_text"
+                app:helperText="Required *"
+                app:helperTextTextColor="#F44336"
+                app:hintTextColor="@color/black">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/eligibility"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:maxLength="200"
+                    android:textColor="@color/black" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/selectedStartTimeTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:background="@color/accent_deep_purple"
+                android:clickable="true"
+                android:focusable="true"
+                android:fontFamily="@font/aldrich"
+                android:gravity="center"
+                android:padding="12dp"
+                android:text="Select Start Time"
+                android:textColor="@android:color/white"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:cornerRadius="8dp" />
+
+            <TextView
+                android:id="@+id/selectedEndTimeTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:background="@color/accent_deep_purple"
+                android:clickable="true"
+                android:focusable="true"
+                android:fontFamily="@font/aldrich"
+                android:gravity="center"
+                android:padding="12dp"
+                android:text="Select End Time"
+                android:textColor="@android:color/white"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:cornerRadius="8dp" />
+            <TextView
+                android:id="@+id/selectdate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:background="@color/accent_deep_purple"
+                android:clickable="true"
+                android:focusable="true"
+                android:fontFamily="@font/aldrich"
+                android:gravity="center"
+                android:padding="12dp"
+                android:text="Select Date"
+                android:textColor="@android:color/white"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:cornerRadius="8dp" />
+
+            <TextView
+                android:id="@+id/addquestion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:background="@color/accent_deep_purple"
+                android:clickable="true"
+                android:focusable="true"
+                android:fontFamily="@font/aldrich"
+                android:gravity="center"
+                android:padding="12dp"
+                android:text="Add Question"
+                android:textColor="@android:color/white"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:cornerRadius="8dp" />
+
+            <Button
+                android:id="@+id/scheduleExamButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:fontFamily="@font/aldrich"
+                android:text="Schedule Exam"
+                android:textStyle="bold"
+                android:textSize="25dp"
+                android:backgroundTint="@color/accent_deep_purple"
+                android:textColor="@android:color/white" />
+
+        </LinearLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
