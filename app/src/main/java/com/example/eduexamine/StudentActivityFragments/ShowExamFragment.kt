@@ -1,3 +1,7 @@
+package com.example.eduexamine.StudentActivityFragments
+
+import ExamAdapter
+import ExamFragment
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
