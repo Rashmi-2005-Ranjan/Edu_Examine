@@ -1,6 +1,7 @@
 package com.example.eduexamine
 
 import ExamFragment
+import ResultFragment
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
@@ -18,7 +19,6 @@ import com.example.eduexamine.StudentActivityFragments.HomeFragment
 import com.example.eduexamine.StudentActivityFragments.MarksheetFragment
 import com.example.eduexamine.StudentActivityFragments.NewApplyFragment
 import com.example.eduexamine.StudentActivityFragments.ProfileFragment
-import com.example.eduexamine.StudentActivityFragments.ResultFragment
 import com.example.eduexamine.StudentActivityFragments.ShowExamFragment
 import com.example.eduexamine.StudentActivityFragments.TrackingFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView

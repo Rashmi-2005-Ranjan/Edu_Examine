@@ -5,6 +5,7 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.eduexamine.R
+import com.example.eduexamine.StudentActivityFragments.Exam
 
 class ExamAdapter(private val exams: List<Exam>, private val onExamClick: (String) -> Unit) :
     RecyclerView.Adapter<ExamAdapter.ExamViewHolder>() {
@@ -21,9 +22,9 @@ class ExamAdapter(private val exams: List<Exam>, private val onExamClick: (Strin
 
     override fun onBindViewHolder(holder: ExamViewHolder, position: Int) {
         val exam = exams[position]
-        holder.examName.text = exam.subjectName // Show the subject name in the TextView
+        holder.examName.text = exam.subjectName // Use the property from the Exam data class
         holder.attemptButton.setOnClickListener {
-            onExamClick(exam.id) // Pass the exam ID when clicked
+            onExamClick(exam.id) // Pass the exam ID when the button is clicked
         }
     }
 
