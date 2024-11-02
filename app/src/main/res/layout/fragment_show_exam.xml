@@ -5,8 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".StudentActivityFragments.ShowExamFragment">
+    android:layout_height="match_parent">
 
     <!-- Title TextView for "Available Exams" -->
     <TextView

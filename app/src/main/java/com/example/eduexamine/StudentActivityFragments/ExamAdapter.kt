@@ -4,18 +4,14 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.eduexamine.Exam
 import com.example.eduexamine.R
 
+class ExamAdapter(private val exams: List<Exam>, private val onExamClick: (String) -> Unit) :
+    RecyclerView.Adapter<ExamAdapter.ExamViewHolder>() {
 
-class ExamAdapter(
-    private val examList: List<Exam>,
-    private val onAttemptClick: (String) -> Unit
-) : RecyclerView.Adapter<ExamAdapter.ExamViewHolder>() {
-
-    inner class ExamViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val subjectName = itemView.findViewById<TextView>(R.id.subjectName)
-        val attemptButton = itemView.findViewById<Button>(R.id.attemptButton)
+    class ExamViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val examName: TextView = itemView.findViewById(R.id.tvExamName)
+        val attemptButton: Button = itemView.findViewById(R.id.btnAttempt)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ExamViewHolder {
@@ -24,12 +20,12 @@ class ExamAdapter(
     }
 
     override fun onBindViewHolder(holder: ExamViewHolder, position: Int) {
-        val exam = examList[position]
-        holder.subjectName.text = exam.subjectName
+        val exam = exams[position]
+        holder.examName.text = exam.subjectName // Show the subject name in the TextView
         holder.attemptButton.setOnClickListener {
-            onAttemptClick(exam.id)
+            onExamClick(exam.id) // Pass the exam ID when clicked
         }
     }
 
-    override fun getItemCount() = examList.size
+    override fun getItemCount() = exams.size
 }
