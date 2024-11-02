@@ -1,35 +1,53 @@
-package com.example.eduexamine.StudentActivityFragments
-
-import android.content.Intent
 import android.os.Bundle
-import android.widget.ArrayAdapter
-import android.widget.ListView
-import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.eduexamine.R
+import com.google.firebase.firestore.FirebaseFirestore
 
-class ShowExamFragment : AppCompatActivity() {
-
+class ShowExamFragment : Fragment() {
     private lateinit var recyclerViewExams: RecyclerView
+    private lateinit var examAdapter: ExamAdapter
+    private val db = FirebaseFirestore.getInstance()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.fragment_show_exam)
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+    ): View? {
+        val view = inflater.inflate(R.layout.fragment_show_exam, container, false)
+        recyclerViewExams = view.findViewById(R.id.recyclerViewExams)
+        recyclerViewExams.layoutManager = LinearLayoutManager(requireContext())
 
-        recyclerViewExams = findViewById(R.id.recyclerViewExams)
+        loadExams()
+        return view
+    }
 
-        val examList = listOf("Math Exam", "Science Exam", "History Exam")
+    private fun loadExams() {
+        db.collection("Exams").whereEqualTo("is_available", true).get().addOnSuccessListener { documents ->
+            val exams = documents.map { document ->
+                Exam(
+                    document.id,
+                    document.getString("subject_name") ?: "",
+                    document.getString("exam_date") ?: "",
+                    document.getString("exam_duration") ?: ""
+                )
+            }
+            examAdapter = ExamAdapter(exams) { examId ->
+                // Navigate to ExamFragment with examId
+                val examFragment = ExamFragment()
+                val bundle = Bundle()
+                bundle.putString("EXAM_ID", examId.toString())
+                examFragment.arguments = bundle
 
-        recyclerViewExams.adapter = ExamAdapter(examList) { exam ->
-            val intent = Intent(this, ExamFragment::class.java)
-            intent.putExtra("EXAM_NAME", exam)
-            startActivity(intent)
+                // Replace the current fragment with ExamFragment
+                requireActivity().supportFragmentManager.beginTransaction()
+                    .replace(R.id.fragment_container, examFragment)
+                    .addToBackStack(null)
+                    .commit()
+            }
+            recyclerViewExams.adapter = examAdapter
         }
-
-        recyclerViewExams.layoutManager = LinearLayoutManager(this)
     }
 }
