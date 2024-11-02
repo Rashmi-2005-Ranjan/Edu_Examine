@@ -33,6 +33,21 @@ class show_added_courses : Fragment() {
         coursesAdapter = CoursesAdapter(coursesList)
         coursesRecyclerView.adapter = coursesAdapter
         fetchCourses()
+
+        coursesRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                // Implement scroll effect logic here
+                if (dy > 0) {
+                    // Scrolling down
+                    // Add your effect here
+                } else {
+                    // Scrolling up
+                    // Add your effect here
+                }
+            }
+        })
+
         return view
     }
 
