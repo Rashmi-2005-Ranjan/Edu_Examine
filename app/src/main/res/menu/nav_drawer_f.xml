@@ -28,6 +28,11 @@
             android:title="Add Course"
             />
         <item
+            android:id="@+id/nav_show_courses"
+            android:icon="@android:drawable/ic_input_add"
+            android:title="Show Courses" />
+
+        <item
             android:id="@+id/nav_sexamp"
             android:icon="@drawable/exam"
             android:title="Manage Exams"

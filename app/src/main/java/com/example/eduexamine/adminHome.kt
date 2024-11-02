@@ -2,6 +2,7 @@ package com.example.eduexamine
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -80,6 +81,10 @@ class adminHome : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLi
             R.id.nav_profile -> replaceFragment(ProfileFragment())
             R.id.nav_manage -> replaceFragment(ManageStudentFragment())
             R.id.nav_ac -> replaceFragment(AddCourseFragment())
+            R.id.nav_show_courses -> {
+                Log.d("adminHome", "Show Courses selected")
+                replaceFragment(show_added_courses())
+            }
             R.id.nav_sexamp -> replaceFragment(ScheduleExamFragment())
             R.id.nav_seta -> replaceFragment(SetAnswerFragment())
             R.id.nav_sp -> replaceFragment(SetPracticeQuestionFragment())
