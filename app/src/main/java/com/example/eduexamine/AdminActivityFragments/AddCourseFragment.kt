@@ -1,6 +1,6 @@
 package com.example.eduexamine.AdminActivityFragments
+
 import android.annotation.SuppressLint
-import com.example.eduexamine.R
 import android.app.DatePickerDialog
 import android.content.Intent
 import android.net.Uri
@@ -12,6 +12,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.example.eduexamine.R
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.switchmaterial.SwitchMaterial
@@ -44,10 +45,8 @@ class AddCourseFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_add_course, container, false)
 
-        // Initialize UI elements
         fab = view.findViewById(R.id.fab)
         courseFormLayout = view.findViewById(R.id.courseFormLayout)
         courseDetailContainer = view.findViewById(R.id.courseDetailContainer)
@@ -67,23 +66,17 @@ class AddCourseFragment : Fragment() {
 
         firestore = FirebaseFirestore.getInstance()
 
-        // Setup logic for FAB button to show/hide the form
         setupFabButton()
-
-        // Setup logic for submit and cancel buttons in the form
         setupFormButtons()
 
-        // Handle date picker for start date
         courseStartDate.setOnClickListener {
             showDatePicker { date -> courseStartDate.setText(date) }
         }
 
-        // Handle date picker for end date
         courseEndDate.setOnClickListener {
             showDatePicker { date -> courseEndDate.setText(date) }
         }
 
-        // Handle file upload
         uploadCourseMaterialButton.setOnClickListener {
             val intent = Intent(Intent.ACTION_GET_CONTENT)
             intent.type = "*/*"
@@ -93,21 +86,18 @@ class AddCourseFragment : Fragment() {
         return view
     }
 
-    // Setup logic for FAB button to show/hide the form
     private fun setupFabButton() {
         fab.setOnClickListener {
-            fab.hide()  // Hide the FAB when the form appears
+            fab.hide()
             courseFormLayout.visibility = View.VISIBLE
             courseDetailContainer.visibility = View.GONE
         }
     }
 
-    // Setup logic for submit and cancel buttons in the form
     private fun setupFormButtons() {
         submitButton.setOnClickListener {
             val course = collectCourseData()
             if (course != null) {
-                // Show course details and hide form
                 saveCourseToFirestore(course)
                 val courseDetailView = createCourseDetailView(course)
                 courseDetailContainer.addView(courseDetailView)
@@ -126,7 +116,6 @@ class AddCourseFragment : Fragment() {
         }
     }
 
-    // Show date picker logic
     private fun showDatePicker(onDatePicked: (String) -> Unit) {
         val calendar = Calendar.getInstance()
         val year = calendar.get(Calendar.YEAR)
@@ -140,7 +129,6 @@ class AddCourseFragment : Fragment() {
         datePickerDialog.show()
     }
 
-    // Handle file upload result
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == 1 && data != null) {
@@ -149,7 +137,6 @@ class AddCourseFragment : Fragment() {
         }
     }
 
-    // Collect course data from input fields
     private fun collectCourseData(): Course? {
         val name = courseNameInput.text.toString()
         val code = courseCodeInput.text.toString()
@@ -165,9 +152,8 @@ class AddCourseFragment : Fragment() {
             return null
         }
 
-        return Course(name, code, description, duration, instructor, startDate, endDate, isActive, courseMaterialUri)
+        return Course(name, code, description, duration, instructor, startDate, endDate, isActive, courseMaterialUri?.toString())
     }
-
 
     private fun saveCourseToFirestore(course: Course) {
         val courseId = firestore.collection("courses").document().id
@@ -184,8 +170,6 @@ class AddCourseFragment : Fragment() {
             }
     }
 
-
-    // Create a view for displaying course details
     @SuppressLint("MissingInflatedId", "InflateParams")
     private fun createCourseDetailView(course: Course): View {
         val courseView = LayoutInflater.from(context).inflate(R.layout.course_item_layout, null)
@@ -206,25 +190,21 @@ class AddCourseFragment : Fragment() {
         courseStartDateText.text = course.startDate
         courseEndDateText.text = course.endDate
 
-
-        // Style the container (border-radius, etc.)
         val containerLayout = courseView.findViewById<LinearLayout>(R.id.courseContainer)
         containerLayout.setBackgroundResource(R.drawable.course_item_background)
 
         return courseView
     }
 
-
-    // Course data model
     data class Course(
-        val name: String,
-        val code: String,
-        val description: String,
-        val duration: String,
-        val instructor: String,
-        val startDate: String,
-        val endDate: String,
-        val isActive: Boolean,
-        val materialUri: Uri?
+        val name: String = "",
+        val code: String = "",
+        val description: String = "",
+        val duration: String = "",
+        val instructor: String = "",
+        val startDate: String = "",
+        val endDate: String = "",
+        val isActive: Boolean = false,
+        val materialUri: String? = null
     )
 }
