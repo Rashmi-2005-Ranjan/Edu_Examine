@@ -14,26 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.EduExamine"
         tools:targetApi="31">
-        <activity
-            android:name=".StudentActivityFragments.AttemptExam"
-            android:exported="true">
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
 
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
-        </activity>
-        <activity
-            android:name=".StudentActivityFragments.AvailableExam"
-            android:exported="true">
-
-             <intent-filter>
-             <action android:name="android.intent.action.MAIN" />
-
-
-             <category android:name="android.intent.category.LAUNCHER" />
-             </intent-filter>
-        </activity>
         <activity
             android:name=".ForgotPasswordActivity"
             android:exported="false" />
@@ -107,11 +88,11 @@
         <activity
             android:name=".splashScreen"
             android:exported="true">
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".SignUpActivity"

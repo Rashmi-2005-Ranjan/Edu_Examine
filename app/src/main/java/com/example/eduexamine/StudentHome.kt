@@ -128,6 +128,13 @@ class StudentHome : AppCompatActivity(), NavigationView.OnNavigationItemSelected
         return true
     }
 
+    private fun replaceFragment(fragment: ShowExamFragment) {
+
+    }
+    private fun replaceFragment(fragment: ExamFragment) {
+
+    }
+
     // Function to replace fragments in the frame layout
     private fun replaceFragment(fragment: androidx.fragment.app.Fragment) {
         val transaction = supportFragmentManager.beginTransaction()
