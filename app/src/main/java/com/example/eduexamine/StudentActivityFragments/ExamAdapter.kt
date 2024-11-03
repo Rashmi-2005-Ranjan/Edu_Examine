@@ -1,20 +1,21 @@
+// ExamAdapter.kt
+package com.example.eduexamine
+
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.eduexamine.Exam
-import com.example.eduexamine.R
 
 class ExamAdapter(
     private val exams: List<Exam>,
-    private val onAttemptClick: (String) -> Unit
+    private val onAttemptClick: (Exam) -> Unit
 ) : RecyclerView.Adapter<ExamAdapter.ExamViewHolder>() {
 
-    class ExamViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val examName: TextView = view.findViewById(R.id.tvExamName)
-        val attemptButton: Button = view.findViewById(R.id.btnAttempt)
+    inner class ExamViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        val tvExamTitle: TextView = view.findViewById(R.id.tvExamTitle)
+        val btnAttempt: Button = view.findViewById(R.id.btnAttempt)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ExamViewHolder {
@@ -23,9 +24,10 @@ class ExamAdapter(
     }
 
     override fun onBindViewHolder(holder: ExamViewHolder, position: Int) {
-        holder.examName.text = exams[position].name
-        holder.attemptButton.setOnClickListener {
-            onAttemptClick(exams[position].name)
+        val exam = exams[position]
+        holder.tvExamTitle.text = exam.title
+        holder.btnAttempt.setOnClickListener {
+            onAttemptClick(exam)
         }
     }
 

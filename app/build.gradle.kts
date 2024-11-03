@@ -2,6 +2,12 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.google.gms.google.services)
+
+}
+dependencies {
+    implementation ("androidx.navigation:navigation-fragment-ktx:2.4.1")
+    implementation ("androidx.navigation:navigation-ui-ktx:2.4.1")
+    // Other dependencies...
 }
 
 android {
@@ -66,5 +72,9 @@ dependencies {
     implementation ("com.google.android.material:material:1.8.0")
     implementation ("com.squareup.picasso:picasso:2.71828")
     implementation ("androidx.recyclerview:recyclerview:1.2.1")
+    implementation ("androidx.navigation:navigation-fragment-ktx:2.6.0")
+    implementation( "androidx.navigation:navigation-ui-ktx:2.6.0" )
+
+
 
 }

@@ -1,116 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
-    tools:context=".StudentActivityFragments.ExamFragment"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+    <!-- res/layout/fragment_exam.xml -->
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:orientation="vertical"
-        android:padding="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:padding="16dp">
 
         <TextView
-            android:id="@+id/subjectNameTextView"
-            android:layout_width="match_parent"
+            android:id="@+id/tvExamTitle"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:fontFamily="@font/aldrich"
-            android:textStyle="bold"
-            android:layout_marginTop="30dp"
-            android:padding="8dp"
-            android:textSize="18sp"
-            android:text="Subject Name" />
+            android:text="Exam"
+            android:textSize="24sp"
+            android:layout_marginBottom="16dp"/>
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <TextView
-                android:id="@+id/quesno"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/aldrich"
-                android:textStyle="bold"
-                android:text="Question 1"
-                android:textSize="16sp"
-                android:padding="8dp" />
-            <TextView
-                android:id="@+id/questype"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:fontFamily="@font/aldrich"
-                android:textStyle="bold"
-                android:text="MCQ"
-                android:textSize="10sp"
-                android:padding="8dp" />
-        </LinearLayout>
-
-        <TextView
-            android:id="@+id/questionDesc"
+            android:id="@+id/questionContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="What is 2+2?"
-            android:textStyle="bold"
-            android:fontFamily="@font/aldrich"
-            android:textColor="@color/black"
-            android:textSize="16sp"
-            android:padding="8dp" />
-
-        <TextView
-            android:id="@+id/mark"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/aldrich"
-            android:textStyle="bold"
-            android:text="Mark"
-            android:textSize="10sp"
-            android:padding="8dp" />
-
-        <!-- Placeholder for answer options -->
-        <RadioGroup
-            android:id="@+id/optionsRadioGroup"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:orientation="vertical"/>
 
         <Button
-            android:id="@+id/submitAnswerButton"
+            android:id="@+id/btnSubmit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Submit Answer"
-            android:layout_gravity="center"
-            android:layout_marginTop="16dp"
-            android:fontFamily="@font/aldrich"
-            android:textStyle="bold" />
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <Button
-                android:id="@+id/prevButton"
-                android:layout_width="120dp"
-                android:layout_height="wrap_content"
-                android:text="Previous"
-                android:fontFamily="@font/aldrich"
-                android:textStyle="bold" />
-            <Button
-                android:id="@+id/nextButton"
-                android:layout_width="120dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:text="Next"
-                android:fontFamily="@font/aldrich"
-                android:textStyle="bold" />
-        </LinearLayout>
+            android:text="Submit Exam"
+            android:layout_marginTop="16dp"/>
     </LinearLayout>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

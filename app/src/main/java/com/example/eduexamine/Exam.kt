@@ -1,3 +1,6 @@
 package com.example.eduexamine
 
-data class Exam(val name: String)
+data class Exam(
+    val id: String,
+    val title: String
+)
