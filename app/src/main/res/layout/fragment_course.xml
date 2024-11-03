@@ -74,9 +74,21 @@
                 </LinearLayout>
 
                 <!-- Download Button -->
-
+                <Button
+                    android:id="@+id/download_button_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Download"
+                    android:layout_gravity="center_vertical"
+                    />
 
             </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray"
+                android:layout_marginBottom="12dp" />
 
             <!-- Another Resource Card -->
             <LinearLayout
@@ -124,9 +136,21 @@
                 </LinearLayout>
 
                 <!-- Download Button -->
-
+                <Button
+                    android:id="@+id/download_button_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Download"
+                    android:layout_gravity="center_vertical"
+                     />
 
             </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray"
+                android:layout_marginBottom="12dp" />
 
             <!-- Another Resource Card -->
             <LinearLayout
@@ -174,13 +198,269 @@
                 </LinearLayout>
 
                 <!-- Download Button -->
-
+                <Button
+                    android:id="@+id/download_button_3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Download"
+                    android:layout_gravity="center_vertical"
+                    />
 
             </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray"
+                android:layout_marginBottom="12dp" />
 
             <!-- Additional Resource Cards can be added similarly with unique IDs and download buttons -->
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="16dp"
+                android:layout_marginBottom="12dp"
+                android:elevation="4dp">
+
+                <!-- Icon or Thumbnail -->
+                <ImageView
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:contentDescription="Resource Thumbnail"
+                    android:layout_gravity="center_vertical"
+                    android:padding="8dp" />
+
+                <!-- Resource Details -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_marginStart="12dp">
+
+                    <!-- Resource Title -->
+                    <TextView
+                        android:id="@+id/resource_title_4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Course Resource 4"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <!-- Resource Description -->
+                    <TextView
+                        android:id="@+id/resource_description_4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="A brief description of Course Resource 4."
+                        android:textSize="14sp"
+                        android:layout_marginTop="4dp" />
+
+                </LinearLayout>
+
+                <!-- Download Button -->
+                <Button
+                    android:id="@+id/download_button_4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Download"
+                    android:layout_gravity="center_vertical"
+                    />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray"
+                android:layout_marginBottom="12dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="16dp"
+                android:layout_marginBottom="12dp"
+                android:elevation="4dp">
+
+                <!-- Icon or Thumbnail -->
+                <ImageView
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:contentDescription="Resource Thumbnail"
+                    android:layout_gravity="center_vertical"
+                    android:padding="8dp" />
+
+                <!-- Resource Details -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_marginStart="12dp">
+
+                    <!-- Resource Title -->
+                    <TextView
+                        android:id="@+id/resource_title_5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Course Resource 5"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <!-- Resource Description -->
+                    <TextView
+                        android:id="@+id/resource_description_5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="A brief description of Course Resource 5."
+                        android:textSize="14sp"
+                        android:layout_marginTop="4dp" />
+
+                </LinearLayout>
+
+                <!-- Download Button -->
+                <Button
+                    android:id="@+id/download_button_5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Download"
+                    android:layout_gravity="center_vertical"
+                    />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray"
+                android:layout_marginBottom="12dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="16dp"
+                android:layout_marginBottom="12dp"
+                android:elevation="4dp">
+
+                <!-- Icon or Thumbnail -->
+                <ImageView
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:contentDescription="Resource Thumbnail"
+                    android:layout_gravity="center_vertical"
+                    android:padding="8dp" />
+
+                <!-- Resource Details -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_marginStart="12dp">
+
+                    <!-- Resource Title -->
+                    <TextView
+                        android:id="@+id/resource_title_6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Course Resource 6"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <!-- Resource Description -->
+                    <TextView
+                        android:id="@+id/resource_description_6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="A brief description of Course Resource 6."
+                        android:textSize="14sp"
+                        android:layout_marginTop="4dp" />
+
+                </LinearLayout>
+
+                <!-- Download Button -->
+                <Button
+                    android:id="@+id/download_button_6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Download"
+                    android:layout_gravity="center_vertical"
+                    />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray"
+                android:layout_marginBottom="12dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="16dp"
+                android:layout_marginBottom="12dp"
+                android:elevation="4dp">
+
+                <!-- Icon or Thumbnail -->
+                <ImageView
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:contentDescription="Resource Thumbnail"
+                    android:layout_gravity="center_vertical"
+                    android:padding="8dp" />
+
+                <!-- Resource Details -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_marginStart="12dp">
+
+                    <!-- Resource Title -->
+                    <TextView
+                        android:id="@+id/resource_title_7"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Course Resource 7"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <!-- Resource Description -->
+                    <TextView
+                        android:id="@+id/resource_description_7"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="A brief description of Course Resource 7."
+                        android:textSize="14sp"
+                        android:layout_marginTop="4dp" />
+
+                </LinearLayout>
+
+                <!-- Download Button -->
+                <Button
+                    android:id="@+id/download_button_7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Download"
+                    android:layout_gravity="center_vertical"
+                    />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray"
+                android:layout_marginBottom="12dp" />
+
         </LinearLayout>
+
 
     </ScrollView>
 
