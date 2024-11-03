@@ -1,18 +1,121 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".StudentActivityFragments.NewApplyFragment">
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="@android:color/white">
 
-    <!-- TODO: Update blank fragment layout -->
+    <!-- Header Text -->
     <TextView
+        android:id="@+id/headerText"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Apply Again Here"
-        android:textColor="@color/black"
-        android:gravity="center"
-        android:textSize="35sp"
-        android:textStyle="bold"
-        />
-</FrameLayout>
+        android:layout_height="wrap_content"
+        android:text="          Apply again the exam here"
+        android:textSize="20sp"
+        android:textColor="@android:color/black"
+        android:layout_marginBottom="16dp"
+        android:textStyle="bold"/>
+
+    <!-- First Subject Item -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginBottom="16dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/subjectName1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Mathematics"
+                android:textSize="18sp"
+                android:textColor="@android:color/black"
+                android:layout_weight="1" />
+
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/examDate1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Exam Date: 11/15/2024"
+            android:textSize="14sp"
+            android:textColor="@android:color/darker_gray"
+            android:layout_marginTop="4dp" />
+    </LinearLayout>
+
+    <!-- Second Subject Item -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginBottom="16dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/subjectName2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Physics"
+                android:textSize="18sp"
+                android:textColor="@android:color/black"
+                android:layout_weight="1" />
+
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/examDate2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Exam Date: 11/20/2024"
+            android:textSize="14sp"
+            android:textColor="@android:color/darker_gray"
+            android:layout_marginTop="4dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginBottom="16dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/subjectName3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Physics"
+                android:textSize="18sp"
+                android:textColor="@android:color/black"
+                android:layout_weight="1" />
+
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/examDate3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Exam Date: 11/20/2024"
+            android:textSize="14sp"
+            android:textColor="@android:color/darker_gray"
+            android:layout_marginTop="4dp" />
+    </LinearLayout>
+</LinearLayout>
