@@ -25,7 +25,7 @@
             android:exported="false" />
         <activity
             android:name=".StudentActivityFragments.ShowExamFragment"
-            android:exported="true">
+            android:exported="false"/>
 
             <!-- <intent-filter> -->
             <!-- <action android:name="android.intent.action.MAIN" /> -->
@@ -33,7 +33,6 @@
 
             <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
             <!-- </intent-filter> -->
-        </activity>
         <activity
             android:name=".ForgotPasswordActivity"
             android:exported="false" />
@@ -72,13 +71,13 @@
             android:exported="false" />
         <activity
             android:name=".AcademicInfoStudent"
-            android:exported="true">
+            android:exported="false"/>
 
             <!-- <intent-filter> -->
             <!-- <action android:name="android.intent.action.MAIN" /> -->
             <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
             <!-- </intent-filter> -->
-        </activity>
+
         <activity
             android:name=".BasicInfoStudent"
             android:exported="false" />

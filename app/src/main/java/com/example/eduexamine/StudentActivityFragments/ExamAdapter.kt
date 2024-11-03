@@ -7,15 +7,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.eduexamine.Exam
 import com.example.eduexamine.R
 
-
 class ExamAdapter(
-    private val examList: List<Exam>,
+    private val exams: List<Exam>,
     private val onAttemptClick: (String) -> Unit
 ) : RecyclerView.Adapter<ExamAdapter.ExamViewHolder>() {
 
-    inner class ExamViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val subjectName = itemView.findViewById<TextView>(R.id.subjectName)
-        val attemptButton = itemView.findViewById<Button>(R.id.attemptButton)
+    class ExamViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        val examName: TextView = view.findViewById(R.id.tvExamName)
+        val attemptButton: Button = view.findViewById(R.id.btnAttempt)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ExamViewHolder {
@@ -24,12 +23,11 @@ class ExamAdapter(
     }
 
     override fun onBindViewHolder(holder: ExamViewHolder, position: Int) {
-        val exam = examList[position]
-        holder.subjectName.text = exam.subjectName
+        holder.examName.text = exams[position].name
         holder.attemptButton.setOnClickListener {
-            onAttemptClick(exam.id)
+            onAttemptClick(exams[position].name)
         }
     }
 
-    override fun getItemCount() = examList.size
+    override fun getItemCount(): Int = exams.size
 }

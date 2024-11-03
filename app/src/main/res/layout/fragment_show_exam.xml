@@ -5,10 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".StudentActivityFragments.ShowExamFragment">
+    android:layout_height="match_parent">
 
-    <!-- Title TextView for "Available Exams" -->
     <TextView
         android:id="@+id/tvTitle"
         android:layout_width="wrap_content"
@@ -21,17 +19,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="16dp"/>
 
-    <!-- RecyclerView for displaying list of exams -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewExams"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:divider="@android:color/darker_gray"
-        android:dividerHeight="1dp"
-        app:layout_constraintTop_toBottomOf="@id/tvTitle"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginTop="8dp"/>
-
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvTitle"
+        app:layout_constraintVertical_bias="0.595" />
 </androidx.constraintlayout.widget.ConstraintLayout>
