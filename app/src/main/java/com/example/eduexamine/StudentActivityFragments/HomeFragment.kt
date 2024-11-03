@@ -1,14 +1,20 @@
 package com.example.eduexamine.StudentActivityFragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
+import com.example.eduexamine.AccountSettingAdmin
+import com.example.eduexamine.AdminActivityFragments.AddCourseFragment
+import com.example.eduexamine.AdminActivityFragments.ScheduleExamFragment
+import com.example.eduexamine.AdminActivityFragments.SetAnswerFragment
 import com.example.eduexamine.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -47,6 +53,30 @@ class HomeFragment : Fragment() {
 
         // Load user basic information
         loadUserInfo()
+        // Set up click listeners for buttons
+        view.findViewById<Button>(R.id.btn_upcoming_exams).setOnClickListener {
+            val intent= Intent(context, ShowExamFragment::class.java)
+            startActivity(intent)
+            Toast.makeText(requireContext(), "SEE THE AVAILABLE EXAMS", Toast.LENGTH_SHORT).show()
+        }
+
+        view.findViewById<Button>(R.id.btn_results).setOnClickListener {
+            val intent= Intent(context, ResultFragment::class.java)
+            startActivity(intent)
+            Toast.makeText(requireContext(), "VIEW RESULT HERE", Toast.LENGTH_SHORT).show()
+        }
+
+        view.findViewById<Button>(R.id.btn_marksheet).setOnClickListener {
+            val intent= Intent(context, MarksheetFragment::class.java)
+            startActivity(intent)
+            Toast.makeText(requireContext(), "DOWNLOAD YOUR MARKSHEET", Toast.LENGTH_SHORT).show()
+        }
+
+        view.findViewById<Button>(R.id.btn_learning).setOnClickListener {
+            val intent= Intent(context, CourseFragment::class.java)
+            startActivity(intent)
+            Toast.makeText(requireContext(), "EXPLORE LEARNING RESOURCES", Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun loadUserInfo() {
@@ -76,7 +106,7 @@ class HomeFragment : Fragment() {
         val profileRef = storageRef.reference.child("images/$documentId/profile.jpg")
         profileRef.downloadUrl.addOnSuccessListener { uri ->
             if (isAdded) { // Ensure fragment is attached before loading image
-                Glide.with(this) // Use viewLifecycleOwner instead of `this`
+                Glide.with(this) // Use viewLifecycleOwner instead of this
                     .load(uri)
                     .into(profileImageView)
             }

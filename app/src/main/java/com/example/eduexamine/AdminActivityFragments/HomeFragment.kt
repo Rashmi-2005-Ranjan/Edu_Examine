@@ -1,6 +1,7 @@
 package com.example.eduexamine.AdminActivityFragments
 
 import android.animation.ObjectAnimator
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +13,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
+import com.example.eduexamine.AccountSettingAdmin
 import com.example.eduexamine.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -65,19 +67,27 @@ class HomeFragment : Fragment() {
 
         // Set up click listeners for buttons
         view.findViewById<Button>(R.id.btn_upcoming_exams).setOnClickListener {
-            // Handle Upcoming Exams button click
+            val intent=Intent(context,AddCourseFragment::class.java)
+            startActivity(intent)
+            Toast.makeText(requireContext(), "ADD COURSE HERE", Toast.LENGTH_SHORT).show()
         }
 
         view.findViewById<Button>(R.id.btn_results).setOnClickListener {
-            // Handle Results button click
+            val intent=Intent(context,ScheduleExamFragment::class.java)
+            startActivity(intent)
+            Toast.makeText(requireContext(), "SCHEDULE EXAM HERE", Toast.LENGTH_SHORT).show()
         }
 
         view.findViewById<Button>(R.id.btn_marksheet).setOnClickListener {
-            // Handle Marksheet button click
+            val intent=Intent(context,AccountSettingAdmin::class.java)
+            startActivity(intent)
+            Toast.makeText(requireContext(), "NAVIGATING TO SETTING PAGE", Toast.LENGTH_SHORT).show()
         }
 
         view.findViewById<Button>(R.id.btn_learning).setOnClickListener {
-            // Handle Learning Resources button click
+            val intent=Intent(context,SetAnswerFragment::class.java)
+            startActivity(intent)
+            Toast.makeText(requireContext(), "SET ANSWER KEY HERE", Toast.LENGTH_SHORT).show()
         }
     }
 
