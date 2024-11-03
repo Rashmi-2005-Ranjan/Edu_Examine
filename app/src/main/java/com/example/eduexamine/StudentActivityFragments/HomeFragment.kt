@@ -106,7 +106,7 @@ class HomeFragment : Fragment() {
         val profileRef = storageRef.reference.child("images/$documentId/profile.jpg")
         profileRef.downloadUrl.addOnSuccessListener { uri ->
             if (isAdded) { // Ensure fragment is attached before loading image
-                Glide.with(this) // Use viewLifecycleOwner instead of `this`
+                Glide.with(this) // Use viewLifecycleOwner instead of this
                     .load(uri)
                     .into(profileImageView)
             }

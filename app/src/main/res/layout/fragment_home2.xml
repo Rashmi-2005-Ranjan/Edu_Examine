@@ -102,7 +102,7 @@
                 android:layout_gravity="center"
                 android:layout_marginBottom="8dp"
                 android:backgroundTint="#001DD8"
-                android:drawableLeft="@drawable/ic_menu"
+                android:drawableLeft="@android:drawable/ic_input_add"
                 android:padding="12dp"
                 android:text="Add courses"
                 android:textColor="@color/white" />
@@ -116,7 +116,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
                 android:backgroundTint="#001DD8"
-                android:drawableLeft="@drawable/viewresult"
+                android:drawableLeft="@drawable/managee"
                 android:padding="12dp"
                 android:text="Manage Exams"
                 android:textColor="@color/white" />
@@ -129,7 +129,7 @@
                 android:layout_marginTop="15dp"
                 android:layout_marginBottom="8dp"
                 android:backgroundTint="#001DD8"
-                android:drawableLeft="@drawable/setpr"
+                android:drawableLeft="@drawable/baseline_settings_24"
                 android:padding="12dp"
                 android:text="Account Settings"
                 android:textColor="@color/white" />
@@ -142,7 +142,7 @@
                 android:layout_marginTop="15dp"
                 android:layout_marginBottom="8dp"
                 android:backgroundTint="#001DD8"
-                android:drawableLeft="@drawable/learning"
+                android:drawableLeft="@drawable/answer"
                 android:padding="12dp"
                 android:text="Set Answer Sheet"
                 android:textColor="@color/white" />

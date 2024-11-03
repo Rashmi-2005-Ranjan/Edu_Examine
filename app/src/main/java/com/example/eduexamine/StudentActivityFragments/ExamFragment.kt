@@ -34,7 +34,6 @@ class ExamFragment : Fragment() {
         loadExamDetails(examId)
 
         submitAnswerButton.setOnClickListener {
-            // Handle answer submission
             val selectedOptionId = optionsRadioGroup.checkedRadioButtonId
             if (selectedOptionId != -1) {
                 val selectedAnswer = view.findViewById<RadioButton>(selectedOptionId).text.toString()
@@ -52,7 +51,6 @@ class ExamFragment : Fragment() {
             if (document != null) {
                 val subjectName = document.getString("subject_name") ?: "Unknown Subject"
                 subjectNameTextView.text = "Subject: $subjectName"
-                // Load questions and options here (placeholder for demonstration)
                 questionTextView.text = "Question 1: What is 2+2?"
             }
         }.addOnFailureListener {
