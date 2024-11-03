@@ -25,16 +25,7 @@
         <activity
             android:name=".MCQ"
             android:exported="false" />
-        <activity
-            android:name=".StudentActivityFragments.ShowExamFragment"
-            android:exported="false"/>
 
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN" /> -->
-
-
-            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-            <!-- </intent-filter> -->
         <activity
             android:name=".ForgotPasswordActivity"
             android:exported="false" />

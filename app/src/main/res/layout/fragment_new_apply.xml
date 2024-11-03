@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
@@ -12,13 +13,21 @@
         android:id="@+id/headerText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="          Apply again the exam here"
+        android:text="           Apply again the exam here"
         android:textSize="20sp"
         android:textColor="@android:color/black"
         android:layout_marginBottom="16dp"
         android:textStyle="bold"/>
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:overScrollMode="never">
     <!-- First Subject Item -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -34,12 +43,17 @@
                 android:id="@+id/subjectName1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Mathematics"
+                android:text="subjectName1"
                 android:textSize="18sp"
                 android:textColor="@android:color/black"
                 android:layout_weight="1" />
 
-
+            <Button
+                android:id="@+id/applyButton1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Apply"
+                android:textColor="@android:color/white" />
         </LinearLayout>
 
         <TextView
@@ -50,8 +64,13 @@
             android:textSize="14sp"
             android:textColor="@android:color/darker_gray"
             android:layout_marginTop="4dp" />
-    </LinearLayout>
 
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"
+        android:layout_marginBottom="12dp" />
     <!-- Second Subject Item -->
     <LinearLayout
         android:layout_width="match_parent"
@@ -68,12 +87,17 @@
                 android:id="@+id/subjectName2"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Physics"
+                android:text="subjectName2"
                 android:textSize="18sp"
                 android:textColor="@android:color/black"
                 android:layout_weight="1" />
 
-
+            <Button
+                android:id="@+id/applyButton2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Apply"
+                android:textColor="@android:color/white" />
         </LinearLayout>
 
         <TextView
@@ -85,7 +109,11 @@
             android:textColor="@android:color/darker_gray"
             android:layout_marginTop="4dp" />
     </LinearLayout>
-
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"
+        android:layout_marginBottom="12dp" />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -101,12 +129,17 @@
                 android:id="@+id/subjectName3"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Physics"
+                android:text="subjectName3"
                 android:textSize="18sp"
                 android:textColor="@android:color/black"
                 android:layout_weight="1" />
 
-
+            <Button
+                android:id="@+id/applyButton3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Apply"
+                android:textColor="@android:color/white" />
         </LinearLayout>
 
         <TextView
@@ -118,4 +151,219 @@
             android:textColor="@android:color/darker_gray"
             android:layout_marginTop="4dp" />
     </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"
+        android:layout_marginBottom="12dp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginBottom="16dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/subjectName4"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="subjectName4"
+                android:textSize="18sp"
+                android:textColor="@android:color/black"
+                android:layout_weight="1" />
+
+            <Button
+                android:id="@+id/applyButton4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Apply"
+                android:textColor="@android:color/white" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/examDate4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Exam Date: 11/20/2024"
+            android:textSize="14sp"
+            android:textColor="@android:color/darker_gray"
+            android:layout_marginTop="4dp" />
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"
+        android:layout_marginBottom="12dp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginBottom="16dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/subjectName6"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="subjectName6"
+                android:textSize="18sp"
+                android:textColor="@android:color/black"
+                android:layout_weight="1" />
+
+            <Button
+                android:id="@+id/applyButton6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Apply"
+                android:textColor="@android:color/white" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/examDate6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Exam Date: 11/20/2024"
+            android:textSize="14sp"
+            android:textColor="@android:color/darker_gray"
+            android:layout_marginTop="4dp" />
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"
+        android:layout_marginBottom="12dp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginBottom="16dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/subjectName7"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="subjectName7"
+                android:textSize="18sp"
+                android:textColor="@android:color/black"
+                android:layout_weight="1" />
+
+            <Button
+                android:id="@+id/applyButton7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Apply"
+                android:textColor="@android:color/white" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/examDate7"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Exam Date: 11/20/2024"
+            android:textSize="14sp"
+            android:textColor="@android:color/darker_gray"
+            android:layout_marginTop="4dp" />
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"
+        android:layout_marginBottom="12dp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginBottom="16dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/subjectName8"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="subjectName8"
+                android:textSize="18sp"
+                android:textColor="@android:color/black"
+                android:layout_weight="1" />
+
+            <Button
+                android:id="@+id/applyButton8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Apply"
+                android:textColor="@android:color/white"
+                tools:ignore="TouchTargetSizeCheck" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/examDate8"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Exam Date: 11/20/2024"
+            android:textSize="14sp"
+            android:textColor="@android:color/darker_gray"
+            android:layout_marginTop="4dp" />
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"
+        android:layout_marginBottom="12dp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginBottom="16dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/subjectName9"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Physics"
+                android:textSize="18sp"
+                android:textColor="@android:color/black"
+                android:layout_weight="1" />
+
+            <Button
+                android:id="@+id/applyButton9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Apply"
+                android:textColor="@android:color/white" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/examDate9"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Exam Date: 11/20/2024"
+            android:textSize="14sp"
+            android:textColor="@android:color/darker_gray"
+            android:layout_marginTop="4dp" />
+    </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
 </LinearLayout>
