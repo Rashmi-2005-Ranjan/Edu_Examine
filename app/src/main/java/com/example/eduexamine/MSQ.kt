@@ -79,7 +79,8 @@ class MSQ : AppCompatActivity() {
             "optionB" to optionB,
             "optionC" to optionC,
             "optionD" to optionD,
-            "type" to "MSQ"
+            "type" to "MSQ",
+            "mark" to 1
         )
 
         // Save data to Firestore

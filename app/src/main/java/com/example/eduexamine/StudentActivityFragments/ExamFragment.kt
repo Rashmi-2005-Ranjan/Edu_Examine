@@ -25,7 +25,7 @@ class ExamFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_exam, container, false)
 
         subjectNameTextView = view.findViewById(R.id.subjectNameTextView)
-        questionTextView = view.findViewById(R.id.questionTextView)
+//        questionTextView = view.findViewById(R.id.questionTextView)
         optionsRadioGroup = view.findViewById(R.id.optionsRadioGroup)
         submitAnswerButton = view.findViewById(R.id.submitAnswerButton)
 

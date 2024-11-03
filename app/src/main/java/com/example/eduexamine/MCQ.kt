@@ -79,7 +79,8 @@ class MCQ : AppCompatActivity() {
             "option2" to optionB,  // Changed from optionB to option2
             "option3" to optionC,  // Changed from optionC to option3
             "option4" to optionD,   // Changed from optionD to option4
-            "type" to "MCQ"        // Adding the type field
+            "type" to "MCQ"   ,// Adding the type field
+            "mark" to 1
         )
 
         // Save data to Firestore

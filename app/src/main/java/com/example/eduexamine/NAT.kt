@@ -60,7 +60,8 @@ class NAT : AppCompatActivity() {
         // Prepare data for Firestore
         val natData = hashMapOf(
             "question" to question,
-            "type" to "NAT"
+            "type" to "NAT",
+            "mark" to 2
         )
 
         // Save data to Firestore

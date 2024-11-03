@@ -181,7 +181,7 @@ class ScheduleExamFragment : Fragment() {
         db.collection("exams").add(examData)
             .addOnSuccessListener { documentReference ->
                 Toast.makeText(requireContext(), "Exam scheduled successfully!", Toast.LENGTH_SHORT).show()
-                fetchQuestionsForExam(documentReference.id) // Pass the exam ID for questions
+                fetchQuestionsForExam(documentReference.id, eligibility) // Pass the exam ID and eligibility group
                 clearFields()
             }
             .addOnFailureListener { e ->
@@ -193,8 +193,7 @@ class ScheduleExamFragment : Fragment() {
             }
     }
 
-
-    private fun fetchQuestionsForExam(userEmail: String) {
+    private fun fetchQuestionsForExam(examId: String, eligibilityGroup: String) {
         val questionsList = mutableListOf<Map<String, Any>>()
 
         // Fetch MCQ questions
@@ -206,7 +205,7 @@ class ScheduleExamFragment : Fragment() {
                     questionsList.add(document.data)
                 }
                 // After fetching MCQ questions, fetch MSQ questions
-                fetchMSQQuestions(questionsList, userEmail)
+                fetchMSQQuestions(questionsList, examId, eligibilityGroup)
             }
             .addOnFailureListener { e ->
                 Toast.makeText(
@@ -217,7 +216,7 @@ class ScheduleExamFragment : Fragment() {
             }
     }
 
-    private fun fetchMSQQuestions(questionsList: MutableList<Map<String, Any>>, userEmail: String) {
+    private fun fetchMSQQuestions(questionsList: MutableList<Map<String, Any>>, examId: String, eligibilityGroup: String) {
         db.collection("questions")
             .whereEqualTo("type", "MSQ")
             .get()
@@ -226,7 +225,7 @@ class ScheduleExamFragment : Fragment() {
                     questionsList.add(document.data)
                 }
                 // After fetching MSQ questions, fetch NAT questions
-                fetchNATQuestions(questionsList, userEmail)
+                fetchNATQuestions(questionsList, examId, eligibilityGroup)
             }
             .addOnFailureListener { e ->
                 Toast.makeText(
@@ -237,7 +236,7 @@ class ScheduleExamFragment : Fragment() {
             }
     }
 
-    private fun fetchNATQuestions(questionsList: MutableList<Map<String, Any>>, userEmail: String) {
+    private fun fetchNATQuestions(questionsList: MutableList<Map<String, Any>>, examId: String, eligibilityGroup: String) {
         db.collection("questions")
             .whereEqualTo("type", "NAT")
             .get()
@@ -246,7 +245,7 @@ class ScheduleExamFragment : Fragment() {
                     questionsList.add(document.data)
                 }
                 // Save the complete questions list to the exam document
-                saveQuestionsToExam(questionsList, userEmail)
+                saveQuestionsToExam(questionsList, examId, eligibilityGroup)
             }
             .addOnFailureListener { e ->
                 Toast.makeText(
@@ -257,20 +256,66 @@ class ScheduleExamFragment : Fragment() {
             }
     }
 
-    private fun saveQuestionsToExam(questionsList: List<Map<String, Any>>, userEmail: String) {
-        // Save questions in the specific user's exam document
-        db.collection("exams").document(userEmail).update("questions", questionsList)
-            .addOnSuccessListener {
-                Toast.makeText(requireContext(), "Questions added to the exam!", Toast.LENGTH_SHORT).show()
+    private fun saveQuestionsToExam(questionsList: List<Map<String, Any>>, examId: String, eligibilityGroup: String) {
+        // Fetch eligible students based on eligibilityGroup and use a callback to handle the result
+        getEligibleStudents(eligibilityGroup) { eligibleStudents ->
+            // Ensure eligibleStudents is a List<String>
+            if (eligibleStudents.isEmpty() || questionsList.isEmpty()) {
+                Toast.makeText(requireContext(), "No questions or eligible students found!", Toast.LENGTH_SHORT).show()
+                return@getEligibleStudents
+            }
+
+            // Update the exam document with the questions list and eligible students
+            db.collection("exams").document(examId)
+                .update(
+                    mapOf(
+                        "questions" to questionsList,
+                        "eligibleStudents" to eligibleStudents
+                    )
+                )
+                .addOnSuccessListener {
+                    Toast.makeText(requireContext(), "Questions added to the exam successfully!", Toast.LENGTH_SHORT).show()
+                }
+                .addOnFailureListener { e ->
+                    Toast.makeText(
+                        requireContext(),
+                        "Error adding questions to the exam: ${e.message}",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+        }
+    }
+
+    private fun getEligibleStudents(eligibilityGroup: String, callback: (List<String>) -> Unit) {
+        val eligibleStudents = mutableListOf<String>()
+
+        // Query the studentGroups collection
+        db.collection("groups")
+            .document(FirebaseAuth.getInstance().currentUser?.email ?: "")
+            .collection("studentGroups")
+            .document(eligibilityGroup)
+            .collection("students")
+            .get()
+            .addOnSuccessListener { documents ->
+                for (document in documents) {
+                    // Add each student's email to the list
+                    val email = document.getString("email")
+                    if (!email.isNullOrEmpty()) {
+                        eligibleStudents.add(email)
+                    }
+                }
+                Toast.makeText(requireContext(), "Eligible students fetched successfully!", Toast.LENGTH_SHORT).show()
+                // Invoke the callback with the fetched eligible students
+                callback(eligibleStudents)
             }
             .addOnFailureListener { e ->
-                Toast.makeText(
-                    requireContext(),
-                    "Error saving questions: ${e.message}",
-                    Toast.LENGTH_SHORT
-                ).show()
+                Toast.makeText(requireContext(), "Error fetching eligible students: ${e.message}", Toast.LENGTH_SHORT).show()
+                // Invoke the callback with an empty list in case of failure
+                callback(emptyList())
             }
     }
+
+
 
     private fun clearFields() {
         examTitleEditText.text?.clear()
@@ -281,3 +326,5 @@ class ScheduleExamFragment : Fragment() {
         selectDateTextView.text = "Select Date"
     }
 }
+
+
