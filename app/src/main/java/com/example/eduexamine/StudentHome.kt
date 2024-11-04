@@ -14,12 +14,14 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.example.eduexamine.StudentActivityFragments.AcheivementFragment
 import com.example.eduexamine.StudentActivityFragments.CourseFragment
+import com.example.eduexamine.StudentActivityFragments.ExamFragment
 import com.example.eduexamine.StudentActivityFragments.HomeFragment
 import com.example.eduexamine.StudentActivityFragments.MarksheetFragment
 import com.example.eduexamine.StudentActivityFragments.NewApplyFragment
+import com.example.eduexamine.StudentActivityFragments.ShowExamFragment
+
 import com.example.eduexamine.StudentActivityFragments.ProfileFragment
 import com.example.eduexamine.StudentActivityFragments.TrackingFragment
-import com.example.yourapp.ShowExamFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth

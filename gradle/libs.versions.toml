@@ -1,20 +1,20 @@
 [versions]
-agp = "8.5.1"
-kotlin = "1.9.0"
-coreKtx = "1.13.1"
+agp = "8.5.2"
+kotlin = "1.9.24"
+coreKtx = "1.15.0"
 junit = "4.13.2"
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
 appcompat = "1.7.0"
 material = "1.12.0"
-activity = "1.9.2"
-constraintlayout = "2.1.4"
+activity = "1.9.3"
+constraintlayout = "2.2.0"
 googleGmsGoogleServices = "4.4.2"
-firebaseAuth = "23.0.0"
+firebaseAuth = "23.1.0"
 firebaseDatabase = "21.0.0"
-firebaseFirestoreKtx = "25.1.0"
+firebaseFirestoreKtx = "25.1.1"
 firebaseStorageKtx = "21.0.1"
-firebaseFirestore = "25.1.0"
+firebaseFirestore = "25.1.1"
 firebaseStorage = "21.0.1"
 navigationFragmentKtx = "2.8.3"
 recyclerview = "1.3.2"
@@ -41,4 +41,6 @@ androidx-recyclerview = { group = "androidx.recyclerview", name = "recyclerview"
 android-application = { id = "com.android.application", version.ref = "agp" }
 jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 google-gms-google-services = { id = "com.google.gms.google-services", version.ref = "googleGmsGoogleServices" }
+androidx-navigation-safe-args = { id = "androidx.navigation.safeargs", version = "2.8.3" }  # Replace with the latest version
+
 

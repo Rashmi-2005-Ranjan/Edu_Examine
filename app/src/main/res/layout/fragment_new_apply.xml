@@ -198,6 +198,49 @@
         android:layout_height="1dp"
         android:background="@android:color/darker_gray"
         android:layout_marginBottom="12dp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginBottom="16dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/subjectName5"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="subjectName1"
+                        android:textSize="18sp"
+                        android:textColor="@android:color/black"
+                        android:layout_weight="1" />
+
+                    <Button
+                        android:id="@+id/applyButton5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Apply"
+                        android:textColor="@android:color/white" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/examDate5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Exam Date: 11/15/2024"
+                    android:textSize="14sp"
+                    android:textColor="@android:color/darker_gray"
+                    android:layout_marginTop="4dp" />
+
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray"
+                android:layout_marginBottom="12dp" />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

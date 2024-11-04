@@ -1,5 +1,4 @@
-// ShowExamFragment.kt
-package com.example.yourapp
+package com.example.eduexamine.StudentActivityFragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,7 +10,8 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.eduexamine.R
 
-class ShowExamFragment : Fragment() {
+class
+ShowExamFragment : Fragment() {
 
     private lateinit var listView: ListView
 
@@ -27,7 +27,7 @@ class ShowExamFragment : Fragment() {
         listView.adapter = adapter
 //
 //        listView.setOnItemClickListener { _, _, position, _ ->
-//            val topicId = position + 1 // Assuming ID starts from 1
+//            val topicId = (position + 1).toString()  // Convert to String to match argument type
 //            val action = ShowExamFragmentDirections.actionShowExamFragmentToExamFragment(topicId)
 //            findNavController().navigate(action)
 //        }

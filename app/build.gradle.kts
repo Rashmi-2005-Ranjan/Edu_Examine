@@ -2,13 +2,14 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.google.gms.google.services)
-
+    id ("androidx.navigation.safeargs".toString())
 }
 dependencies {
     implementation ("androidx.navigation:navigation-fragment-ktx:2.4.1")
     implementation ("androidx.navigation:navigation-ui-ktx:2.4.1")
     // Other dependencies...
 }
+
 
 android {
     namespace = "com.example.eduexamine"
