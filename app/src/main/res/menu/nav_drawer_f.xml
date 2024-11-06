@@ -1,68 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:showIn="navigation_view"
-    >
+    tools:showIn="navigation_view">
 
     <group
         android:checkableBehavior="single"
         android:id="@+id/gr1">
-
         <item
             android:id="@+id/nav_profile"
             android:icon="@drawable/profile"
-            android:title="My Profile"
-            />
+            android:title="My Profile" />
         <item
             android:id="@+id/nav_manage"
             android:icon="@drawable/manage"
-            android:title="Manage Students"
-            />
+            android:title="Manage Students" />
     </group>
+
+    <group
+        android:checkableBehavior="single"
+        android:id="@+id/gr5">
+        <item
+            android:id="@+id/nav_sexamp"
+            android:icon="@drawable/exam"
+            android:title="Manage Exams" />
+
+    </group>
+
     <group
         android:checkableBehavior="single"
         android:id="@+id/gr2">
         <item
             android:id="@+id/nav_ac"
             android:icon="@android:drawable/ic_input_add"
-            android:title="Add Course"
-            />
+            android:title="Add Course" />
         <item
             android:id="@+id/nav_show_courses"
-            android:icon="@android:drawable/ic_input_add"
-            android:title="Show Courses" />
-
-        <item
-            android:id="@+id/nav_sexamp"
-            android:icon="@drawable/exam"
-            android:title="Manage Exams"
-            />
+            android:icon="@drawable/baseline_edit_note_24"
+            android:title="Edit Courses" />
     </group>
+
     <group
         android:checkableBehavior="single"
         android:id="@+id/gr3">
         <item
             android:id="@+id/nav_seta"
             android:icon="@drawable/setanswer"
-            android:title="Set Answer Sheet"
-            />
+            android:title="Set Answer Sheet" />
         <item
             android:id="@+id/nav_sp"
-            android:icon="@drawable/setpr"
-            android:title="Question Bank Management"
-            />
-
+            android:icon="@drawable/group"
+            android:title="Make Groups" />
     </group>
+
     <group
         android:checkableBehavior="single"
         android:id="@+id/gr4">
-
         <item
             android:id="@+id/nav_logout"
             android:icon="@drawable/logout"
-            android:title="Logout"
-            />
-
+            android:title="Logout" />
     </group>
 
 </menu>

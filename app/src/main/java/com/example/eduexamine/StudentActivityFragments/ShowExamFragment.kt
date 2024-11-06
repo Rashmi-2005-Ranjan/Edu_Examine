@@ -20,7 +20,7 @@ ShowExamFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_show_exam, container, false)
-        listView = view.findViewById(R.id.lvTopics)
+//        listView = view.findViewById(R.id.lvTopics)
 
         val topics = listOf("Mathematics", "Science", "History")
         val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_list_item_1, topics)
