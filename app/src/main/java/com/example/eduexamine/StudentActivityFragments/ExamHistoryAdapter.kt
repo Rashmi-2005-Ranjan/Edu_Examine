@@ -8,8 +8,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.eduexamine.R
 
 
-
-
 class ExamHistoryAdapter(private val examList: List<ExamHistory>) : RecyclerView.Adapter<ExamHistoryAdapter.ExamViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ExamViewHolder {
