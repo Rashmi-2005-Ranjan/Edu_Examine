@@ -132,10 +132,10 @@ class SetPracticeQuestionFragment : Fragment() {
 
         // Add the new student to the corresponding group's document
         db.collection("groups")
-            .document(currentAdminEmail)
-            .collection("studentGroups")
-            .document(groupName)
-            .collection("students")
+            .document(currentAdminEmail) // Reference to the admin's document
+            .collection("studentGroups") // Access the student groups collection
+            .document(groupName) // Access the specific group document
+            .collection("students") // Create or reference the students subcollection
             .document(student.registrationNumber) // Using registration number as unique ID for student
             .set(student)
             .addOnSuccessListener {
