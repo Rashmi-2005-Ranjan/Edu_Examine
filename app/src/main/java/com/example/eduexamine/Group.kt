@@ -1,6 +1,6 @@
 package com.example.eduexamine
 
 data class Group(
-    val name: String,
-    val students: MutableList<Student> = mutableListOf()
+    val groupName: String = "",
+    val students: List<Student> = emptyList() // List of students in this group
 )

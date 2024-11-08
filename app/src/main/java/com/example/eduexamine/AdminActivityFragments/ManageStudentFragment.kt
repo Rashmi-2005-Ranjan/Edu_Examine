@@ -1,60 +1,114 @@
 package com.example.eduexamine.AdminActivityFragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.Toast
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.eduexamine.Group
 import com.example.eduexamine.R
+import com.example.eduexamine.Student
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.QueryDocumentSnapshot
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [ManageStudentFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class ManageStudentFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var adapter: GroupAdapter
+    private val db = FirebaseFirestore.getInstance()
+    private val groups = mutableListOf<Group>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_manage_student, container, false)
+        val view = inflater.inflate(R.layout.fragment_manage_student, container, false)
+
+        // Initialize RecyclerView
+        recyclerView = view.findViewById(R.id.recyclerViewGroups)
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        adapter = GroupAdapter(groups, ::onUpdateStudent, ::onDeleteStudent)
+        recyclerView.adapter = adapter
+
+        // Fetch groups and students from Firebase
+        fetchGroups()
+
+        return view
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment ManageStudentFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            ManageStudentFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+    private fun fetchGroups() {
+        val currentAdminEmail = FirebaseAuth.getInstance().currentUser?.email
+        if (currentAdminEmail == null) {
+            Toast.makeText(requireContext(), "User is not logged in", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        db.collection("groups")
+            .document(currentAdminEmail)
+            .collection("studentGroups")
+            .get()
+            .addOnSuccessListener { result ->
+                groups.clear()
+                for (document in result) {
+                    val groupName = document.getString("groupName") ?: continue
+                    val students = mutableListOf<Student>()
+
+                    // Fetch students for each group
+                    fetchStudents(groupName, students)
+                    groups.add(Group(groupName, students))
                 }
+                adapter.notifyDataSetChanged()
+            }
+            .addOnFailureListener { e ->
+                Toast.makeText(requireContext(), "Error fetching groups: ${e.message}", Toast.LENGTH_SHORT).show()
+            }
+    }
+
+    private fun fetchStudents(groupName: String, students: MutableList<Student>) {
+        val currentAdminEmail = FirebaseAuth.getInstance().currentUser?.email
+        db.collection("groups")
+            .document(currentAdminEmail!!)
+            .collection("studentGroups")
+            .document(groupName)
+            .collection("students")
+            .get()
+            .addOnSuccessListener { result ->
+                for (document in result) {
+                    val student = document.toObject(Student::class.java)
+                    students.add(student)
+                }
+                adapter.notifyDataSetChanged()
+            }
+            .addOnFailureListener { e ->
+                Toast.makeText(requireContext(), "Error fetching students: ${e.message}", Toast.LENGTH_SHORT).show()
+            }
+    }
+
+    private fun onUpdateStudent(student: Student) {
+        // Implement update logic here (show dialog to update student)
+        Toast.makeText(requireContext(), "Update Student: ${student.registrationNumber}", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun onDeleteStudent(student: Student) {
+        val currentAdminEmail = FirebaseAuth.getInstance().currentUser?.email
+        db.collection("groups")
+            .document(currentAdminEmail!!)
+            .collection("studentGroups")
+            .document(student.groupName)
+            .collection("students")
+            .document(student.registrationNumber)
+            .delete()
+            .addOnSuccessListener {
+                Toast.makeText(requireContext(), "Student deleted", Toast.LENGTH_SHORT).show()
+                fetchGroups() // Refresh data after deletion
+            }
+            .addOnFailureListener { e ->
+                Toast.makeText(requireContext(), "Error deleting student: ${e.message}", Toast.LENGTH_SHORT).show()
             }
     }
 }

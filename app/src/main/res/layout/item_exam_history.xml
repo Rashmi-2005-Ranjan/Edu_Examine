@@ -6,7 +6,7 @@
     android:orientation="vertical"
     android:padding="8dp"
     android:background="?attr/selectableItemBackground"
-    android:marginBottom="4dp">
+    android:layout_marginBottom="16dp">
 
     <TextView
         android:id="@+id/tvExamTitle"

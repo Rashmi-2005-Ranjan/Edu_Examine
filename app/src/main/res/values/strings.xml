@@ -3,6 +3,9 @@
     <string name="answer_question_paper" />
     <string name="view_results" />
     <string name="courses" />
+    <string name="paragraph_part1">This is the first part of a very long paragraph...</string>
+    <string name="paragraph_part2">And this is the continuation of that paragraph...</string>
+
     <string name="Student_Dashboard">Student Dashboard</string>
     <string name="welcome_student">Welcome Student!</string>
     <string name="take_exam">Take Exam</string>

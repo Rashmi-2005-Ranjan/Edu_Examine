@@ -7,13 +7,25 @@ plugins {
 dependencies {
     implementation ("androidx.navigation:navigation-fragment-ktx:2.4.1")
     implementation ("androidx.navigation:navigation-ui-ktx:2.4.1")
-    // Other dependencies...
+    implementation(libs.identity.jvm)
+    implementation("androidx.recyclerview:recyclerview:1.2.1")
+    implementation ("androidx.constraintlayout:constraintlayout:2.1.4") // Use latest version
+
 }
 
 
 android {
     namespace = "com.example.eduexamine"
-    compileSdk = 34
+    compileSdk = 35
+
+    viewBinding {
+        var enabled = true
+    }
+        packagingOptions {
+            exclude ("META-INF/versions/9/OSGI-INF/MANIFEST.MF".toString())
+        }
+
+
 
     defaultConfig {
         applicationId = "com.example.eduexamine"
@@ -38,6 +50,7 @@ android {
             )
         }
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
@@ -78,6 +91,6 @@ dependencies {
 
 }
 
-dependencies {
-    implementation("androidx.recyclerview:recyclerview:1.2.1")
+infix fun Dependency?.implementation(s: String) {
+
 }
