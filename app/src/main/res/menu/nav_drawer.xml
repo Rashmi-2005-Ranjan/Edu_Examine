@@ -24,14 +24,14 @@
         android:id="@+id/gr2">
         <item
             android:id="@+id/nav_examp"
-            android:icon="@drawable/showexam"
+            android:icon="@drawable/exam"
             android:title="Available Exams"
             />
-        <item
-            android:id="@+id/nav_gexamp"
-            android:icon="@drawable/exam"
-            android:title="Attempt Exam"
-            />
+        <!--        <item-->
+        <!--            android:id="@+id/nav_gexamp"-->
+        <!--            android:icon="@drawable/exam"-->
+        <!--            android:title="Attempt Exam"-->
+        <!--            />-->
     </group>
     <group
         android:checkableBehavior="single"

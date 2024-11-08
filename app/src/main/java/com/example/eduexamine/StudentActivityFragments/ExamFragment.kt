@@ -26,8 +26,8 @@ class ExamFragment : Fragment() {
     private lateinit var prevButton: Button
     private lateinit var nextButton: Button
     private lateinit var timerTextView: TextView
-    private lateinit var questionNumberTextView: TextView // New TextView for question number
-    private lateinit var questionTypeTextView: TextView // New TextView for question type
+    private lateinit var questionNumberTextView: TextView
+    private lateinit var questionTypeTextView: TextView
     private val db = FirebaseFirestore.getInstance()
 
     private var currentQuestionIndex = 0
@@ -48,12 +48,11 @@ class ExamFragment : Fragment() {
         prevButton = view.findViewById(R.id.prevButton)
         nextButton = view.findViewById(R.id.nextButton)
         timerTextView = view.findViewById(R.id.timerTextView)
-        questionNumberTextView = view.findViewById(R.id.questionNumberTextView) // Initialize question number TextView
-        questionTypeTextView = view.findViewById(R.id.questionTypeTextView) // Initialize question type TextView
+        questionNumberTextView = view.findViewById(R.id.questionNumberTextView)
+        questionTypeTextView = view.findViewById(R.id.questionTypeTextView)
 
-        // Retrieve the exam ID from SharedPreferences
-        val sharedPreferences = requireActivity().getSharedPreferences("ExamPrefs", Context.MODE_PRIVATE)
-        val examId = sharedPreferences.getString("currentExamId", null)
+        // Get the examId passed from the previous fragment
+        val examId = arguments?.getString("examId")
 
         if (examId == null) {
             Toast.makeText(requireContext(), "Exam ID is missing", Toast.LENGTH_SHORT).show()
@@ -79,8 +78,8 @@ class ExamFragment : Fragment() {
                 currentQuestionIndex++
                 displayQuestion(currentQuestionIndex)
             } else {
-                submitAnswerButton.visibility = View.VISIBLE // Show submit button on last question
-                nextButton.isEnabled = false // Disable next button
+                submitAnswerButton.visibility = View.VISIBLE
+                nextButton.isEnabled = false
             }
         }
 
@@ -92,7 +91,7 @@ class ExamFragment : Fragment() {
             if (document != null) {
                 val subjectName = document.getString("examTitle") ?: "Unknown Subject"
                 subjectNameTextView.text = "Subject: $subjectName"
-                startTimer() // Start timer when loading exam details
+                startTimer()
             } else {
                 Toast.makeText(requireContext(), "Exam details not found", Toast.LENGTH_SHORT).show()
             }
@@ -103,6 +102,9 @@ class ExamFragment : Fragment() {
 
     private fun loadQuestions(examId: String) {
         db.collection("exams").document(examId).collection("questions").get().addOnSuccessListener { querySnapshot ->
+            questionsList.clear() // Clear questions list to avoid loading previous exam questions
+            currentQuestionIndex = 0 // Reset question index for the new exam
+
             for (document in querySnapshot.documents) {
                 val question = document.getString("question") ?: ""
                 val option1 = document.getString("option1") ?: ""
@@ -114,6 +116,7 @@ class ExamFragment : Fragment() {
 
                 questionsList.add(Question(question, option1, option2, option3, option4, mark, type))
             }
+
             if (questionsList.isNotEmpty()) {
                 displayQuestion(currentQuestionIndex)
             }
@@ -127,18 +130,16 @@ class ExamFragment : Fragment() {
             val questionItem = questionsList[index]
             questionTextView.text = questionItem.question
 
-            // Update the question number and type fields
-            questionNumberTextView.text = "Question ${index + 1}" // Update question number
-            questionTypeTextView.text = "Type: ${questionItem.type}" // Update question type
+            questionNumberTextView.text = "Question ${index + 1}"
+            questionTypeTextView.text = "Type: ${questionItem.type}"
 
             optionsRadioGroup.removeAllViews()
-            natAnswerEditText.visibility = View.GONE // Hide NAT EditText by default
-            optionsRadioGroup.visibility = View.GONE // Hide RadioGroup by default
+            natAnswerEditText.visibility = View.GONE
+            optionsRadioGroup.visibility = View.GONE
 
             when (questionItem.type) {
                 "MCQ", "MSQ" -> {
                     optionsRadioGroup.visibility = View.VISIBLE
-                    // Add radio buttons with labels
                     val optionButtons = listOf(
                         questionItem.option1,
                         questionItem.option2,
@@ -148,19 +149,26 @@ class ExamFragment : Fragment() {
                     optionButtons.forEach { option ->
                         optionsRadioGroup.addView(RadioButton(requireContext()).apply {
                             text = option
+                            setTextColor(resources.getColor(R.color.black))
                         })
                     }
                 }
                 "NAT" -> {
                     natAnswerEditText.visibility = View.VISIBLE
+                    natAnswerEditText.hint = "Type your answer here"
+                    natAnswerEditText.inputType = android.text.InputType.TYPE_CLASS_TEXT
+
+                    // Set the input text color to black
+                    natAnswerEditText.setTextColor(resources.getColor(R.color.black, null))
+
+                    // Optionally, set the hint text color to gray or any other color
+                    natAnswerEditText.setHintTextColor(resources.getColor(R.color.gray, null))
                 }
+
             }
 
-            // Update navigation button states
             prevButton.isEnabled = index > 0
             nextButton.isEnabled = index < questionsList.size - 1
-
-            // Show the submit button for all types of questions
             submitAnswerButton.visibility = View.VISIBLE
         } else {
             Toast.makeText(requireContext(), "No more questions available", Toast.LENGTH_SHORT).show()
@@ -168,7 +176,6 @@ class ExamFragment : Fragment() {
     }
 
     private fun handleAnswerSubmission() {
-        // Handle answer submission logic here
         if (currentQuestionIndex < questionsList.size) {
             val questionItem = questionsList[currentQuestionIndex]
             val selectedOptionId = optionsRadioGroup.checkedRadioButtonId
@@ -201,14 +208,13 @@ class ExamFragment : Fragment() {
 
             override fun onFinish() {
                 timerTextView.text = "00:00"
-                // Handle exam end logic here
             }
         }.start()
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        timer?.cancel() // Cancel timer to prevent memory leaks
+        timer?.cancel()
     }
 
     data class Question(
@@ -218,6 +224,6 @@ class ExamFragment : Fragment() {
         val option3: String,
         val option4: String,
         val mark: Long,
-        val type: String // Add type field for question type
+        val type: String
     )
 }
