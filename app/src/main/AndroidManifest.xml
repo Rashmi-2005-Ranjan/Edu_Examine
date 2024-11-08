@@ -5,7 +5,6 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
-
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -17,6 +16,9 @@
         android:theme="@style/Theme.EduExamine"
         tools:targetApi="31">
         <activity
+            android:name=".UpdateGroupActivity"
+            android:exported="false" />
+        <activity
             android:name=".NAT"
             android:exported="false" />
         <activity
@@ -25,7 +27,6 @@
         <activity
             android:name=".MCQ"
             android:exported="false" />
-
         <activity
             android:name=".ForgotPasswordActivity"
             android:exported="false" />
@@ -64,13 +65,10 @@
             android:exported="false" />
         <activity
             android:name=".AcademicInfoStudent"
-            android:exported="false"/>
-
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN" /> -->
-            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-            <!-- </intent-filter> -->
-
+            android:exported="false" /> <!-- <intent-filter> -->
+        <!-- <action android:name="android.intent.action.MAIN" /> -->
+        <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+        <!-- </intent-filter> -->
         <activity
             android:name=".BasicInfoStudent"
             android:exported="false" />
@@ -108,8 +106,7 @@
         <activity
             android:name=".SignUpActivity"
             android:exported="false" />
-        <activity android:name=".ExamHistoryActivity"/>
-
+        <activity android:name=".ExamHistoryActivity" />
 
         <meta-data
             android:name="preloaded_fonts"

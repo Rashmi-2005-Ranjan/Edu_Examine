@@ -84,6 +84,13 @@ class SetPracticeQuestionFragment : Fragment() {
             saveGroupToFirebase(selectedGroup) // Save the new group to Firebase
         }
 
+        // Check for duplicates before adding the student
+        val isDuplicate = groups[selectedGroup]?.any { it.registrationNumber == registrationNumber || it.email == email } == true
+        if (isDuplicate) {
+            Toast.makeText(requireContext(), "Student already exists in the group", Toast.LENGTH_SHORT).show()
+            return
+        }
+
         // Add the new student to the group
         val student = Student(registrationNumber, email, selectedGroup)
         groups[selectedGroup]?.add(student) // Add student to the local group list
