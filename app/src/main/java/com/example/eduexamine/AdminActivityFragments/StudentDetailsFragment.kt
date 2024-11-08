@@ -1,60 +1,137 @@
 package com.example.eduexamine.AdminActivityFragments
 
+import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.eduexamine.EditExam
+import com.example.eduexamine.EditExamAdapter
 import com.example.eduexamine.R
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.auth.FirebaseAuth
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [StudentDetailsFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class StudentDetailsFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private lateinit var examRecyclerView: RecyclerView
+    private lateinit var examAdapter: EditExamAdapter
+    private val db = FirebaseFirestore.getInstance()
+    private val auth = FirebaseAuth.getInstance()
 
+    private lateinit var examList: ArrayList<EditExam>
+
+    @SuppressLint("MissingInflatedId")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_student_details, container, false)
+        val view = inflater.inflate(R.layout.fragment_student_details, container, false)
+
+        // Initialize RecyclerView
+        examRecyclerView = view.findViewById(R.id.rectangles_recycler_view)
+        examRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+
+        // Initialize the exam list
+        examList = arrayListOf()
+
+        // Fetch exams from Firestore
+        fetchExams()
+
+        return view
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment StudentDetailsFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            StudentDetailsFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+    private fun fetchExams() {
+        val currentAdminId = auth.currentUser?.email // Assuming you are using email as the admin ID
+
+        if (currentAdminId != null) {
+            db.collection("exams")
+                .whereEqualTo("adminEmail", currentAdminId)
+                .get()
+                .addOnSuccessListener { documents ->
+                    if (documents.isEmpty) {
+                        // Notify user if no exams are found
+                        Toast.makeText(requireContext(), "No exams found for this admin.", Toast.LENGTH_SHORT).show()
+                    } else {
+                        for (document in documents) {
+                            val examTitle = document.getString("examTitle") ?: ""
+                            val examId = document.id // or document.getString("examId") if you have it as a field
+                            val examDate = document.getString("date") ?: ""
+
+                            // Create an EditExam object and add it to the list
+                            examList.add(EditExam(examTitle, examId, examDate))
+                        }
+
+                        // Initialize adapter with the fetched exams and context
+                        examAdapter = EditExamAdapter(
+                            examList,
+                            requireContext(), // Pass the context here
+                            onUpdate = { exam -> handleUpdateExam(exam) },
+                            onDelete = { exam -> handleDeleteExam(exam) }
+                        )
+
+                        // Set adapter to RecyclerView
+                        examRecyclerView.adapter = examAdapter
+
+                        // Notify user about successful retrieval
+                        Toast.makeText(requireContext(), "Exams retrieved successfully.", Toast.LENGTH_SHORT).show()
+                    }
                 }
-            }
+                .addOnFailureListener { exception ->
+                    // Handle the error
+                    exception.printStackTrace()
+                    // Notify user about the error
+                    Toast.makeText(requireContext(), "Error fetching exams: ${exception.message}", Toast.LENGTH_LONG).show()
+                }
+        } else {
+            // Notify user if admin ID is null
+            Toast.makeText(requireContext(), "No admin logged in.", Toast.LENGTH_SHORT).show()
+        }
     }
+
+
+
+
+    // Placeholder function for handling updates
+    private fun handleUpdateExam(exam: EditExam) {
+        // Navigate to an update fragment or activity
+        val updateExamFragment = UpdateExamFragment.newInstance(exam.examId) // Assuming you have an UpdateExamFragment that takes an EditExam object
+        val transaction = requireActivity().supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.fragment_container, updateExamFragment) // Assuming your activity has a container for fragments
+        transaction.addToBackStack(null)
+        transaction.commit()
+    }
+
+    private fun handleDeleteExam(exam: EditExam) {
+        // Show a confirmation dialog before deletion
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setTitle("Delete Exam")
+        builder.setMessage("Are you sure you want to delete this exam?")
+        builder.setPositiveButton("Yes") { dialog, _ ->
+            // Delete the exam from Firestore
+            db.collection("exams")
+                .document(exam.examId) // Use the exam ID to identify the document
+                .delete()
+                .addOnSuccessListener {
+                    // Remove the exam from the local list
+                    examList.remove(exam)
+                    examAdapter.notifyDataSetChanged() // Notify the adapter about data set change
+                    Toast.makeText(requireContext(), "Exam deleted successfully.", Toast.LENGTH_SHORT).show()
+                }
+                .addOnFailureListener { exception ->
+                    // Handle the error
+                    Toast.makeText(requireContext(), "Error deleting exam: ${exception.message}", Toast.LENGTH_LONG).show()
+                }
+            dialog.dismiss()
+        }
+        builder.setNegativeButton("No") { dialog, _ -> dialog.dismiss() }
+        builder.show()
+        builder.setCancelable(false)
+    }
+
 }

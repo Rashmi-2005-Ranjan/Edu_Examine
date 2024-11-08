@@ -1,37 +1,188 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    tools:context=".StudentActivityFragments.ExamFragment"
+    android:padding="16dp">
 
-    <!-- res/layout/fragment_exam.xml -->
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
+    <FrameLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="16dp">
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/titleTextView"
+        app:layout_constraintTop_toTopOf="parent" />
+    <!-- Header Title -->
+    <TextView
+        android:id="@+id/titleTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/aldrich"
+        android:gravity="center"
+        android:paddingBottom="8dp"
+        android:text="Exam - Subject Name"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/tvExamTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Exam"
-            android:textSize="24sp"
-            android:layout_marginBottom="16dp"/>
+    <!-- Timer TextView -->
+    <TextView
+        android:id="@+id/timerTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="00:00"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:fontFamily="@font/aldrich"
+        android:textColor="@color/red"
+        app:layout_constraintTop_toBottomOf="@id/titleTextView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="8dp"
+        android:padding="4dp" />
+
+    <!-- Question Card -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:cardCornerRadius="8dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        app:cardElevation="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/timerTextView">
 
         <LinearLayout
-            android:id="@+id/questionContainer"
+            android:background="@color/white"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"/>
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <TextView
+                android:id="@+id/questionNumberTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/aldrich"
+                android:paddingBottom="4dp"
+                android:text="Question 1"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/questionTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/aldrich"
+                android:paddingBottom="8dp"
+                android:text="What is 2+2?"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/questionTypeTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/aldrich"
+                android:paddingBottom="8dp"
+                android:text="Type: MCQ"
+                android:textColor="@color/red"
+                android:textSize="14sp" />
+
+            <!-- Answer Options -->
+            <RadioGroup
+                android:id="@+id/optionsRadioGroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingBottom="8dp">
+                <!-- Placeholder for radio buttons -->
+            </RadioGroup>
+
+            <!-- Numerical Answer Text Input -->
+            <EditText
+                android:id="@+id/natAnswerEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Enter your answer"
+                android:visibility="gone"
+                android:inputType="numberDecimal" />
+
+            <!-- Mark Display -->
+            <TextView
+                android:id="@+id/marksTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/aldrich"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:text="Marks: 1"
+                android:textColor="@color/green"
+                android:textSize="14sp" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <!-- Submit Button -->
+    <Button
+        android:id="@+id/submitAnswerButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:backgroundTint="@color/accent_pink"
+        android:fontFamily="@font/aldrich"
+        android:text="Submit Answer"
+        android:textColor="@android:color/white"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardView" />
+
+    <!-- Navigation Buttons -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/submitAnswerButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp">
 
         <Button
-            android:id="@+id/btnSubmit"
+            android:id="@+id/prevButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Submit Exam"
-            android:layout_marginTop="16dp"/>
-    </LinearLayout>
+            android:text="Previous"
+            android:fontFamily="@font/aldrich"
+            android:backgroundTint="@color/dark_sky_blue"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"
+            android:layout_marginEnd="16dp" />
 
+        <Button
+            android:id="@+id/nextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Next"
+            android:fontFamily="@font/aldrich"
+            android:backgroundTint="@color/green"
+            android:textColor="@android:color/white"
+            android:textStyle="bold" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

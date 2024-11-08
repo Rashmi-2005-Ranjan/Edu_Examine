@@ -2,7 +2,6 @@ package com.example.eduexamine
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
@@ -27,11 +26,21 @@ class MSQ : AppCompatActivity() {
 
     // Initialize Firestore
     private val db = FirebaseFirestore.getInstance()
+    private var examId: String? = null
 
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_msq)
+
+        // Retrieve examId from intent
+        examId = intent.getStringExtra("examId")
+
+        if (examId.isNullOrEmpty()) {
+            Toast.makeText(this, "Exam ID is missing", Toast.LENGTH_SHORT).show()
+            finish()
+            return
+        }
 
         // Initialize UI elements
         questionEditText = findViewById(R.id.msqQuestion)
@@ -50,9 +59,8 @@ class MSQ : AppCompatActivity() {
             saveQuestion()
         }
 
-        // Set up the button click listener for adding images (you may implement your functionality here)
+        // Set up the button click listener for adding images
         addImageButton.setOnClickListener {
-            // Implement image adding functionality
             Toast.makeText(this, "Image button clicked!", Toast.LENGTH_SHORT).show()
         }
     }
@@ -66,8 +74,7 @@ class MSQ : AppCompatActivity() {
         val optionD = optionDEditText.text.toString().trim()
 
         // Validate inputs
-        if (question.isEmpty() || optionA.isEmpty() || optionB.isEmpty() ||
-            optionC.isEmpty() || optionD.isEmpty()) {
+        if (question.isEmpty() || optionA.isEmpty() || optionB.isEmpty() || optionC.isEmpty() || optionD.isEmpty()) {
             Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show()
             return
         }
@@ -75,16 +82,16 @@ class MSQ : AppCompatActivity() {
         // Prepare data for Firestore
         val msqData = hashMapOf(
             "question" to question,
-            "optionA" to optionA,
-            "optionB" to optionB,
-            "optionC" to optionC,
-            "optionD" to optionD,
+            "option1" to optionA,
+            "option2" to optionB,
+            "option3" to optionC,
+            "option4" to optionD,
             "type" to "MSQ",
             "mark" to 1
         )
 
-        // Save data to Firestore
-        db.collection("questions").add(msqData)
+        // Save data to Firestore in the "exam" collection's "questions" sub-collection
+        db.collection("exams").document(examId!!).collection("questions").add(msqData)
             .addOnSuccessListener {
                 Toast.makeText(this, "Question saved successfully!", Toast.LENGTH_SHORT).show()
                 clearFields()
