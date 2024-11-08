@@ -87,7 +87,7 @@ class StudentHome : AppCompatActivity(), NavigationView.OnNavigationItemSelected
             R.id.nav_profile -> replaceFragment(ProfileFragment())
             R.id.nav_cours -> replaceFragment(CourseFragment())
             R.id.nav_examp -> replaceFragment(ShowExamFragment())
-            R.id.nav_gexamp -> replaceFragment(ExamFragment())
+//            R.id.nav_gexamp -> replaceFragment(ExamFragment())
             R.id.nav_result -> replaceFragment(ResultFragment())
             R.id.nav_logout -> {
                 val dialog=AlertDialog.Builder(this)
