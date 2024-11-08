@@ -9,21 +9,32 @@
     tools:context=".StudentActivityFragments.ExamFragment"
     android:padding="16dp">
 
+    <FrameLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/titleTextView"
+        app:layout_constraintTop_toTopOf="parent" />
     <!-- Header Title -->
     <TextView
         android:id="@+id/titleTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Exam - Subject Name"
-        android:textSize="20sp"
-        android:textStyle="bold"
         android:fontFamily="@font/aldrich"
         android:gravity="center"
+        android:paddingBottom="8dp"
+        android:text="Exam - Subject Name"
         android:textColor="@color/black"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:textSize="20sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        android:paddingBottom="8dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <!-- Timer TextView -->
     <TextView
@@ -48,16 +59,19 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         app:cardCornerRadius="8dp"
-        app:cardElevation="4dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        app:cardElevation="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/timerTextView">
 
         <LinearLayout
+            android:background="@color/white"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="16dp">
+            android:padding="20dp">
 
             <TextView
                 android:id="@+id/questionNumberTextView"
@@ -87,7 +101,7 @@
                 android:fontFamily="@font/aldrich"
                 android:paddingBottom="8dp"
                 android:text="Type: MCQ"
-                android:textColor="@color/gray"
+                android:textColor="@color/red"
                 android:textSize="14sp" />
 
             <!-- Answer Options -->
@@ -118,7 +132,7 @@
                 android:paddingTop="8dp"
                 android:paddingBottom="8dp"
                 android:text="Marks: 1"
-                android:textColor="@color/gray"
+                android:textColor="@color/green"
                 android:textSize="14sp" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
