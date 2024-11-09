@@ -1,60 +1,73 @@
 package com.example.eduexamine.AdminActivityFragments
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.eduexamine.R
+import com.example.eduexamine.SetAnswerAdapter
+import com.example.eduexamine.SetAnswerDataClass
+import com.example.eduexamine.SetQuestionAnswerActivity
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [SetAnswerFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class SetAnswerFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private lateinit var setAnsRecyclerView: RecyclerView
+    private lateinit var setAnswerAdapter: SetAnswerAdapter
+    private lateinit var setAnsList: ArrayList<SetAnswerDataClass>
+    private val db = FirebaseFirestore.getInstance()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_set_answer, container, false)
+        // Inflate the layout for this fragment and assign it to a variable
+        val view = inflater.inflate(R.layout.fragment_set_answer, container, false)
+
+        // Initialize RecyclerView
+        setAnsRecyclerView = view.findViewById(R.id.rectangles_recycler_view)
+        setAnsRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+
+        // Initialize the exam list
+        setAnsList = arrayListOf()
+
+        // Fetch exams scheduled by the current admin's email
+        val currentAdminEmail = FirebaseAuth.getInstance().currentUser?.email
+        currentAdminEmail?.let { email ->
+            db.collection("exams")
+                .whereEqualTo("adminEmail", email)
+                .get()
+                .addOnSuccessListener { documents ->
+                    for (document in documents) {
+                        val examName = document.getString("examTitle") ?: "N/A"
+                        val examId = document.id
+                        setAnsList.add(SetAnswerDataClass(examName, examId))
+                    }
+                    // Notify the adapter that data has changed
+                    setAnswerAdapter.notifyDataSetChanged()
+                }
+                .addOnFailureListener {
+                    // Handle any errors here
+                }
+        }
+
+        // Initialize Adapter and set it to RecyclerView
+        setAnswerAdapter = SetAnswerAdapter(setAnsList, requireContext()) { selectedItem ->
+            handleButtonClick(selectedItem)
+        }
+        setAnsRecyclerView.adapter = setAnswerAdapter
+
+        return view
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment SetAnswerFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            SetAnswerFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+    private fun handleButtonClick(item: SetAnswerDataClass) {
+        val intent = Intent(requireContext(), SetQuestionAnswerActivity::class.java)
+        intent.putExtra("EXAM_ID", item.examId)
+        startActivity(intent)
     }
+
 }

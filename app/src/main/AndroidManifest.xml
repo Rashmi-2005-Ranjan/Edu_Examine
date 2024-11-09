@@ -16,6 +16,9 @@
         android:theme="@style/Theme.EduExamine"
         tools:targetApi="31">
         <activity
+            android:name=".SetQuestionAnswerActivity"
+            android:exported="false" />
+        <activity
             android:name=".UpdateGroupActivity"
             android:exported="false" />
         <activity
