@@ -27,11 +27,11 @@
             android:icon="@drawable/exam"
             android:title="Available Exams"
             />
-        <!--        <item-->
-        <!--            android:id="@+id/nav_gexamp"-->
-        <!--            android:icon="@drawable/exam"-->
-        <!--            android:title="Attempt Exam"-->
-        <!--            />-->
+        <item
+            android:id="@+id/nav_available_courses"
+            android:title="Available Courses"
+            android:icon="@drawable/exam"
+            tools:ignore="HardcodedText" />
     </group>
     <group
         android:checkableBehavior="single"
