@@ -205,6 +205,9 @@ class AddCourseFragment : Fragment() {
         val startDate: String = "",
         val endDate: String = "",
         val isActive: Boolean = false,
-        val materialUri: String? = null
+        val materialUri: String? = null,
+        val groupName: String? = null,
+        val registrationNumber: String? = null,
+        val email: String? = null
     )
 }

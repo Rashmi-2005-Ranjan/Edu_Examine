@@ -16,6 +16,7 @@ import com.example.eduexamine.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageException
 
 class HomeFragment : Fragment() {
 
@@ -107,8 +108,17 @@ class HomeFragment : Fragment() {
                     .load(uri)
                     .into(profileImageView)
             }
-        }.addOnFailureListener {
-            Toast.makeText(requireContext(), "Profile image not found.", Toast.LENGTH_SHORT).show()
+        }.addOnFailureListener { exception ->
+            if (exception is StorageException && exception.errorCode == StorageException.ERROR_OBJECT_NOT_FOUND) {
+                Toast.makeText(requireContext(), "Profile image not found.", Toast.LENGTH_SHORT)
+                    .show()
+            } else {
+                Toast.makeText(
+                    requireContext(),
+                    "Error loading profile image: ${exception.message}",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
         }
     }
 }

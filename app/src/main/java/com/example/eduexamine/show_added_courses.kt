@@ -10,7 +10,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.eduexamine.AdminActivityFragments.AddCourseFragment
-import com.example.eduexamine.AdminActivityFragments.AddCourseFragment.Course
 import com.example.eduexamine.AdminActivityFragments.CoursesAdapter
 import com.google.firebase.firestore.FirebaseFirestore
 
@@ -19,7 +18,7 @@ class show_added_courses : Fragment() {
     private lateinit var firestore: FirebaseFirestore
     private lateinit var coursesRecyclerView: RecyclerView
     private lateinit var coursesAdapter: CoursesAdapter
-    private val coursesList = mutableListOf<Course>()
+    private val coursesList = mutableListOf<AddCourseFragment.Course>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,9 +60,7 @@ class show_added_courses : Fragment() {
             .addOnSuccessListener { documents ->
                 for (document in documents) {
                     val course = document.toObject(AddCourseFragment.Course::class.java)
-                    if (course != null) {
-                        coursesList.add(course)
-                    }
+                    coursesList.add(course)
                 }
                 coursesAdapter.notifyDataSetChanged()
             }
