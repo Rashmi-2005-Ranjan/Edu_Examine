@@ -21,6 +21,7 @@ import com.example.eduexamine.StudentActivityFragments.NewApplyFragment
 import com.example.eduexamine.StudentActivityFragments.ProfileFragment
 import com.example.eduexamine.StudentActivityFragments.ShowExamFragment
 import com.example.eduexamine.StudentActivityFragments.TrackingFragment
+import com.example.eduexamine.StudentActivityFragments.addedCourses
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
@@ -88,6 +89,7 @@ class StudentHome : AppCompatActivity(), NavigationView.OnNavigationItemSelected
             R.id.nav_cours -> replaceFragment(CourseFragment())
             R.id.nav_examp -> replaceFragment(ShowExamFragment())
 //            R.id.nav_gexamp -> replaceFragment(ExamFragment())
+            R.id.nav_available_courses -> replaceFragment(addedCourses())
             R.id.nav_result -> replaceFragment(ResultFragment())
             R.id.nav_logout -> {
                 val dialog=AlertDialog.Builder(this)
