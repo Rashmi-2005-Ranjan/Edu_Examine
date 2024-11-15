@@ -5,7 +5,7 @@
     tools:context=".show_added_courses">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/coursesRecyclerView"
+        android:id="@+id/coursesRecyclerView1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="20dp"
