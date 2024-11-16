@@ -6,31 +6,37 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.eduexamine.R
+import java.text.SimpleDateFormat
+import java.util.*
 
+class ExamHistoryAdapter(private val examResults: List<ExamHistoryFragment.ExamResult>) :
+    RecyclerView.Adapter<ExamHistoryAdapter.ViewHolder>() {
 
-class ExamHistoryAdapter(private val examList: List<ExamHistory>) : RecyclerView.Adapter<ExamHistoryAdapter.ExamViewHolder>() {
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ExamViewHolder {
-        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.item_exam_history, parent, false)
-        return ExamViewHolder(itemView)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_exam_history, parent, false)
+        return ViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: ExamViewHolder, position: Int) {
-        val exam = examList[position]
-        holder.bind(exam)
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val result = examResults[position]
+        holder.examIdTextView.text = "Exam ID: ${result.examId}"
+        holder.scoreTextView.text = "Score: ${result.scoredMarks} / ${result.totalMarks}"
+        holder.timestampTextView.text = "Date: ${formatDate(result.timestamp)}"
     }
 
-    override fun getItemCount() = examList.size
+    override fun getItemCount(): Int = examResults.size
 
-    class ExamViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val tvExamTitle: TextView = itemView.findViewById(R.id.tvExamTitle)
-        private val tvExamDate: TextView = itemView.findViewById(R.id.tvExamDate)
-        private val tvScore: TextView = itemView.findViewById(R.id.tvScore)
-
-        fun bind(exam: ExamHistory) {
-            tvExamTitle.text = exam.title
-            tvExamDate.text = "Date: ${exam.date}"
-            tvScore.text = "Score: ${exam.score}"
+    private fun formatDate(date: Date?): String {
+        return if (date != null) {
+            SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault()).format(date)
+        } else {
+            "N/A"
         }
+    }
+
+    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        val examIdTextView: TextView = view.findViewById(R.id.examIdTextView)
+        val scoreTextView: TextView = view.findViewById(R.id.scoreTextView)
+        val timestampTextView: TextView = view.findViewById(R.id.timestampTextView)
     }
 }

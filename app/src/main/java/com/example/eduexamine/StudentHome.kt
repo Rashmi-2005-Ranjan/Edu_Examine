@@ -15,6 +15,7 @@ import androidx.drawerlayout.widget.DrawerLayout
 import com.example.eduexamine.StudentActivityFragments.AcheivementFragment
 import com.example.eduexamine.StudentActivityFragments.CourseFragment
 import com.example.eduexamine.StudentActivityFragments.ExamFragment
+import com.example.eduexamine.StudentActivityFragments.ExamHistoryFragment
 import com.example.eduexamine.StudentActivityFragments.HomeFragment
 import com.example.eduexamine.StudentActivityFragments.MarksheetFragment
 import com.example.eduexamine.StudentActivityFragments.NewApplyFragment
@@ -85,7 +86,7 @@ class StudentHome : AppCompatActivity(), NavigationView.OnNavigationItemSelected
     // Handle navigation drawer item clicks and replace fragments accordingly
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.nav_track -> replaceFragment(TrackingFragment())
+            R.id.nav_track -> replaceFragment(ExamHistoryFragment())
             R.id.nav_profile -> replaceFragment(ProfileFragment())
             R.id.nav_cours -> replaceFragment(CourseFragment())
             R.id.nav_examp -> replaceFragment(ShowExamFragment())

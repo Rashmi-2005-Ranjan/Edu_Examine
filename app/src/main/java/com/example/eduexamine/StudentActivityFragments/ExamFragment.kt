@@ -346,6 +346,23 @@ class ExamFragment : Fragment() {
                         }
                     }
 
+                    val resultData = mapOf(
+                        "examId" to examId,
+                        "userId" to userId,
+                        "scoredMarks" to scoredMarks,
+                        "totalMarks" to totalMarks,
+                        "timestamp" to FieldValue.serverTimestamp()
+                    )
+
+                    db.collection("exam_results").add(resultData)
+                        .addOnSuccessListener {
+                            Toast.makeText(requireContext(), "Result saved!", Toast.LENGTH_SHORT).show()
+                            navigateToResultsScreen(scoredMarks, totalMarks)
+                        }
+                        .addOnFailureListener {
+                            Toast.makeText(requireContext(), "Failed to save result.", Toast.LENGTH_SHORT).show()
+                        }
+
                     // Display the score
                     Toast.makeText(requireContext(), "Score: $scoredMarks / $totalMarks", Toast.LENGTH_LONG).show()
                     navigateToResultsScreen(scoredMarks, totalMarks)
@@ -357,6 +374,8 @@ class ExamFragment : Fragment() {
             Toast.makeText(requireContext(), "Failed to load user responses.", Toast.LENGTH_SHORT).show()
         }
     }
+
+
     private fun navigateToResultsScreen(scoredMarks: Int, totalMarks: Int) {
         val resultFragment = ResultFragment()
         resultFragment.arguments = Bundle().apply {
