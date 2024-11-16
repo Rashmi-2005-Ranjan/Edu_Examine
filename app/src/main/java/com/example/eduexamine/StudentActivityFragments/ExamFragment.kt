@@ -27,6 +27,7 @@ class ExamFragment : Fragment() {
     private lateinit var submitAnswerButton: Button
     private lateinit var prevButton: Button
     private lateinit var nextButton: Button
+    private lateinit var submitExam: Button
     private lateinit var timerTextView: TextView
     private lateinit var questionNumberTextView: TextView
     private lateinit var questionTypeTextView: TextView
@@ -52,6 +53,7 @@ class ExamFragment : Fragment() {
         timerTextView = view.findViewById(R.id.timerTextView)
         questionNumberTextView = view.findViewById(R.id.questionNumberTextView)
         questionTypeTextView = view.findViewById(R.id.questionTypeTextView)
+        submitExam = view.findViewById(R.id.submit_Exam)
 
         // Get the examId passed from the previous fragment
         val examId = arguments?.getString("examId")
@@ -63,28 +65,6 @@ class ExamFragment : Fragment() {
 
         loadExamDetails(examId)
         loadQuestions(examId)
-
-        submitAnswerButton.setOnClickListener {
-            handleAnswerSubmission()
-            evaluateExam(examId)
-        }
-
-        prevButton.setOnClickListener {
-            if (currentQuestionIndex > 0) {
-                currentQuestionIndex--
-                displayQuestion(currentQuestionIndex)
-            }
-        }
-
-        nextButton.setOnClickListener {
-            if (currentQuestionIndex < questionsList.size - 1) {
-                currentQuestionIndex++
-                displayQuestion(currentQuestionIndex)
-            } else {
-                submitAnswerButton.visibility = View.VISIBLE
-                nextButton.isEnabled = false
-            }
-        }
 
         setupListeners()
         return view
@@ -115,10 +95,11 @@ class ExamFragment : Fragment() {
                 val option2 = document.getString("option2") ?: ""
                 val option3 = document.getString("option3") ?: ""
                 val option4 = document.getString("option4") ?: ""
+                val correctAnswer = document.getString("correctAnswer") ?: ""
                 val mark = document.getLong("mark") ?: 0
                 val type = document.getString("type") ?: ""
 
-                questionsList.add(Question(question, option1, option2, option3, option4, mark, type))
+                questionsList.add(Question(document.id, question, option1, option2, option3, option4,correctAnswer, mark, type))
             }
 
             if (questionsList.isNotEmpty()) {
@@ -233,7 +214,7 @@ class ExamFragment : Fragment() {
                 val db = FirebaseFirestore.getInstance()
                 val currentUserId = FirebaseAuth.getInstance().currentUser?.uid
                 val answerData = mapOf(
-                    "questionId" to questionsList[currentQuestionIndex].question,
+                    "question" to questionsList[currentQuestionIndex].question,
                     "userAnswer" to userAnswer,
                     "timestamp" to FieldValue.serverTimestamp()
                 )
@@ -254,8 +235,13 @@ class ExamFragment : Fragment() {
             } else {
                 Toast.makeText(context, "Please select or enter an answer before submitting.", Toast.LENGTH_SHORT).show()
             }
-
         }
+
+
+        submitExam.setOnClickListener {
+            evaluateExam(arguments?.getString("examId") ?: "unknown_exam")
+        }
+        handleAnswerSubmission()
     }
 
     private fun handleAnswerSubmission() {
@@ -292,7 +278,7 @@ class ExamFragment : Fragment() {
         // Save the answer to Firestore
         val currentUserId = FirebaseAuth.getInstance().currentUser?.uid ?: "unknown_user"
         val answerData = hashMapOf(
-            "questionId" to currentQuestion.question,
+            "question" to currentQuestion.question,
             "userAnswer" to selectedAnswer,
             "timestamp" to FieldValue.serverTimestamp()
         )
@@ -333,15 +319,15 @@ class ExamFragment : Fragment() {
                     var scoredMarks = 0
 
                     for (questionDoc in questionsSnapshot.documents) {
-                        val questionId = questionDoc.id
+                        val question = questionDoc.id
                         val correctAnswer = questionDoc.getString("correctAnswer")
                         val mark = questionDoc.getLong("mark") ?: 1
 
-                        val userAnswerDoc = responseSnapshot.documents.find { it.getString("questionId") == questionId }
+                        val userAnswerDoc = responseSnapshot.documents.find { it.getString("question") == question }
                         val userAnswer = userAnswerDoc?.getString("userAnswer")
 
                         totalMarks += mark.toInt()
-                        if (userAnswer == correctAnswer) {
+                        if (userAnswer.equals(correctAnswer, ignoreCase = true)) {
                             scoredMarks += mark.toInt()
                         }
                     }
@@ -359,7 +345,6 @@ class ExamFragment : Fragment() {
             Toast.makeText(requireContext(), "Failed to load user responses", Toast.LENGTH_SHORT).show()
         }
     }
-
     private fun navigateToResultsScreen(scoredMarks: Int, totalMarks: Int) {
         val resultFragment = ResultFragment()
         resultFragment.arguments = Bundle().apply {
@@ -370,8 +355,6 @@ class ExamFragment : Fragment() {
             .replace(R.id.fragment_container, resultFragment)
             .commit()
     }
-
-
 
     private fun startTimer() {
         timer = object : CountDownTimer(totalTimeInMillis, 1000) {
@@ -395,11 +378,13 @@ class ExamFragment : Fragment() {
     }
 
     data class Question(
+        val id: String,
         val question: String,
         val option1: String,
         val option2: String,
         val option3: String,
         val option4: String,
+        val correctAnswer: String, // Add correctAnswer field
         val mark: Long,
         val type: String
     )
