@@ -21,6 +21,7 @@ class ExamHistoryAdapter(private val examResults: List<ExamHistoryFragment.ExamR
         val result = examResults[position]
         holder.examIdTextView.text = "Exam ID: ${result.examId}"
         holder.scoreTextView.text = "Score: ${result.scoredMarks} / ${result.totalMarks}"
+        holder.examtitleTextView.text = "Exam Title: ${result.examTitle}"
         holder.timestampTextView.text = "Date: ${formatDate(result.timestamp)}"
     }
 
@@ -38,5 +39,7 @@ class ExamHistoryAdapter(private val examResults: List<ExamHistoryFragment.ExamR
         val examIdTextView: TextView = view.findViewById(R.id.examIdTextView)
         val scoreTextView: TextView = view.findViewById(R.id.scoreTextView)
         val timestampTextView: TextView = view.findViewById(R.id.timestampTextView)
+        val examtitleTextView: TextView = view.findViewById(R.id.examtitleTextView)
+        
     }
 }

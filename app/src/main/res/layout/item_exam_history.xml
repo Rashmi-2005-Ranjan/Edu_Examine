@@ -18,6 +18,12 @@
         android:text="Score" />
 
     <TextView
+        android:id="@+id/examtitleTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="exam Title :" />
+
+    <TextView
         android:id="@+id/timestampTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

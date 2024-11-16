@@ -323,57 +323,75 @@ class ExamFragment : Fragment() {
 
     private fun evaluateExam(examId: String) {
         val userId = FirebaseAuth.getInstance().currentUser?.uid ?: return
-        val userResponsesRef = db.collection("exams").document(examId)
-            .collection("responses").document(userId).collection("userAnswers")
 
-        userResponsesRef.get().addOnSuccessListener { responseSnapshot ->
-            db.collection("exams").document(examId).collection("questions").get()
-                .addOnSuccessListener { questionsSnapshot ->
-                    var totalMarks = 0
-                    var scoredMarks = 0
+        // Fetch exam details (examTitle)
+        db.collection("exams").document(examId).get().addOnSuccessListener { examDoc ->
+            val examTitle = examDoc.getString("examTitle") ?: "Unknown Exam" // Default to "Unknown Exam" if missing
 
-                    for (questionDoc in questionsSnapshot.documents) {
-                        val questionId = questionDoc.id
-                        val correctAnswer = questionDoc.getString("correctAnswer")
-                        val mark = questionDoc.getLong("mark") ?: 1
+            // Fetch user responses
+            val userResponsesRef = db.collection("exams").document(examId)
+                .collection("responses").document(userId).collection("userAnswers")
 
-                        val userAnswerDoc = responseSnapshot.documents.find { it.getString("questionId") == questionId }
-                        val userAnswer = userAnswerDoc?.getString("userAnswer")
+            userResponsesRef.get().addOnSuccessListener { responseSnapshot ->
+                // Fetch exam questions
+                db.collection("exams").document(examId).collection("questions").get()
+                    .addOnSuccessListener { questionsSnapshot ->
+                        var totalMarks = 0
+                        var scoredMarks = 0
 
-                        totalMarks += mark.toInt()
-                        if (userAnswer.equals(correctAnswer, ignoreCase = true)) {
-                            scoredMarks += mark.toInt()
+                        for (questionDoc in questionsSnapshot.documents) {
+                            val questionId = questionDoc.id
+                            val correctAnswer = questionDoc.getString("correctAnswer")
+                            val mark = questionDoc.getLong("mark") ?: 1
+
+                            val userAnswerDoc =
+                                responseSnapshot.documents.find { it.getString("questionId") == questionId }
+                            val userAnswer = userAnswerDoc?.getString("userAnswer")
+
+                            totalMarks += mark.toInt()
+                            if (userAnswer.equals(correctAnswer, ignoreCase = true)) {
+                                scoredMarks += mark.toInt()
+                            }
                         }
+
+                        // Save result with exam title
+                        val resultData = mapOf(
+                            "examId" to examId,
+                            "examTitle" to examTitle, // Include the exam title
+                            "userId" to userId,
+                            "scoredMarks" to scoredMarks,
+                            "totalMarks" to totalMarks,
+                            "timestamp" to FieldValue.serverTimestamp()
+                        )
+
+                        // Save to Firestore
+                        db.collection("exam_results").add(resultData)
+                            .addOnSuccessListener {
+                                Toast.makeText(requireContext(), "Result saved!", Toast.LENGTH_SHORT).show()
+                                navigateToResultsScreen(scoredMarks, totalMarks)
+                            }
+                            .addOnFailureListener {
+                                Toast.makeText(requireContext(), "Failed to save result.", Toast.LENGTH_SHORT).show()
+                            }
+
+                        // Display the score
+                        Toast.makeText(requireContext(), "Score: $scoredMarks / $totalMarks", Toast.LENGTH_LONG).show()
                     }
-
-                    val resultData = mapOf(
-                        "examId" to examId,
-                        "userId" to userId,
-                        "scoredMarks" to scoredMarks,
-                        "totalMarks" to totalMarks,
-                        "timestamp" to FieldValue.serverTimestamp()
-                    )
-
-                    db.collection("exam_results").add(resultData)
-                        .addOnSuccessListener {
-                            Toast.makeText(requireContext(), "Result saved!", Toast.LENGTH_SHORT).show()
-                            navigateToResultsScreen(scoredMarks, totalMarks)
-                        }
-                        .addOnFailureListener {
-                            Toast.makeText(requireContext(), "Failed to save result.", Toast.LENGTH_SHORT).show()
-                        }
-
-                    // Display the score
-                    Toast.makeText(requireContext(), "Score: $scoredMarks / $totalMarks", Toast.LENGTH_LONG).show()
-                    navigateToResultsScreen(scoredMarks, totalMarks)
-                }
-                .addOnFailureListener {
-                    Toast.makeText(requireContext(), "Failed to load questions for evaluation.", Toast.LENGTH_SHORT).show()
-                }
+                    .addOnFailureListener {
+                        Toast.makeText(
+                            requireContext(),
+                            "Failed to load questions for evaluation.",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+            }.addOnFailureListener {
+                Toast.makeText(requireContext(), "Failed to load user responses.", Toast.LENGTH_SHORT).show()
+            }
         }.addOnFailureListener {
-            Toast.makeText(requireContext(), "Failed to load user responses.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), "Failed to fetch exam details.", Toast.LENGTH_SHORT).show()
         }
     }
+
 
 
     private fun navigateToResultsScreen(scoredMarks: Int, totalMarks: Int) {

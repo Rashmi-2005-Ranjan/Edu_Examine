@@ -43,9 +43,11 @@ class ExamHistoryFragment : Fragment() {
                     val examId = document.getString("examId") ?: ""
                     val scoredMarks = document.getLong("scoredMarks")?.toInt() ?: 0
                     val totalMarks = document.getLong("totalMarks")?.toInt() ?: 0
+                    val examTitle = document.getString("examTitle") ?: ""
                     val timestamp = document.getTimestamp("timestamp")?.toDate()
 
-                    examResults.add(ExamResult(examId, scoredMarks, totalMarks, timestamp))
+
+                    examResults.add(ExamResult(examId, scoredMarks, totalMarks,examTitle, timestamp))
                 }
                 recyclerView.adapter?.notifyDataSetChanged()
             }
@@ -58,6 +60,7 @@ class ExamHistoryFragment : Fragment() {
         val examId: String,
         val scoredMarks: Int,
         val totalMarks: Int,
+        val examTitle: String?,
         val timestamp: Date?
     )
 }
