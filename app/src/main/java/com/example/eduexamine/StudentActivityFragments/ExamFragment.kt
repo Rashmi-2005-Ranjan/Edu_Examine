@@ -1,6 +1,5 @@
 package com.example.eduexamine.StudentActivityFragments
 
-import android.content.Context
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.view.LayoutInflater
@@ -14,6 +13,9 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.eduexamine.R
+import com.example.eduexamine.StudentActivityFragments.ResultFragment
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 
 class ExamFragment : Fragment() {
@@ -29,7 +31,7 @@ class ExamFragment : Fragment() {
     private lateinit var questionNumberTextView: TextView
     private lateinit var questionTypeTextView: TextView
     private val db = FirebaseFirestore.getInstance()
-
+    private val userAnswers = mutableMapOf<String, String>()
     private var currentQuestionIndex = 0
     private val questionsList = mutableListOf<Question>()
     private var totalTimeInMillis: Long = 60000 // Example: 1 minute
@@ -64,6 +66,7 @@ class ExamFragment : Fragment() {
 
         submitAnswerButton.setOnClickListener {
             handleAnswerSubmission()
+            evaluateExam(examId)
         }
 
         prevButton.setOnClickListener {
@@ -146,7 +149,7 @@ class ExamFragment : Fragment() {
                         questionItem.option3,
                         questionItem.option4
                     )
-                    optionButtons.forEach { option ->
+                    optionButtons.forEach { option: String ->
                         optionsRadioGroup.addView(RadioButton(requireContext()).apply {
                             text = option
                             setTextColor(resources.getColor(R.color.black))
@@ -156,8 +159,9 @@ class ExamFragment : Fragment() {
                 "NAT" -> {
                     natAnswerEditText.visibility = View.VISIBLE
                     natAnswerEditText.hint = "Type your answer here"
-                    natAnswerEditText.inputType = android.text.InputType.TYPE_CLASS_TEXT
 
+                    natAnswerEditText.inputType = android.text.InputType.TYPE_CLASS_TEXT
+                    natAnswerEditText.setText("")
                     // Set the input text color to black
                     natAnswerEditText.setTextColor(resources.getColor(R.color.black, null))
 
@@ -175,39 +179,197 @@ class ExamFragment : Fragment() {
         }
     }
 
-    private fun handleAnswerSubmission() {
-        if (currentQuestionIndex < questionsList.size) {
-            val questionItem = questionsList[currentQuestionIndex]
-            val selectedOptionId = optionsRadioGroup.checkedRadioButtonId
-
-            if (questionItem.type == "MCQ" || questionItem.type == "MSQ") {
-                if (selectedOptionId != -1) {
-                    val selectedAnswer = view?.findViewById<RadioButton>(selectedOptionId)?.text.toString()
-                    Toast.makeText(requireContext(), "You selected: $selectedAnswer", Toast.LENGTH_SHORT).show()
-                } else {
-                    Toast.makeText(requireContext(), "Please select an answer.", Toast.LENGTH_SHORT).show()
-                }
-            } else if (questionItem.type == "NAT") {
-                val natAnswer = natAnswerEditText.text.toString()
-                if (natAnswer.isNotEmpty()) {
-                    Toast.makeText(requireContext(), "You entered: $natAnswer", Toast.LENGTH_SHORT).show()
-                } else {
-                    Toast.makeText(requireContext(), "Please enter an answer.", Toast.LENGTH_SHORT).show()
-                }
+    private fun setupListeners() {
+        nextButton.setOnClickListener {
+            if (currentQuestionIndex < questionsList.size - 1) {
+                currentQuestionIndex++
+                displayQuestion(currentQuestionIndex)
             }
         }
+
+        prevButton.setOnClickListener {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--
+                displayQuestion(currentQuestionIndex)
+            }
+        }
+
+        submitAnswerButton.setOnClickListener {
+            // Collect the answer
+            val question = questionsList[currentQuestionIndex]
+            val userAnswer: String = when (question.type) {
+                "MCQ", "MSQ" -> {
+                    // Get selected option
+                    val selectedRadioButton = view?.findViewById<RadioButton>(optionsRadioGroup.checkedRadioButtonId)
+                    selectedRadioButton?.text.toString()
+                }
+                "NAT" -> {
+                    // Get text from NAT answer input
+                    natAnswerEditText.text.toString()
+                }
+                else -> ""
+            }
+
+            if (userAnswer.isNotBlank()) {
+                // Save the user's answer locally
+                userAnswers[questionsList[currentQuestionIndex].question] = userAnswer
+
+                // Save the answer to Firestore
+                val db = FirebaseFirestore.getInstance()
+                val currentUserId = FirebaseAuth.getInstance().currentUser?.uid
+                val answerData = mapOf(
+                    "questionId" to questionsList[currentQuestionIndex].question,
+                    "userAnswer" to userAnswer,
+                    "timestamp" to FieldValue.serverTimestamp()
+                )
+
+                db.collection("exams")
+                    .document(arguments?.getString("examId") ?: "unknown_exam")
+                    .collection("responses")
+                    .document(currentUserId ?: "unknown_user") // Handle anonymous users
+                    .collection("userAnswers")
+                    .document(questionsList[currentQuestionIndex].question)
+                    .set(answerData)
+                    .addOnSuccessListener {
+                        Toast.makeText(context, "Answer submitted!", Toast.LENGTH_SHORT).show()
+                    }
+                    .addOnFailureListener { e ->
+                        Toast.makeText(context, "Failed to submit answer: ${e.message}", Toast.LENGTH_LONG).show()
+                    }
+            } else {
+                Toast.makeText(context, "Please select or enter an answer before submitting.", Toast.LENGTH_SHORT).show()
+            }
+
+        }
     }
+
+    private fun handleAnswerSubmission() {
+        if (questionsList.isEmpty()) {
+            Toast.makeText(requireContext(), "No questions available.", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        val currentQuestion = questionsList[currentQuestionIndex]
+        val selectedAnswer: String = when (currentQuestion.type) {
+            "MCQ", "MSQ" -> {
+                val selectedRadioButtonId = optionsRadioGroup.checkedRadioButtonId
+                if (selectedRadioButtonId != -1) {
+                    val selectedRadioButton = optionsRadioGroup.findViewById<RadioButton>(selectedRadioButtonId)
+                    selectedRadioButton.text.toString()
+                } else {
+                    ""
+                }
+            }
+            "NAT" -> {
+                natAnswerEditText.text.toString().trim()
+            }
+            else -> ""
+        }
+
+        if (selectedAnswer.isEmpty()) {
+            Toast.makeText(requireContext(), "Please select or enter an answer", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        // Save the user's answer locally
+        userAnswers[currentQuestion.question] = selectedAnswer
+
+        // Save the answer to Firestore
+        val currentUserId = FirebaseAuth.getInstance().currentUser?.uid ?: "unknown_user"
+        val answerData = hashMapOf(
+            "questionId" to currentQuestion.question,
+            "userAnswer" to selectedAnswer,
+            "timestamp" to FieldValue.serverTimestamp()
+        )
+
+        db.collection("exams")
+            .document(arguments?.getString("examId") ?: "unknown_exam")
+            .collection("responses")
+            .document(currentUserId)
+            .collection("userAnswers")
+            .document(currentQuestion.question)
+            .set(answerData)
+            .addOnSuccessListener {
+                Toast.makeText(context, "Answer submitted successfully!", Toast.LENGTH_SHORT).show()
+
+                // Navigate to the next question if available
+                if (currentQuestionIndex < questionsList.size - 1) {
+                    currentQuestionIndex++
+                    displayQuestion(currentQuestionIndex)
+                } else {
+                    Toast.makeText(context, "You have completed the exam!", Toast.LENGTH_SHORT).show()
+                    // Optionally navigate to a results screen
+                }
+            }
+            .addOnFailureListener { e ->
+                Toast.makeText(context, "Failed to submit answer: ${e.message}", Toast.LENGTH_LONG).show()
+            }
+    }
+
+    private fun evaluateExam(examId: String) {
+        val userId = FirebaseAuth.getInstance().currentUser?.uid ?: return
+        val userResponsesRef = db.collection("exams").document(examId)
+            .collection("responses").document(userId).collection("userAnswers")
+
+        userResponsesRef.get().addOnSuccessListener { responseSnapshot ->
+            db.collection("exams").document(examId).collection("questions").get()
+                .addOnSuccessListener { questionsSnapshot ->
+                    var totalMarks = 0
+                    var scoredMarks = 0
+
+                    for (questionDoc in questionsSnapshot.documents) {
+                        val questionId = questionDoc.id
+                        val correctAnswer = questionDoc.getString("correctAnswer")
+                        val mark = questionDoc.getLong("mark") ?: 1
+
+                        val userAnswerDoc = responseSnapshot.documents.find { it.getString("questionId") == questionId }
+                        val userAnswer = userAnswerDoc?.getString("userAnswer")
+
+                        totalMarks += mark.toInt()
+                        if (userAnswer == correctAnswer) {
+                            scoredMarks += mark.toInt()
+                        }
+                    }
+
+                    // Display the score
+                    Toast.makeText(requireContext(), "Score: $scoredMarks / $totalMarks", Toast.LENGTH_LONG).show()
+
+                    // Optionally navigate to a results screen
+                    navigateToResultsScreen(scoredMarks, totalMarks)
+                }
+                .addOnFailureListener {
+                    Toast.makeText(requireContext(), "Failed to load questions for evaluation", Toast.LENGTH_SHORT).show()
+                }
+        }.addOnFailureListener {
+            Toast.makeText(requireContext(), "Failed to load user responses", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun navigateToResultsScreen(scoredMarks: Int, totalMarks: Int) {
+        val resultFragment = ResultFragment()
+        resultFragment.arguments = Bundle().apply {
+            putInt("scoredMarks", scoredMarks)
+            putInt("totalMarks", totalMarks)
+        }
+        parentFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container, resultFragment)
+            .commit()
+    }
+
+
 
     private fun startTimer() {
         timer = object : CountDownTimer(totalTimeInMillis, 1000) {
             override fun onTick(millisUntilFinished: Long) {
-                totalTimeInMillis = millisUntilFinished
-                val seconds = (millisUntilFinished / 1000).toInt()
-                timerTextView.text = String.format("%02d:%02d", seconds / 60, seconds % 60)
+                val minutes = (millisUntilFinished / 1000) / 60
+                val seconds = (millisUntilFinished / 1000) % 60
+                timerTextView.text = String.format("%02d:%02d", minutes, seconds)
             }
 
             override fun onFinish() {
-                timerTextView.text = "00:00"
+                Toast.makeText(requireContext(), "Time's up! Submitting your responses.", Toast.LENGTH_SHORT).show()
+                handleAnswerSubmission()
+                // Optionally, navigate to a results screen or finish the activity
             }
         }.start()
     }

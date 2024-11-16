@@ -1,6 +1,6 @@
 package com.example.eduexamine.StudentActivityFragments
 
-import ResultFragment
+import com.example.eduexamine.StudentActivityFragments.ResultFragment
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater

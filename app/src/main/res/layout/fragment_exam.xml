@@ -7,7 +7,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".StudentActivityFragments.ExamFragment"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:layout_marginTop="30dp"
+    android:layout_marginBottom="60dp">
 
     <FrameLayout
         android:id="@+id/fragment_container"
@@ -138,11 +140,14 @@
     </androidx.cardview.widget.CardView>
 
     <!-- Submit Button -->
+
+    <!-- Navigation Buttons -->
+
     <Button
         android:id="@+id/submitAnswerButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="24dp"
         android:backgroundTint="@color/accent_pink"
         android:fontFamily="@font/aldrich"
         android:text="Submit Answer"
@@ -153,7 +158,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cardView" />
 
-    <!-- Navigation Buttons -->
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -179,6 +183,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Next"
+            android:fontFamily="@font/aldrich"
+            android:backgroundTint="@color/green"
+            android:textColor="@android:color/white"
+            android:textStyle="bold" />
+        <Button
+            android:id="@+id/submit_Exam"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Submit Exam"
             android:fontFamily="@font/aldrich"
             android:backgroundTint="@color/green"
             android:textColor="@android:color/white"
