@@ -86,6 +86,7 @@ class ExamFragment : Fragment() {
             }
         }
 
+        setupListeners()
         return view
     }
 
@@ -155,7 +156,20 @@ class ExamFragment : Fragment() {
                             setTextColor(resources.getColor(R.color.black))
                         })
                     }
+                    optionsRadioGroup.clearCheck()
+                    val savedAnswer = userAnswers[questionItem.question]
+                    savedAnswer?.let { savedAnswer ->
+                        for (i in 0 until optionsRadioGroup.childCount) {
+                            val radioButton = optionsRadioGroup.getChildAt(i) as RadioButton
+                            if (radioButton.text == savedAnswer) {
+                                radioButton.isChecked = true
+                                break
+                            }
+                        }
+                    }
+
                 }
+
                 "NAT" -> {
                     natAnswerEditText.visibility = View.VISIBLE
                     natAnswerEditText.hint = "Type your answer here"
@@ -182,6 +196,7 @@ class ExamFragment : Fragment() {
     private fun setupListeners() {
         nextButton.setOnClickListener {
             if (currentQuestionIndex < questionsList.size - 1) {
+                handleAnswerSubmission()
                 currentQuestionIndex++
                 displayQuestion(currentQuestionIndex)
             }
