@@ -85,30 +85,52 @@ class ExamFragment : Fragment() {
     }
 
     private fun loadQuestions(examId: String) {
-        db.collection("exams").document(examId).collection("questions").get().addOnSuccessListener { querySnapshot ->
-            questionsList.clear() // Clear questions list to avoid loading previous exam questions
-            currentQuestionIndex = 0 // Reset question index for the new exam
+        db.collection("exams")
+            .document(examId)
+            .collection("questions")
+            .get()
+            .addOnSuccessListener { querySnapshot ->
+                questionsList.clear() // Clear questions list to avoid loading previous exam questions
+                currentQuestionIndex = 0 // Reset question index for the new exam
 
-            for (document in querySnapshot.documents) {
-                val question = document.getString("question") ?: ""
-                val option1 = document.getString("option1") ?: ""
-                val option2 = document.getString("option2") ?: ""
-                val option3 = document.getString("option3") ?: ""
-                val option4 = document.getString("option4") ?: ""
-                val correctAnswer = document.getString("correctAnswer") ?: ""
-                val mark = document.getLong("mark") ?: 0
-                val type = document.getString("type") ?: ""
+                for (document in querySnapshot.documents) {
+                    val questionId = document.id
+                    val question = document.getString("question") ?: ""
+                    val option1 = document.getString("option1") ?: ""
+                    val option2 = document.getString("option2") ?: ""
+                    val option3 = document.getString("option3") ?: ""
+                    val option4 = document.getString("option4") ?: ""
+                    val correctAnswer = document.getString("correctAnswer") ?: ""
+                    val mark = document.getLong("mark") ?: 1
+                    val type = document.getString("type") ?: ""
 
-                questionsList.add(Question(document.id, question, option1, option2, option3, option4,correctAnswer, mark, type))
+                    // Add question to the list
+                    questionsList.add(
+                        Question(
+                            id = questionId,
+                            question = question,
+                            option1 = option1,
+                            option2 = option2,
+                            option3 = option3,
+                            option4 = option4,
+                            correctAnswer = correctAnswer,
+                            mark = mark,
+                            type = type
+                        )
+                    )
+                }
+
+                if (questionsList.isNotEmpty()) {
+                    displayQuestion(currentQuestionIndex)
+                } else {
+                    Toast.makeText(requireContext(), "No questions found for this exam.", Toast.LENGTH_SHORT).show()
+                }
             }
-
-            if (questionsList.isNotEmpty()) {
-                displayQuestion(currentQuestionIndex)
+            .addOnFailureListener {
+                Toast.makeText(requireContext(), "Failed to load questions.", Toast.LENGTH_SHORT).show()
             }
-        }.addOnFailureListener {
-            Toast.makeText(requireContext(), "Failed to load questions", Toast.LENGTH_SHORT).show()
-        }
     }
+
 
     private fun displayQuestion(index: Int) {
         if (index < questionsList.size) {
@@ -278,7 +300,7 @@ class ExamFragment : Fragment() {
         // Save the answer to Firestore
         val currentUserId = FirebaseAuth.getInstance().currentUser?.uid ?: "unknown_user"
         val answerData = hashMapOf(
-            "question" to currentQuestion.question,
+            "questionId" to currentQuestion.id,
             "userAnswer" to selectedAnswer,
             "timestamp" to FieldValue.serverTimestamp()
         )
@@ -288,24 +310,16 @@ class ExamFragment : Fragment() {
             .collection("responses")
             .document(currentUserId)
             .collection("userAnswers")
-            .document(currentQuestion.question)
+            .document(currentQuestion.id)
             .set(answerData)
             .addOnSuccessListener {
                 Toast.makeText(context, "Answer submitted successfully!", Toast.LENGTH_SHORT).show()
-
-                // Navigate to the next question if available
-                if (currentQuestionIndex < questionsList.size - 1) {
-                    currentQuestionIndex++
-                    displayQuestion(currentQuestionIndex)
-                } else {
-                    Toast.makeText(context, "You have completed the exam!", Toast.LENGTH_SHORT).show()
-                    // Optionally navigate to a results screen
-                }
             }
             .addOnFailureListener { e ->
                 Toast.makeText(context, "Failed to submit answer: ${e.message}", Toast.LENGTH_LONG).show()
             }
     }
+
 
     private fun evaluateExam(examId: String) {
         val userId = FirebaseAuth.getInstance().currentUser?.uid ?: return
@@ -319,11 +333,11 @@ class ExamFragment : Fragment() {
                     var scoredMarks = 0
 
                     for (questionDoc in questionsSnapshot.documents) {
-                        val question = questionDoc.id
+                        val questionId = questionDoc.id
                         val correctAnswer = questionDoc.getString("correctAnswer")
                         val mark = questionDoc.getLong("mark") ?: 1
 
-                        val userAnswerDoc = responseSnapshot.documents.find { it.getString("question") == question }
+                        val userAnswerDoc = responseSnapshot.documents.find { it.getString("questionId") == questionId }
                         val userAnswer = userAnswerDoc?.getString("userAnswer")
 
                         totalMarks += mark.toInt()
@@ -334,15 +348,13 @@ class ExamFragment : Fragment() {
 
                     // Display the score
                     Toast.makeText(requireContext(), "Score: $scoredMarks / $totalMarks", Toast.LENGTH_LONG).show()
-
-                    // Optionally navigate to a results screen
                     navigateToResultsScreen(scoredMarks, totalMarks)
                 }
                 .addOnFailureListener {
-                    Toast.makeText(requireContext(), "Failed to load questions for evaluation", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), "Failed to load questions for evaluation.", Toast.LENGTH_SHORT).show()
                 }
         }.addOnFailureListener {
-            Toast.makeText(requireContext(), "Failed to load user responses", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), "Failed to load user responses.", Toast.LENGTH_SHORT).show()
         }
     }
     private fun navigateToResultsScreen(scoredMarks: Int, totalMarks: Int) {
