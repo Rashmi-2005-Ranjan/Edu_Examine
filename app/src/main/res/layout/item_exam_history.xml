@@ -1,31 +1,59 @@
-<LinearLayout
+<androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="16dp">
+    android:layout_margin="8dp"
+    app:cardElevation="8dp"
+    app:cardCornerRadius="8dp"
+    android:background="@color/white"
+    android:padding="8dp">
 
-    <TextView
-        android:id="@+id/examIdTextView"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Exam ID" />
+        android:orientation="vertical"
+        android:padding="12dp">
 
-    <TextView
-        android:id="@+id/scoreTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Score" />
+        <!-- Exam Title -->
+        <TextView
+            android:id="@+id/examtitleTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Exam Title"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:layout_marginBottom="4dp" />
 
-    <TextView
-        android:id="@+id/examtitleTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="exam Title :" />
+        <!-- Exam ID -->
+        <TextView
+            android:id="@+id/examIdTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Exam ID: 12345"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:layout_marginBottom="4dp"
+            android:textColor="@color/gray" />
 
-    <TextView
-        android:id="@+id/timestampTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Date" />
-</LinearLayout>
+        <!-- Score -->
+        <TextView
+            android:id="@+id/scoreTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Score: 15 / 20"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:layout_marginBottom="4dp"
+            android:textColor="@color/primary" />
+
+        <!-- Timestamp -->
+        <TextView
+            android:id="@+id/timestampTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Date: 12 Oct 2024, 10:30 AM"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:textColor="@color/gray" />
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>
