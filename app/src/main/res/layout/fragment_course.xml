@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:layout_marginBottom="45dp">
 
     <!-- Header Title -->
     <TextView
@@ -120,7 +121,7 @@
                         android:id="@+id/resource_title_2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Course Resource 1"
+                        android:text="Course Resource 2"
                         android:textSize="18sp"
                         android:textStyle="bold" />
 
@@ -129,7 +130,7 @@
                         android:id="@+id/resource_description_2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="A brief description of Course Resource 1."
+                        android:text="A brief description of Course Resource 2."
                         android:textSize="14sp"
                         android:layout_marginTop="4dp" />
 
@@ -182,7 +183,7 @@
                         android:id="@+id/resource_title_3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Course Resource 1"
+                        android:text="Course Resource 3"
                         android:textSize="18sp"
                         android:textStyle="bold" />
 
@@ -191,7 +192,7 @@
                         android:id="@+id/resource_description_3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="A brief description of Course Resource 1."
+                        android:text="A brief description of Course Resource 3."
                         android:textSize="14sp"
                         android:layout_marginTop="4dp" />
 
@@ -244,7 +245,7 @@
                         android:id="@+id/resource_title_4"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Course Resource 1"
+                        android:text="Course Resource 4"
                         android:textSize="18sp"
                         android:textStyle="bold" />
 
@@ -253,7 +254,7 @@
                         android:id="@+id/resource_description_4"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="A brief description of Course Resource 1."
+                        android:text="A brief description of Course Resource 4."
                         android:textSize="14sp"
                         android:layout_marginTop="4dp" />
 
@@ -306,7 +307,7 @@
                         android:id="@+id/resource_title_5"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Course Resource 1"
+                        android:text="Course Resource 5"
                         android:textSize="18sp"
                         android:textStyle="bold" />
 
@@ -315,7 +316,7 @@
                         android:id="@+id/resource_description_5"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="A brief description of Course Resource 1."
+                        android:text="A brief description of Course Resource 6."
                         android:textSize="14sp"
                         android:layout_marginTop="4dp" />
 
@@ -368,7 +369,7 @@
                         android:id="@+id/resource_title_6"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Course Resource 1"
+                        android:text="Course Resource 6"
                         android:textSize="18sp"
                         android:textStyle="bold" />
 
@@ -377,7 +378,7 @@
                         android:id="@+id/resource_description_6"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="A brief description of Course Resource 1."
+                        android:text="A brief description of Course Resource 6."
                         android:textSize="14sp"
                         android:layout_marginTop="4dp" />
 
@@ -400,6 +401,315 @@
                 android:background="@android:color/darker_gray"
                 android:layout_marginBottom="12dp" />
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="16dp"
+                android:layout_marginBottom="12dp"
+                android:elevation="4dp">
+
+                <!-- Thumbnail or Icon -->
+                <ImageView
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center_vertical"
+                    android:contentDescription="Resource Thumbnail"
+                    android:padding="8dp"
+                    android:src="@drawable/course" /> <!-- Use a placeholder image -->
+
+                <!-- Resource Details -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_marginStart="12dp">
+
+                    <!-- Resource Title -->
+                    <TextView
+                        android:id="@+id/resource_title_7"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Course Resource 7"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <!-- Resource Description -->
+                    <TextView
+                        android:id="@+id/resource_description_7"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="A brief description of Course Resource 7."
+                        android:textSize="14sp"
+                        android:layout_marginTop="4dp" />
+
+                </LinearLayout>
+
+                <!-- Download Button -->
+                <Button
+                    android:id="@+id/download_button_7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Download"
+                    android:layout_gravity="center_vertical" />
+
+            </LinearLayout>
+
+            <!-- Separator -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray"
+                android:layout_marginBottom="12dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="16dp"
+                android:layout_marginBottom="12dp"
+                android:elevation="4dp">
+
+                <!-- Thumbnail or Icon -->
+                <ImageView
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center_vertical"
+                    android:contentDescription="Resource Thumbnail"
+                    android:padding="8dp"
+                    android:src="@drawable/course" /> <!-- Use a placeholder image -->
+
+                <!-- Resource Details -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_marginStart="12dp">
+
+                    <!-- Resource Title -->
+                    <TextView
+                        android:id="@+id/resource_title_8"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Course Resource 8"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <!-- Resource Description -->
+                    <TextView
+                        android:id="@+id/resource_description_8"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="A brief description of Course Resource 8."
+                        android:textSize="14sp"
+                        android:layout_marginTop="4dp" />
+
+                </LinearLayout>
+
+                <!-- Download Button -->
+                <Button
+                    android:id="@+id/download_button_8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Download"
+                    android:layout_gravity="center_vertical" />
+
+            </LinearLayout>
+
+            <!-- Separator -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray"
+                android:layout_marginBottom="12dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="16dp"
+                android:layout_marginBottom="12dp"
+                android:elevation="4dp">
+
+                <!-- Thumbnail or Icon -->
+                <ImageView
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center_vertical"
+                    android:contentDescription="Resource Thumbnail"
+                    android:padding="8dp"
+                    android:src="@drawable/course" /> <!-- Use a placeholder image -->
+
+                <!-- Resource Details -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_marginStart="12dp">
+
+                    <!-- Resource Title -->
+                    <TextView
+                        android:id="@+id/resource_title_9"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Course Resource 9"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <!-- Resource Description -->
+                    <TextView
+                        android:id="@+id/resource_description_9"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="A brief description of Course Resource 9."
+                        android:textSize="14sp"
+                        android:layout_marginTop="4dp" />
+
+                </LinearLayout>
+
+                <!-- Download Button -->
+                <Button
+                    android:id="@+id/download_button_9"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Download"
+                    android:layout_gravity="center_vertical" />
+
+            </LinearLayout>
+
+            <!-- Separator -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray"
+                android:layout_marginBottom="12dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="16dp"
+                android:layout_marginBottom="12dp"
+                android:elevation="4dp">
+
+                <!-- Thumbnail or Icon -->
+                <ImageView
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center_vertical"
+                    android:contentDescription="Resource Thumbnail"
+                    android:padding="8dp"
+                    android:src="@drawable/course" /> <!-- Use a placeholder image -->
+
+                <!-- Resource Details -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_marginStart="12dp">
+
+                    <!-- Resource Title -->
+                    <TextView
+                        android:id="@+id/resource_title_10"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Course Resource 10"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <!-- Resource Description -->
+                    <TextView
+                        android:id="@+id/resource_description_10"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="A brief description of Course Resource 10."
+                        android:textSize="14sp"
+                        android:layout_marginTop="4dp" />
+
+                </LinearLayout>
+
+                <!-- Download Button -->
+                <Button
+                    android:id="@+id/download_button_10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Download"
+                    android:layout_gravity="center_vertical" />
+
+            </LinearLayout>
+
+            <!-- Separator -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray"
+                android:layout_marginBottom="12dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="16dp"
+                android:layout_marginBottom="12dp"
+                android:elevation="4dp">
+
+                <!-- Thumbnail or Icon -->
+                <ImageView
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center_vertical"
+                    android:contentDescription="Resource Thumbnail"
+                    android:padding="8dp"
+                    android:src="@drawable/course" /> <!-- Use a placeholder image -->
+
+                <!-- Resource Details -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_marginStart="12dp">
+
+                    <!-- Resource Title -->
+                    <TextView
+                        android:id="@+id/resource_title_11"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Course Resource 11"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <!-- Resource Description -->
+                    <TextView
+                        android:id="@+id/resource_description_11"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="A brief description of Course Resource 11."
+                        android:textSize="14sp"
+                        android:layout_marginTop="4dp" />
+
+                </LinearLayout>
+
+                <!-- Download Button -->
+                <Button
+                    android:id="@+id/download_button_11"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Download"
+                    android:layout_gravity="center_vertical" />
+
+            </LinearLayout>
+
+            <!-- Separator -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray"
+                android:layout_marginBottom="12dp" />
         </LinearLayout>
     </ScrollView>
 
