@@ -2,30 +2,47 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginBottom="50dp"
+    android:padding="16dp"
+    android:background="#f9f9f9"
+    android:layout_marginBottom="55dp"
     >
 
+    <!-- Title Text -->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Student Available Courses"
-        android:textSize="18sp"
+        android:textSize="20sp"
         android:textStyle="bold"
+        android:textColor="#333333"
         android:layout_marginBottom="16dp"
-        android:layout_marginTop="3dp"/>
+        android:layout_marginTop="24dp"
+        android:layout_centerHorizontal="true"/>
 
+    <!-- RecyclerView for courses -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/studentRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
+        android:layout_above="@id/showCoursesButton"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
         android:scrollbars="vertical"
-        android:layout_marginTop="35dp"
-        />
+        android:layout_alignParentTop="true"
+        android:background="#ffffff"
+        android:elevation="4dp"/>
+
+    <!-- Show My Courses Button -->
     <Button
         android:id="@+id/showCoursesButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Show My Courses"
+        android:textSize="16sp"
+        android:textColor="#ffffff"
+        android:backgroundTint="#4CAF50"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="50dp"/>
+        android:layout_marginBottom="32dp"
+        android:layout_marginTop="8dp"
+        android:padding="12dp"/>
 </RelativeLayout>
