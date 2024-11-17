@@ -26,4 +26,11 @@
         android:layout_height="wrap_content"
         android:textSize="14sp"
         android:text="Students" />
+
+    <CheckBox
+        android:id="@+id/selectCheckBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Select to see course details"
+        />
 </LinearLayout>

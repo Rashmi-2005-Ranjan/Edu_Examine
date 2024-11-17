@@ -100,7 +100,12 @@ class addedCourses : Fragment() {
 
     // This is a placeholder function to get the selected courses (you can implement based on your UI).
     private fun getSelectedCourses(): List<String> {
-        // Replace with the actual implementation that collects selected course numbers.
-        return listOf("courseId1", "courseId2") // Example course IDs
+        val selectedCourses = mutableListOf<String>()
+        for (group in groupList) {
+            if (group.isSelected) {
+                selectedCourses.addAll(group.courses)
+            }
+        }
+        return selectedCourses
     }
 }

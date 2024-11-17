@@ -29,7 +29,11 @@ class CourseDetails : Fragment() {
         val view = inflater.inflate(R.layout.fragment_course_details, container, false)
         val courseDetailsTextView = view.findViewById<TextView>(R.id.courseDetailsTextView)
 
-        fetchCourseDetails(courseDetailsTextView)
+        if (courseIds.isNullOrEmpty()) {
+            courseDetailsTextView.text = "No courses selected."
+        } else {
+            fetchCourseDetails(courseDetailsTextView)
+        }
 
         return view
     }
@@ -42,14 +46,39 @@ class CourseDetails : Fragment() {
                 .get()
                 .addOnSuccessListener { document ->
                     if (document.exists()) {
-                        val name = document.getString("name") ?: "N/A"
+                        // Retrieve the course `code` from Firestore
                         val code = document.getString("code") ?: "N/A"
-                        val instructor = document.getString("instructor") ?: "N/A"
-                        val duration = document.getString("duration") ?: "N/A"
 
-                        courseDetailsTextView.append(
-                            "\nCourse Name: $name\nCourse Code: $code\nInstructor: $instructor\nDuration: $duration\n\n"
-                        )
+                        // Check if the `code` matches the passed `courseId`
+                        if (courseId == code) {
+                            // Retrieve fields safely
+                            val active = document.getBoolean("active") ?: false
+                            val description = document.getString("description") ?: "N/A"
+                            val duration = document.getString("duration") ?: "N/A"
+                            val endDate = document.getString("endDate") ?: "N/A"
+                            val instructor = document.getString("instructor") ?: "N/A"
+                            val materialUri = document.getString("materialUri") ?: "N/A"
+                            val name = document.getString("name") ?: "N/A"
+                            val startDate = document.getString("startDate") ?: "N/A"
+
+                            // Append details to TextView
+                            courseDetailsTextView.append(
+                                """
+                                Course Name: $name
+                                Active: $active
+                                Course Code: $code
+                                Description: $description
+                                Duration: $duration
+                                Start Date: $startDate
+                                End Date: $endDate
+                                Instructor: $instructor
+                                Material URI: $materialUri
+                                
+                                """.trimIndent()
+                            )
+                        } else {
+                            Log.d("CourseDetails", "Course ID $courseId does not match code: $code")
+                        }
                     } else {
                         Log.e("CourseDetails", "Course ID $courseId does not exist.")
                         courseDetailsTextView.append("\nError: Course ID $courseId not found\n")
@@ -61,5 +90,4 @@ class CourseDetails : Fragment() {
                 }
         }
     }
-
 }
