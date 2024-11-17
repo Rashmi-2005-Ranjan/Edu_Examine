@@ -89,4 +89,11 @@
         android:layout_height="wrap_content"
         android:text="Send to group"
         android:layout_gravity="end" />
+
+    <Button
+        android:id="@+id/EditCourseButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Edit course"
+        android:layout_gravity="end" />
 </LinearLayout>
