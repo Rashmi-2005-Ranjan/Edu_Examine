@@ -42,16 +42,12 @@ class CourseDetails : Fragment() {
     private fun fetchCourseDetails(courseDetailsTextView: TextView) {
         courseIds?.forEach { courseId ->
             db.collection("courses")
-                .document(courseId)
+                .whereEqualTo("code", courseId)  // Querying by the 'code' field
                 .get()
-                .addOnSuccessListener { document ->
-                    if (document.exists()) {
-                        // Retrieve the course `code` from Firestore
-                        val code = document.getString("code") ?: "N/A"
-
-                        // Check if the `code` matches the passed `courseId`
-                        if (courseId == code) {
-                            // Retrieve fields safely
+                .addOnSuccessListener { querySnapshot ->
+                    if (!querySnapshot.isEmpty) {
+                        querySnapshot.documents.forEach { document ->
+                            val code = document.getString("code") ?: "N/A"
                             val active = document.getBoolean("active") ?: false
                             val description = document.getString("description") ?: "N/A"
                             val duration = document.getString("duration") ?: "N/A"
@@ -61,33 +57,32 @@ class CourseDetails : Fragment() {
                             val name = document.getString("name") ?: "N/A"
                             val startDate = document.getString("startDate") ?: "N/A"
 
-                            // Append details to TextView
+                            // Append course details to TextView
                             courseDetailsTextView.append(
                                 """
-                                Course Name: $name
-                                Active: $active
-                                Course Code: $code
-                                Description: $description
-                                Duration: $duration
-                                Start Date: $startDate
-                                End Date: $endDate
-                                Instructor: $instructor
-                                Material URI: $materialUri
-                                
-                                """.trimIndent()
+                            Course Name: $name
+                            Active: $active
+                            Course Code: $code
+                            Description: $description
+                            Duration: $duration
+                            Start Date: $startDate
+                            End Date: $endDate
+                            Instructor: $instructor
+                            Material URI: $materialUri
+                            
+                            """.trimIndent()
                             )
-                        } else {
-                            Log.d("CourseDetails", "Course ID $courseId does not match code: $code")
                         }
                     } else {
-                        Log.e("CourseDetails", "Course ID $courseId does not exist.")
-                        courseDetailsTextView.append("\nError: Course ID $courseId not found\n")
+                        Log.e("CourseDetails", "No course found with code: $courseId")
+                        courseDetailsTextView.append("\nError: Course with code $courseId not found.\n")
                     }
                 }
                 .addOnFailureListener { exception ->
-                    Log.e("CourseDetails", "Error fetching course ID $courseId: ${exception.message}")
+                    Log.e("CourseDetails", "Error fetching course details: ${exception.message}")
                     courseDetailsTextView.append("\nError fetching course details: ${exception.message}\n")
                 }
         }
     }
+
 }
